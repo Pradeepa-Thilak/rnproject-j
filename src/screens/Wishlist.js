@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon, IconButton } from 'react-native-paper';
 import { removeFromWishlist } from '../slice/wishListSlice';
+import { addToCart } from '../slice/cartSlice';
 import ToastMsg from '../components/ToastMsg';
 import { useNavigation } from '@react-navigation/native';
 
@@ -35,6 +36,10 @@ const Wishlist = () => {
     showToast('Removed from wishlist');
   }
 
+  const addtoCart = item => {
+    dispatch(addToCart(item));
+    showToast('Added to Cart');
+  }
 
   const renderWishlist = item => {
     const product = item._source;
@@ -47,7 +52,7 @@ const Wishlist = () => {
           style={{
             position: 'relative',
           }}
-          onPress={() => navigation.navigate("PLP")}
+          onPress={() => navigation.navigate("PDP",{product: item})}
         >
           <Image
             source={{
@@ -108,9 +113,9 @@ const Wishlist = () => {
             />
           )}
         </View>
-        <View style={styles.bagBtn}>
+        <Pressable style={styles.bagBtn} onPress={() => addtoCart(item)}>
           <Text style={styles.bagText}>Add to Bag</Text>
-        </View>
+        </Pressable>
       </View>
     );
   };
@@ -129,7 +134,7 @@ const Wishlist = () => {
             <FlatList
               data={wishlist}
               keyExtractor={item => item._id}
-              renderItem={({ item, index }) => renderWishlist(item)}
+              renderItem={({ item }) => renderWishlist(item)}
             />
           )}
         </View>

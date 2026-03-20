@@ -1,13 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, Pressable } from 'react-native';
 import { categories } from '../../lib/ConstData';
+import { useNavigation } from '@react-navigation/native';
 
 const Reclaim = () => {
+
+  const navigation = useNavigation();
+
   const renderProducts = item => (
-    <View style={styles.catItems}>
+    <Pressable style={styles.catItems} onPress={() => navigation.navigate('CLP')}>
+      <View style={{aspectRatio: 279/384}}>
       <Image source={{ uri: item.uri }} style={styles.img} />
+      </View>
       <Text style={styles.catName}>{item.label}</Text>
-    </View>
+    </Pressable>
   );
 
   return (
@@ -57,9 +63,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   img: {
-    // aspectRatio: 1,
-    height: 190,
-    width: 140,
+    height: 200,
+    width: '100%',
     resizeMode: 'contain',
   },
 });

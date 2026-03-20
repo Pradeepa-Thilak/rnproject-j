@@ -53,27 +53,24 @@ const Products = () => {
             position: 'relative',
           }}
         >
+          <View style={{aspectRatio: 600/795}}>
           <Image
             source={{
-              uri: `https://imagescdn.jaypore.com/img/app/product/${img.Name[0]}/${img.Name}.${img.Extension}?auto=format&w=500`,
+              uri: `https://imagescdn.jaypore.com/img/app/product/${img.Name[0]}/${img.Name}.${img.Extension}`,
             }}
             style={styles.proImg}
           />
-          {isInWishList(item) ? (
+          </View>
             <IconButton
               icon={'heart'}
               style={styles.icon}
-              iconColor="#ff0000"
-              onPress={() =>removefromWishlist(item)}
+              iconColor={isInWishList(item) ? "#ff0000" : '#fff'}
+            onPress={() => {
+              isInWishList(item) ? 
+                removefromWishlist(item) :
+                addtoWishlist(item)
+              }}
             />
-          ) : (
-            <IconButton
-              icon={'heart'}
-              style={styles.icon}
-              iconColor="#fff"
-              onPress={() => addtoWishlist(item)}
-            />
-          )}
         </View>
         <View>
           <Text style={styles.ProductBrand}>{pro.Features.Brand}</Text>
@@ -135,9 +132,9 @@ const Products = () => {
 
 const styles = StyleSheet.create({
   proImg: {
-    height: 250,
+    height: '100%',
     width: '100%',
-    resizeMode: 'fit',
+    resizeMode: 'contain',
   },
   product: {
     width: '50%',
