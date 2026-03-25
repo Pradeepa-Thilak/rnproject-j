@@ -5,7 +5,9 @@ import { Gridproducts } from '../../lib/ConstData';
 const GridDisplay = () => {
   const renderItems = item => (
     <View style={styles.product}>
+      <View style={{aspectRatio: 279/365}}>
       <Image source={{ uri: item.uri }} style={styles.img} />
+      </View>
       <Text style={styles.imgName}>{item.name}</Text>
       <Text style={styles.imgCat}>{item.cat}</Text>
       <Text style={styles.imgDes}>{item.des}</Text>
@@ -28,13 +30,13 @@ const GridDisplay = () => {
           columnWrapperStyle={{ justifyContent: 'space-between' }}
         />
       </View>
-      <View style={{ paddingHorizontal: 10 }}>
+      <View style={{ paddingHorizontal: 10, aspectRatio: 600/134 }}>
         <Image
           source={{
-            uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/3_710X158-Feb-09-The-World-of-Botanicals-Skinny-Banner-Mobile_3771_1770631596664.jpg?w=600&auto=format',
+            uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/3_710X158-Feb-09-The-World-of-Botanicals-Skinny-Banner-Mobile_3771_1770631596664.jpg',
           }}
           style={{
-            height: 100,
+            height: '100%',
             width: '100%',
             resizeMode: 'contain',
           }}
@@ -66,9 +68,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   img: {
-    height: 240,
+    height: '100%',
     width: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'center',
   },
   imgName: {
     flexWrap: 'wrap',

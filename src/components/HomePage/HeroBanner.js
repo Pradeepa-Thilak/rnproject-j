@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
-  Text,
   FlatList,
   Dimensions,
   StyleSheet,
@@ -10,66 +9,51 @@ import {
 } from 'react-native';
 import { bannerImg } from '../../lib/ConstData';
 import { useNavigation } from '@react-navigation/native';
-
 const { width } = Dimensions.get('window');
-
-const HeroBanner = () => {
+const HeroBanner = ({ isHome = true, clpData, aspectRatio}) => {
 
   const navigation = useNavigation();
-
   const [active, setActive] = useState(0);
   const flatListRef = useRef(null);
-
-  const loopData = [...bannerImg, ...bannerImg, ...bannerImg];
-  const currentIndex = useRef(bannerImg.length);
-
+  // Data — HomeScreen: bannerImg, CLP: clpData
+  const bannerData = isHome ? bannerImg : clpData;
+  const loopData = [...bannerData, ...bannerData, ...bannerData];
+  const currentIndex = useRef(bannerData.length);
   const handleScroll = event => {
     const slide = Math.round(event.nativeEvent.contentOffset.x / width);
     currentIndex.current = slide;
-    setActive(slide % bannerImg.length);
-
-    if (slide >= bannerImg.length * 2) {
-      const restInd = slide - bannerImg.length;
+    setActive(slide % bannerData.length);
+    if (slide >= bannerData.length * 2) {
+      const restInd = slide - bannerData.length;
       flatListRef.current.scrollToIndex({
         index: restInd,
         animated: false,
       });
     }
-
-    if (slide < bannerImg.length) {
-      const restInd = slide + bannerImg.length;
+    if (slide < bannerData.length) {
+      const restInd = slide + bannerData.length;
       flatListRef.current.scrollToIndex({
         index: restInd,
         animated: false,
       });
     }
   };
-
   useEffect(() => {
     const interval = setInterval(() => {
       let nextIndex = currentIndex.current + 1;
-
-      if (nextIndex >= bannerImg.length * 2) {
-        nextIndex = bannerImg.length;
+      if (nextIndex >= bannerData.length * 2) {
+        nextIndex = bannerData.length;
       }
-
       flatListRef.current?.scrollToIndex({
         index: nextIndex,
         animated: true,
       });
-
       currentIndex.current = nextIndex;
-    }, 2000);
-
+    }, isHome ? 2000 : 3000);  //  HomeScreen: 2000, CLP: 3000
     return () => clearInterval(interval);
   }, []);
-
   return (
-    <View
-      style={{
-        backgroundColor: '#fff',
-      }}
-    >
+    <View style={{ backgroundColor: '#fff' }}>
       <FlatList
         data={loopData}
         ref={flatListRef}
@@ -83,58 +67,93 @@ const HeroBanner = () => {
           index,
         })}
         showsHorizontalScrollIndicator={false}
-        initialScrollIndex={bannerImg.length}
+        initialScrollIndex={bannerData.length}
         renderItem={({ item }) => (
-          <Pressable onPress={() => navigation.navigate('PLP')}>
-            <Image source={{ uri: item.uri }} style={styles.bannerImg} />
+          <Pressable
+            onPress={() => navigation.navigate('PLP')}
+            style={[
+              styles.bannerImgContain,
+              { aspectRatio: aspectRatio }  
+            ]}
+          >
+            <Image
+              source={{ uri: item.uri }}
+              style={styles.bannerImg}
+            />
           </Pressable>
         )}
       />
-
+      {/*  Dots */}
       <View style={styles.dotContain}>
-        {bannerImg.map((item, ind) => (
+        {bannerData.map((item, ind) => (
           <Pressable
             key={ind}
             onPress={() => {
               flatListRef.current.scrollToIndex({
-                index: ind + bannerImg.length,
+                index: ind + bannerData.length,
                 animated: true,
               });
             }}
             hitSlop={1}
           >
-            <View
-              style={[
-                styles.dots,
-                active === ind && { borderColor: '#bb4425' },
-              ]}
-            />
+            {isHome ? (
+              //  HomeScreen — diamond
+              <View
+                style={[
+                  styles.dots,
+                  active === ind && { borderColor: '#BB4425' },
+                ]}
+              />
+            ) : (
+              //  CLP — circle
+              <View
+                style={[
+                  styles.dotsCLP,
+                  active === ind && styles.dotsCLPActive,
+                ]}
+              />
+            )}
           </Pressable>
         ))}
       </View>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   bannerImg: {
     width: width,
-    height: 500,
+    height: '100%',
+    resizeMode: 'contain',
+  },
+  bannerImgContain: {
+    // No height/width — aspectRatio prop handles it!
   },
   dotContain: {
-    margin: 10,
+    marginVertical: 8,
     justifyContent: 'center',
-    flex: 1,
     flexDirection: 'row',
     gap: 7,
   },
+  // HomeScreen — diamond
   dots: {
     borderWidth: 1.5,
     width: 8,
     height: 8,
     transform: [{ rotate: '45deg' }],
-    borderColor: '#ffb3b2',
+    borderColor: '#FFB3B2',
+  },
+  // CLP — circle
+  dotsCLP: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+  dotsCLPActive: {
+    backgroundColor: '#BB4425',
+    borderColor: '#BB4425',
   },
 });
-
 export default HeroBanner;

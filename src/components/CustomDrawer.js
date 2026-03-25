@@ -3,8 +3,11 @@ import { View, Text, FlatList, StyleSheet, Pressable } from 'react-native';
 import { MenuData } from '../lib/Response';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { IconButton, Icon, Drawer } from 'react-native-paper';
+import { useAuth } from '../context/AuthContext';  
 
-const CustomDrawer = ({ navigation }) => {
+
+const CustomDrawer = ({ navigation, onLoginPress }) => {
+  const { isLoggedIn } = useAuth();  
   const [menuStack, setMenu] = useState([
     {
       title: 'MENU',
@@ -14,6 +17,7 @@ const CustomDrawer = ({ navigation }) => {
 
   const currentLevel = menuStack[menuStack.length - 1];
 
+  const [accountExpand, setAccountExpand] = useState(false);  
   const [expand, setExpand] = useState(false);
 
   const handlePress = item => {
@@ -83,7 +87,86 @@ const CustomDrawer = ({ navigation }) => {
           onPress={() => navigation.navigate('Login')}
           style={styles.bottomMenuPress}
         >
-          <Text style={styles.bottomMenuText}>Login/Signup</Text>
+          {isLoggedIn ? (
+            <View>
+              <Pressable
+                style={styles.bottomMenuPress}
+                onPress={() => setAccountExpand(!accountExpand)}
+              >
+                <View style={styles.accountRow}>
+                  <Text style={[styles.bottomMenuText, {fontFamily: 'Lato-Bold'}]}>My Account</Text>
+                  <Icon
+                    source={accountExpand ? 'chevron-up' : 'chevron-down'}
+                    size={20}
+                    color="#000"
+                  />
+                </View>
+              </Pressable>
+              {accountExpand && (
+                <>
+                  <Pressable
+                    style={styles.subItem}
+                    onPress={() => {
+                      navigation.closeDrawer();
+                      navigation.navigate('MyOrders');
+                    }}
+                  >
+                    <Text style={styles.subItemText}>My Orders</Text>
+                  </Pressable>
+
+                  <Pressable
+                  style={styles.subItem}
+                  onPress={() => {
+                    navigation.closeDrawer();
+                    navigation.navigate('Wishlist');
+                  }}
+                >
+                  <Text style={styles.subItemText}>Saved Items</Text>
+                  </Pressable>
+                  <Pressable
+                  style={styles.subItem}
+                  onPress={() => {
+                    navigation.closeDrawer();
+                    navigation.navigate('Savedcards');
+                  }}
+                >
+                  <Text style={styles.subItemText}>Saved Cards</Text>
+                  </Pressable>
+                  <Pressable
+                  style={styles.subItem}
+                  onPress={() => {
+                    navigation.closeDrawer();
+                    navigation.navigate('MyInformation');
+                  }}
+                >
+                  <Text style={styles.subItemText}>My Information</Text>
+                  </Pressable>
+                   <Pressable
+                style={styles.subItem}
+                onPress={() => {
+                  navigation.closeDrawer();
+                  navigation.navigate('JayporeCredits');
+                }}
+              >
+                <Text style={styles.subItemText}>Jaypore Credits</Text>
+                  </Pressable>
+                  <Pressable
+                  style={styles.subItem}
+                  onPress={() => {
+                    navigation.closeDrawer();
+                    navigation.navigate('MyAddress');
+                  }}
+                >
+                  <Text style={styles.subItemText}>My Address</Text>
+                </Pressable>
+                </>
+              )}
+            </View>
+          ) : (
+            <Pressable onPress={onLoginPress} style={styles.bottomMenuPress}>
+              <Text style={styles.bottomMenuText}>Login/Signup</Text>
+            </Pressable>
+          )}
         </Pressable>
         <Pressable
           onPress={() => navigation.navigate('LocateStore')}
@@ -102,11 +185,7 @@ const CustomDrawer = ({ navigation }) => {
       <View style={{ paddingHorizontal: 10, paddingBottom: 15 }}>
         <Pressable onPress={() => setExpand(!expand)} style={styles.more}>
           <Text style={styles.bottomMenuText}>More</Text>
-          {expand ? (
-            <IconButton icon={'chevron-right'} iconColor="#ccc" size={25} />
-          ) : (
-            <IconButton icon={'chevron-down'} iconColor="#ccc" size={25} />
-          )}
+          <IconButton icon={expand ? 'chevron-up':'chevron-down'} iconColor="#ccc" size={25} />
         </Pressable>
         {expand && (
           <View style={{ paddingLeft: 12 }}>
@@ -179,12 +258,30 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     letterSpacing: 0.5,
     color: '#212121',
+    marginRight: 10,
   },
   more: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 10,
+  },
+  accountRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  subItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingLeft: 16,
+    gap: 10,
+  },
+  subItemText: {
+    flex: 1,
+    fontSize: 13,
+    color: '#616161',
+    fontFamily: 'Lato-Regular',
   },
 });
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 
-const SpriteIcon = ({ x, y }) => {
+const SpriteIcon = ({ x, y, w, h, spriteWidth, spriteHeight }) => {
   return (
     <View
       style={{
-        height: 300,
-        width: 300,
-        backgroundColor: 'blue',
+        width: w,
+        height: h,
         overflow: 'hidden',
+        // backgroundColor:"blue"
       }}
     >
       <Image
@@ -16,9 +16,9 @@ const SpriteIcon = ({ x, y }) => {
           uri: 'https://imagescdn.jaypore.com/img/app/brands/jaypore/sprite-icons-v20.png',
         }}
         style={{
-          height: 800,
-          width: 800,
-            transform: [{ translateX: 100}, { translateY: -300 }],
+          width: spriteWidth,
+          height: spriteHeight,
+          transform: [{ translateX: -x }, { translateY: -y }],
         }}
       />
     </View>

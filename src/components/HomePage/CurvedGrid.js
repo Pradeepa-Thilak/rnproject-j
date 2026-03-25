@@ -5,20 +5,20 @@ import { FlatList } from 'react-native-gesture-handler';
 const CurvedDisplay = () => {
   const first = {
     id: 1,
-    uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-1_3771_1770632379038.jpg?w=600&auto=format',
+    uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-1_3771_1770632379038.jpg',
     name: 'The World of Botanicals',
     cat: 'styles for modern indian summer',
   };
   const curved = [
     {
       id: 2,
-      uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-2_3771_1770632434812.jpg?w=300&auto=format',
+      uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-2_3771_1770632434812.jpg',
       name: 'The Brass & Kansa Edit',
       cat: 'gifting-perfect brass and kansa serveware',
     },
     {
       id: 3,
-      uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-3_3771_1770632481475.jpg?w=300&auto=format',
+      uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-3_3771_1770632481475.jpg',
       name: 'Silver at Old Rates',
       cat: 'handcrafted jewels at older, lower prices',
     },
@@ -26,7 +26,9 @@ const CurvedDisplay = () => {
 
   const renderProducts = item => (
     <View style={styles.product}>
+      <View style={{aspectRatio: 300/453}}>
       <Image source={{ uri: item.uri }} style={styles.img} />
+      </View>
       <Text style={styles.imgName}>{item.name}</Text>
       <Text style={[styles.imgCat, { fontSize: 12 }]}>{item.cat}</Text>
       <Text style={styles.shop}>shop now</Text>
@@ -40,14 +42,16 @@ const CurvedDisplay = () => {
       </View>
       <View>
         <View style={{ width: '100%', marginBottom: 15 }}>
+          <View style={{aspectRatio: 600/700}}>
           <Image
             source={{ uri: first.uri }}
             style={{
-              height: 450,
+              height: '100%',
               width: '100%',
               resizeMode: 'contain',
             }}
           />
+          </View>
           <Text style={styles.imgName}>{first.name}</Text>
           <Text style={styles.imgCat}>{first.cat}</Text>
           <Text style={styles.shop}>shop now</Text>
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
     color: '#212121',
   },
   img: {
-    height: 300,
+    height: '100%',
     width: '100%',
     resizeMode: 'contain',
   },

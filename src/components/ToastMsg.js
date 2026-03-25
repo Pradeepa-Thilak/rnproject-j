@@ -7,6 +7,7 @@ const ToastMsg = ({ visible, message }) => {
 
     useEffect(() => {
         if (visible) {
+            // toast.setValue(0);
             Animated.timing(toast, {
                 toValue: 1,
                 duration: 300,
@@ -43,7 +44,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         alignSelf: 'center',
         borderRadius: 10,
-
+        elevation: 10,
+        zIndex: 999,
     },
     toastText: {
         color: '#fff',

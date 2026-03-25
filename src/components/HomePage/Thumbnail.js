@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Pressable, Text, Image, FlatList, StyleSheet } from 'react-native';
+import { View,Pressable, Text, Image, FlatList, StyleSheet } from 'react-native';
 import { thumbnailBanner } from '../../lib/ConstData';
 
 const Thumbnail = () => {
@@ -10,7 +10,9 @@ const Thumbnail = () => {
       style={styles.thumbWhole}
       onPress={() => navigation.navigate('PLP')}
     >
-      <Image source={{ uri: item.uri }} height={100} width={100} />
+      <View style={{aspectRatio: 1}}>
+      <Image source={{ uri: item.uri }} style={styles.img} />
+      </View>
       <Text style={styles.thumbText}>{item.label}</Text>
     </Pressable>
   );
@@ -46,6 +48,10 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
     marginTop: 10,
   },
+  img: {
+    width: '100%',
+    height: '100%'
+  }
 });
 
 export default Thumbnail;

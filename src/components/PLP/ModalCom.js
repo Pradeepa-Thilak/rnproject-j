@@ -1,16 +1,19 @@
 import React from 'react';
 import { View, Text, Modal } from 'react-native';
 
-const ModalCom = ({ open, close, children, bgcolor }) => {
+const ModalCom = ({ open, close, children, bgcolor , containerStyle}) => {
   return (
-    <Modal visible={open} onRequestClose={() => close()} transparent>
+    <Modal visible={open} onRequestClose={() => close()} transparent >
       <View
-        style={{
-          flex: 1,
-          justifyContent: 'flex-end',
-          backgroundColor: 'rgba(0,0,0,0.25)',
-          marginBottom: 35,
-        }}
+        style={[
+          {
+            flex: 1,
+            justifyContent: 'flex-end', 
+            backgroundColor: 'rgba(0,0,0,0.25)',
+            marginBottom: 35,
+          },
+          containerStyle, 
+        ]}
       >
         <View
           style={{

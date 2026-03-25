@@ -103,14 +103,16 @@ const Footer = () => {
         }}
       >
         <View style={styles.intro}>
-          <Image
-            source={require('../assests/images/logo.png')}
-            style={{
-              height: 60,
-              width: 60,
-              marginRight: 10,
-            }}
-          />
+          <View style={{aspectRatio: 1}}>
+            <Image
+              source={require('../assests/images/logo.png')}
+              style={{
+                height: '100%',
+                width: 60,
+                marginRight: 10,
+              }}
+            />
+          </View>
           <Text style={styles.introText1}>
             Jaypore: Discover India's Most Beautiful Products and Their Unique
             Stories
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
   },
   introText2: {
     fontFamily: 'Lato-Regular',
-    fontSize: 15,
+    fontSize: 14,
     lineHeight: 22,
     marginTop: 10,
   },

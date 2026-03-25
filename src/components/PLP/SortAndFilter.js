@@ -6,10 +6,11 @@ import {
   Pressable,
   Dimensions,
   Animated,
+  FlatList
 } from 'react-native';
 import { Checkbox, Icon, IconButton } from 'react-native-paper';
 import ModalCom from './ModalCom';
-import { FlatList } from 'react-native-gesture-handler';
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -153,7 +154,10 @@ const SortAndFilter = ({ sortValues, filterData }) => {
       >
         <Pressable
           style={[styles.contain, { borderRightWidth: 2 }]}
-          onPress={() => setSortModal(true)}
+          onPress={() => {
+            console.log('sort modal0');
+            setSortModal(true)
+          }}
         >
           <Icon source={'sort'} size={25} />
           <View>
