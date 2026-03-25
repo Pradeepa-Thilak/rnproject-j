@@ -14,7 +14,7 @@ import MyInformation from '../screens/MyInformation/index';
 import MyAddress from '../screens/MyAddress/index';
 import JayporeCredits from '../screens/JayporeCredits/index';
 import EnterZip from '../components/EnterZip';
-
+import Savedcards from "../screens/Savedcards/index"
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
@@ -72,6 +72,7 @@ const DrawerNavigation = () => {
         <Drawer.Screen name='MyOrders' component={MyOrders} />
         <Drawer.Screen name='MyInformation' component={MyInformation}/>
         <Drawer.Screen name='MyAddress' component={MyAddress}/>
+        <Drawer.Screen name='Savedcards' component={Savedcards}/>
         <Drawer.Screen name='JayporeCredits' component={JayporeCredits} />
         <Drawer.Screen name='EnterZip' component={EnterZip}/>
         
