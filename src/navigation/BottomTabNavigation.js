@@ -75,7 +75,7 @@ const BottomTabNavigation = () => {
           <Pressable style={styles.headerimg} onPress={() => navigation.navigate('Home')}>
             <Image
               source={{uri: 'https://imagescdn.jaypore.com/img/app/brands/jaypore/jaypore.png'}}
-                style={{ height: 20, aspectRatio: 6 }}
+                style={{ height: 20, aspectRatio: 6, marginLeft: '-20%' }}
                 
             />
           </Pressable>

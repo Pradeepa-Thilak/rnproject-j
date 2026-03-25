@@ -10,10 +10,11 @@ import Cart from '../screens/Cart/index';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
+import Coastal from '../screens/coastal/index';
 
 const Stack = createStackNavigator();
 
-const HeaderRight = ({navigation, isLoggedIn}) => {
+const HeaderRight = ({navigation, isLoggedIn, setModalVisible}) => {
   const wishlist = useSelector(state => state.wishlist.items);
   const cart = useSelector(state => state.cart.cartItems);
  return (
@@ -87,8 +88,7 @@ const RootStack = () => {
           <Pressable style={styles.headerimg} onPress={() => navigation.navigate('Home')}>
             <Image
               source={{uri: 'https://imagescdn.jaypore.com/img/app/brands/jaypore/jaypore.png'}}
-                style={{ height: 20, aspectRatio: 6 }}
-                
+                style={{ height: 20, aspectRatio: 6 , marginLeft: '-20%'}}
             />
           </Pressable>
           ),
@@ -103,7 +103,7 @@ const RootStack = () => {
               }}
             />
           ),
-          headerRight: () => <HeaderRight navigation={navigation} isLoggedIn={isLoggedIn} />,
+          headerRight: () => <HeaderRight navigation={navigation} isLoggedIn={isLoggedIn} setModalVisible={ setModalVisible} />,
         })}
       >
         <Stack.Screen
@@ -128,7 +128,7 @@ const RootStack = () => {
           )
         }} />
         <Stack.Screen name={'CLP'} component={CLP} />
-
+        <Stack.Screen name={'coastal'} component={Coastal} />
       </Stack.Navigator>
       <AuthModal
         visible={modalVisible}
