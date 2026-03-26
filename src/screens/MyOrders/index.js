@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList, ScrollView, TextInput, } from 'react-native';
+import {
+  View, Text, StyleSheet, TouchableOpacity,
+  Modal, FlatList, ScrollView, TextInput, Image,
+} from 'react-native';
 import { Icon } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import Footer from '../../components/Footer';
+import SpriteIcon from '../../components/SpriteIcon';
+
+/* ---------- OPTIONS ---------- */
 const STATUS_OPTIONS = [
   'All status',
   'Cancelled',
@@ -9,6 +16,7 @@ const STATUS_OPTIONS = [
   'Order Processing',
   'Delivered',
 ];
+
 const TIME_OPTIONS = [
   'All Orders',
   'Past 6 months',
@@ -17,13 +25,62 @@ const TIME_OPTIONS = [
   '2023',
   'Archived Orders',
 ];
-const INITIAL_STATE = {
-  statusModal:    false,
-  timeModal:      false,
-  selectedStatus: 'All status',
-  selectedTime:   'Past 6 months',
-  search:         '',
+
+/* ---------- ORDERS ---------- */
+const ORDERS = [
+  {
+    id: '1',
+    status: 'Order Placed',
+    orderNo: 'JP41888',
+    title: 'Women Purple Cotton Round Neck Straight Fit',
+    details: 'Color: Purple, Size: M, Qty: 1',
+    price: '₹ 2,190.00',
+    action: 'Cancel',
+    type: 'placed',
+    image: 'https://imagescdn.jaypore.com/img/app/product/4/40019677-20862151.jpg',
+  },
+  {
+    id: '2',
+    status: 'Delivered',
+    subText: 'Delivered by 22 Oct 2024',
+    orderNo: 'JP41888',
+    title: 'Women Purple Cotton Round Neck Straight Fit',
+    details: 'Color: Purple, Size: M, Qty: 1',
+    price: '₹ 2,190.00',
+    action: 'Return',
+    type: 'delivered',
+    image: 'https://imagescdn.jaypore.com/img/app/product/4/40019677-20862151.jpg',
+  },
+  {
+    id: '3',
+    status: 'Item Shipped',
+    orderNo: 'JP41888',
+    title: 'Women Purple Cotton Round Neck Straight Fit',
+    details: 'Color: Purple, Size: M, Qty: 1',
+    price: '₹ 2,190.00',
+    action: 'Track Shipment',
+    type: 'shipped',
+    image: 'https://imagescdn.jaypore.com/img/app/product/4/40019677-20862151.jpg',
+  },
+  {
+    id: '4',
+    status: 'Refunded',
+    orderNo: 'JP41888',
+    title: 'Women Purple Cotton Round Neck Straight Fit',
+    details: 'Color: Purple, Size: M, Qty: 1',
+    price: '₹ 2,190.00',
+    type: 'Refunded',
+    image: 'https://imagescdn.jaypore.com/img/app/product/4/40019677-20862151.jpg',
+  },
+];
+/* ---------- SPRITE MAP ---------- */
+const STATUS_SPRITES = {
+  placed: { x: 515, y: 515, w: 32, h: 32, spriteWidth: 1500, spriteHeight: 679 },
+  delivered: { x: 1410, y: 225, w: 32, h: 32, spriteWidth: 1500, spriteHeight: 679 },
+  shipped: { x: 1410, y: 225, w: 32, h: 32, spriteWidth: 1500, spriteHeight: 679 },
+  Refunded: { x: 1410, y:225,  w: 32, h: 32,   spriteWidth: 1500,   spriteHeight: 679 },
 };
+/* ---------- FILTER BUTTON ---------- */
 const FilterButton = ({ label, value, onPress }) => (
   <TouchableOpacity onPress={onPress}>
     <View style={styles.filterBtn}>
@@ -34,6 +91,7 @@ const FilterButton = ({ label, value, onPress }) => (
     </View>
   </TouchableOpacity>
 );
+/* ---------- MODAL ---------- */
 const OptionsModal = ({ visible, title, data, selectedValue, valueKey, onClose, update }) => (
   <Modal visible={visible} transparent animationType="slide">
     <View style={styles.modalOverlay}>
@@ -41,7 +99,7 @@ const OptionsModal = ({ visible, title, data, selectedValue, valueKey, onClose, 
         <View style={styles.modalHeader}>
           <Text style={styles.modalTitle}>{title}</Text>
           <TouchableOpacity onPress={onClose}>
-            <Icon source="close" size={22} color="#212121" />
+            <Icon source="close" size={22} />
           </TouchableOpacity>
         </View>
         <FlatList
@@ -49,10 +107,7 @@ const OptionsModal = ({ visible, title, data, selectedValue, valueKey, onClose, 
           keyExtractor={item => item}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={[
-                styles.optionRow,
-                selectedValue === item && styles.optionRowSelected,
-              ]}
+              style={styles.optionRow}
               onPress={() => {
                 update(valueKey, item);
                 onClose();
@@ -74,14 +129,23 @@ const OptionsModal = ({ visible, title, data, selectedValue, valueKey, onClose, 
     </View>
   </Modal>
 );
+/* ---------- MAIN ---------- */
 export default function MyOrders() {
-  const [state, setState] = useState(INITIAL_STATE);
+  const navigation = useNavigation();
+  const [state, setState] = useState({
+    statusModal: false,
+    timeModal: false,
+    selectedStatus: 'All status',
+    selectedTime: 'Past 6 months',
+    search: '',
+  });
   const update = (key, value) => {
     setState(prev => ({ ...prev, [key]: value }));
   };
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>My Orders</Text>
+      {/* FILTERS */}
       <View style={styles.filterRow}>
         <FilterButton
           label="STATUS"
@@ -94,19 +158,74 @@ export default function MyOrders() {
           onPress={() => update('timeModal', true)}
         />
       </View>
+      {/* SEARCH */}
       <View style={styles.searchBox}>
         <TextInput
+          placeholder="Search Order"
           style={styles.searchInput}
           value={state.search}
           onChangeText={v => update('search', v)}
         />
-        <Icon source="magnify" size={22} color="#666" />
+        <Icon source="magnify" size={22} />
       </View>
-      <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>No Orders Found</Text>
+      {/* ORDERS */}
+      <View style={{ paddingHorizontal: 16 }}>
+        {ORDERS.map(item => {
+          const sprite = STATUS_SPRITES[item.type] || STATUS_SPRITES.placed;
+          return (
+            <View key={item.id} style={styles.card}>
+              {/* STATUS */}
+              <View style={styles.statusBar}>
+                <View style={styles.statusLeft}>
+                  <SpriteIcon {...sprite} />
+                  <View>
+                    <Text style={styles.statusText}>{item.status}</Text>
+                    {item.subText && (
+                      <Text style={styles.subText}>{item.subText}</Text>
+                    )}
+                  </View>
+                </View>
+                <Text style={styles.orderNo}>
+                  Order No - {item.orderNo}
+                </Text>
+              </View>
+              {/* PRODUCT */}
+              <View style={styles.row}>
+                <Image source={{ uri: item.image }} style={styles.image} />
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.titleText}>{item.title}</Text>
+                  <Text style={styles.details}>{item.details}</Text>
+                  <Text style={styles.price}>{item.price}</Text>
+                </View>
+              </View>
+              {/* ACTION BUTTON */}
+              {item.action && (
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={() =>
+                    navigation.navigate('OrderDetails', { order: item })
+                  }
+                >
+                  <Text style={styles.btnText}>{item.action}</Text>
+                </TouchableOpacity>
+              )}
+              {/* EXTRA TEXT */}
+              {item.type === 'delivered' && (
+                <Text style={styles.returnText}>
+                  Return window closes on 22 Oct 2024
+                </Text>
+              )}
+              {item.type === 'shipped' && (
+                <Text style={styles.refundText}>
+                  AWB No- 5874854578
+                </Text>
+              )}
+            </View>
+          );
+        })}
       </View>
       <Footer />
-      {/* STATUS MODAL */}
+      {/* MODALS */}
       <OptionsModal
         visible={state.statusModal}
         title="STATUS"
@@ -116,7 +235,6 @@ export default function MyOrders() {
         onClose={() => update('statusModal', false)}
         update={update}
       />
-      {/* TIME MODAL */}
       <OptionsModal
         visible={state.timeModal}
         title="TIME"
@@ -129,67 +247,109 @@ export default function MyOrders() {
     </ScrollView>
   );
 }
+/* ---------- STYLES ---------- */
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
+  container: { 
+    flex: 1, 
+    backgroundColor: '#f5f5f5' 
   },
-  title: {
-    fontSize: 22,
-    fontFamily: 'Lato-Bold',
-    fontWeight: '700',
-    marginBottom: 12,
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    color: '#212121',
+  title: { 
+    fontSize: 22, 
+    fontWeight: '700', 
+    padding: 16 
   },
   filterRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 12,
     paddingHorizontal: 16,
   },
-  filterBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
+  filterBtn: { 
+    flexDirection: 'row', 
+    alignItems: 'center' 
   },
-  filterText: {
-    fontSize: 14,
-    color: '#666',
-    fontFamily: 'Lato-Regular',
+  filterText: { 
+    fontSize: 14, 
+    color: '#666' 
   },
-  bold: {
-    fontWeight: '700',
-    color: '#212121',
-    fontFamily: 'Lato-Bold',
+  bold: { 
+    fontWeight: '700', 
+    color: '#000' 
   },
   searchBox: {
     flexDirection: 'row',
     alignItems: 'center',
     height: 50,
     borderWidth: 1,
-    borderColor: '#ccc',
+    margin: 16,
     paddingHorizontal: 10,
-    marginBottom: 40,
-    marginHorizontal: 16,
     backgroundColor: '#fff',
   },
-  searchInput: {
-    flex: 1,
-    fontFamily: 'Lato-Regular',
-    color: '#212121',
-    fontSize: 14,
+  searchInput: { 
+    flex: 1 
   },
-  emptyContainer: {
+  card: { 
+    backgroundColor: '#fff', 
+    marginBottom: 20 
+  },
+  statusBar: {
+    backgroundColor: '#efe2d3',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+  statusLeft: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    gap: 8 
+  },
+  statusText: { 
+    fontWeight: '600' 
+  },
+  subText: { 
+    fontSize: 12, 
+    color: '#666' 
+  },
+  orderNo: { 
+    color: '#bb4425', 
+    textDecorationLine: 'underline', 
+  },
+  row: { 
+    flexDirection: 'row', 
+    padding: 12 
+  },
+  image: { 
+    width: 70, 
+    height: 90, 
+    marginRight: 10 
+  },
+  titleText: { 
+    fontWeight: '600' 
+  },
+  details: { 
+    fontSize: 12, 
+    color: '#666' 
+  },
+  price: { 
+    marginTop: 6 
+  },
+  btn: {
+    borderWidth: 1,
+    borderColor: '#bb4425',
+    margin: 12,
+    padding: 10,
     alignItems: 'center',
-    marginTop: 60,
-    marginBottom: 40,
   },
-  emptyText: {
-    fontSize: 18,
+  btnText: { 
+    color: '#bb4425' 
+  },
+  returnText: {
+    textAlign: 'center',
     color: '#bb4425',
-    fontFamily: 'Lato-Regular',
+    marginBottom: 10,
+  },
+  refundText: {
+    textAlign: 'center',
+    marginBottom: 10,
   },
   modalOverlay: {
     flex: 1,
@@ -201,49 +361,30 @@ const styles = StyleSheet.create({
     padding: 16,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    minHeight: '50%',
-    maxHeight: '70%',
   },
   modalHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingBottom: 25,
-    marginBottom: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
   },
-  modalTitle: {
-    fontSize: 18,
-    fontFamily: 'Lato-Bold',
-    fontWeight: '700',
-    color: '#212121',
+  modalTitle: { 
+    fontSize: 18, 
+    fontWeight: '700' 
   },
   optionRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 14,
-    borderRadius: 6,
+    paddingVertical: 12,
   },
   checkbox: {
     width: 20,
     height: 20,
-    borderWidth: 1.5,
-    borderColor: '#aaa',
-    marginRight: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
+    borderWidth: 1,
+    marginRight: 10,
   },
-  checkboxSelected: {
-    backgroundColor: '#bb4425',
-    borderColor: '#bb4425',
+  checkboxSelected: { 
+    backgroundColor: '#bb4425' 
   },
   optionText: {
-    fontSize: 16,
-    fontFamily: 'Lato-Regular',
-    color: '#212121',
-  },
+     fontSize: 16 
+    },
 });

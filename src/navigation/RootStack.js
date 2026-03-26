@@ -7,6 +7,7 @@ import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import { Icon, IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import Cart from '../screens/Cart/index';
+import OrderDetails from '../screens/MyOrders/OrderDetails';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
@@ -128,7 +129,7 @@ const RootStack = () => {
           )
         }} />
         <Stack.Screen name={'CLP'} component={CLP} />
-
+        <Stack.Screen name={'OrderDetails'} component={OrderDetails}/>
       </Stack.Navigator>
       <AuthModal
         visible={modalVisible}
