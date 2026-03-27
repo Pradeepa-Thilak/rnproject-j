@@ -79,6 +79,7 @@ export const Gridproducts = [
     name: 'The 9 to 5 Edit',
     cat: 'handcrafted bottom wear',
     des: 'Redefine Comfort with Tailored Pants, Palazzos, Chudidars and more',
+    navigationlink: "Corporategifts",
   },
 ];
 

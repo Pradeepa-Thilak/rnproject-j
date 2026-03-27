@@ -130,6 +130,11 @@ export default function OrderDetails({ route, navigation }) {
       <Modal visible={showBreakdown} transparent animationType="fade">
         <View style={styles.modalBg}>
           <View style={styles.modalBox}>
+            <View style={styles.modalHeader}>
+            <TouchableOpacity onPress={() => setShowBreakdown(false)}>
+              <Text style={styles.closeIcon}>X</Text>
+            </TouchableOpacity>
+            </View>            
             <Text style={styles.heading}>Price Details</Text>
             <View style={styles.row}>
               <Text>Bag Total</Text>
@@ -160,9 +165,6 @@ export default function OrderDetails({ route, navigation }) {
               <Text>Total Savings</Text>
               <Text>₹2,190.00</Text>
             </View>
-            <TouchableOpacity onPress={() => setShowBreakdown(false)}>
-              <Text style={styles.close}>Close</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -237,8 +239,9 @@ const styles = StyleSheet.create({
   returnBtn: {
     borderWidth: 1,
     borderColor: '#bb4425',
-    margin: 12,
-    padding: 10,
+    marginHorizontal: 30,
+    marginVertical: 12,
+    paddingVertical: 10,
     alignItems: 'center',
   },
   returnBtnText: { 
@@ -295,7 +298,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     margin: 20,
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 9,
   },
   close: {
     textAlign: 'center',
@@ -304,5 +307,13 @@ const styles = StyleSheet.create({
   },
   trackRow: {
     paddingHorizontal: 10,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 10,
+  },
+  closeIcon: {
+    fontSize: 14,
   },
 });
