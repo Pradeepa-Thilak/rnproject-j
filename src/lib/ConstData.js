@@ -58,6 +58,7 @@ export const Gridproducts = [
     name: 'Daily to Celebratory Radiance',
     cat: 'silver jewels',
     des: "Jewels Celebrating India's Legacy in Heritage Crafts",
+    navigationlink:"Corporategifting"
   },
   {
     id: 2,

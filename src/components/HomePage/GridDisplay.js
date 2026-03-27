@@ -1,10 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import {Pressable, View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { Gridproducts } from '../../lib/ConstData';
+import { useNavigation } from '@react-navigation/native';
 
 const GridDisplay = () => {
+  const navigation = useNavigation();
   const renderItems = item => (
-    <View style={styles.product}>
+    <Pressable 
+    style={styles.product}
+    onPress={() => {
+        if (item.navigationlink) {
+          navigation.navigate(item.navigationlink);
+        }
+      }}>
       <View style={{aspectRatio: 279/365}}>
       <Image source={{ uri: item.uri }} style={styles.img} />
       </View>
@@ -12,7 +20,7 @@ const GridDisplay = () => {
       <Text style={styles.imgCat}>{item.cat}</Text>
       <Text style={styles.imgDes}>{item.des}</Text>
       <Text style={styles.shop}>shop now</Text>
-    </View>
+    </Pressable>
   );
 
   return (

@@ -3,6 +3,8 @@ import BottomTabNavigation from './BottomTabNavigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import PLP from '../screens/PLP';
 import PDP from '../screens/PDP/index';
+
+import Corporategifting from "../sections/Corporategifting/index"
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import { Icon, IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
@@ -128,6 +130,9 @@ const RootStack = () => {
           )
         }} />
         <Stack.Screen name={'CLP'} component={CLP} />
+        <Stack.Screen name={'Corporategifting'} component={Corporategifting} />
+
+        
 
       </Stack.Navigator>
       <AuthModal
