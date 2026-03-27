@@ -113,6 +113,7 @@ const CustomDrawer = ({ navigation, onLoginPress }) => {
                   >
                     <Text style={styles.subItemText}>My Orders</Text>
                   </Pressable>
+
                   <Pressable
                   style={styles.subItem}
                   onPress={() => {
@@ -121,6 +122,15 @@ const CustomDrawer = ({ navigation, onLoginPress }) => {
                   }}
                 >
                   <Text style={styles.subItemText}>Saved Items</Text>
+                  </Pressable>
+                  <Pressable
+                  style={styles.subItem}
+                  onPress={() => {
+                    navigation.closeDrawer();
+                    navigation.navigate('Savedcards');
+                  }}
+                >
+                  <Text style={styles.subItemText}>Saved Cards</Text>
                   </Pressable>
                   <Pressable
                   style={styles.subItem}
@@ -188,7 +198,7 @@ const CustomDrawer = ({ navigation, onLoginPress }) => {
             <Pressable style={styles.bottomMenuPress}>
               <Text style={styles.bottomMenuText}>Returns & Cancellations</Text>
             </Pressable>
-            <Pressable style={styles.bottomMenuPress}>
+            <Pressable style={styles.bottomMenuPress} onPress={() => navigation.navigate('TermsAndConditon')}>
               <Text style={styles.bottomMenuText}>Terms & conditions</Text>
             </Pressable>
             <Pressable style={styles.bottomMenuPress}>

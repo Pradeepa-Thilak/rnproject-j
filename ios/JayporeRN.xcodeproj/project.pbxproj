@@ -11,9 +11,10 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		E30181A0A283492F8D619824 /* EBGaramond-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50C2FDFB385B4F0DA68B2345 /* EBGaramond-Regular.ttf */; };
-		99E4F8EC0F424F98B2290B41 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5F919EC3EB74AE992B66E87 /* Lato-Bold.ttf */; };
-		B40B7B3C4BC84B77BEC1D9F2 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71AEF332DB754275882D23F2 /* Lato-Regular.ttf */; };
+		5C1F939E5B7D40B096D3F268 /* EBGaramond-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEBD912495F5461E84DEF110 /* EBGaramond-Regular.ttf */; };
+		2B116FA26A4D4AD2AC2CA216 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 898C36061DFA488DB854FB94 /* Lato-Bold.ttf */; };
+		DC934082BA134C1D92FE5D4C /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6BE698133604D128FAEE7FB /* Lato-Regular.ttf */; };
+		C16C86D3899841D3B52C7E6C /* Roboto_Condensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D35A7C1B2804431B8E308B2 /* Roboto_Condensed-Light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +28,10 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = JayporeRN/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = JayporeRN/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		50C2FDFB385B4F0DA68B2345 /* EBGaramond-Regular.ttf */ = {isa = PBXFileReference; name = "EBGaramond-Regular.ttf"; path = "../src/assests/fonts/EBGaramond-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B5F919EC3EB74AE992B66E87 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../src/assests/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		71AEF332DB754275882D23F2 /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../src/assests/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CEBD912495F5461E84DEF110 /* EBGaramond-Regular.ttf */ = {isa = PBXFileReference; name = "EBGaramond-Regular.ttf"; path = "../src/assests/fonts/EBGaramond-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		898C36061DFA488DB854FB94 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../src/assests/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B6BE698133604D128FAEE7FB /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../src/assests/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1D35A7C1B2804431B8E308B2 /* Roboto_Condensed-Light.ttf */ = {isa = PBXFileReference; name = "Roboto_Condensed-Light.ttf"; path = "../src/assests/fonts/Roboto_Condensed-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,9 +109,10 @@
 		481DBA32FEFC4C08B7C53006 /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
-				50C2FDFB385B4F0DA68B2345 /* EBGaramond-Regular.ttf */,
-				B5F919EC3EB74AE992B66E87 /* Lato-Bold.ttf */,
-				71AEF332DB754275882D23F2 /* Lato-Regular.ttf */,
+				CEBD912495F5461E84DEF110 /* EBGaramond-Regular.ttf */,
+				898C36061DFA488DB854FB94 /* Lato-Bold.ttf */,
+				B6BE698133604D128FAEE7FB /* Lato-Regular.ttf */,
+				1D35A7C1B2804431B8E308B2 /* Roboto_Condensed-Light.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -177,9 +180,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				E30181A0A283492F8D619824 /* EBGaramond-Regular.ttf in Resources */,
-				99E4F8EC0F424F98B2290B41 /* Lato-Bold.ttf in Resources */,
-				B40B7B3C4BC84B77BEC1D9F2 /* Lato-Regular.ttf in Resources */,
+				5C1F939E5B7D40B096D3F268 /* EBGaramond-Regular.ttf in Resources */,
+				2B116FA26A4D4AD2AC2CA216 /* Lato-Bold.ttf in Resources */,
+				DC934082BA134C1D92FE5D4C /* Lato-Regular.ttf in Resources */,
+				C16C86D3899841D3B52C7E6C /* Roboto_Condensed-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
