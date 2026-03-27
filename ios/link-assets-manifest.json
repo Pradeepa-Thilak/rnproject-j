@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assests/fonts/EBGaramond-Italic.ttf",
+      "sha1": "f7665540b1c44a07059dc919a8102fdf3a159b9c"
+    },
+    {
       "path": "src/assests/fonts/EBGaramond-Regular.ttf",
       "sha1": "eeae9f27bb0d1c0b05828b46d03dd46bf4720033"
     },
