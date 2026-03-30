@@ -198,7 +198,7 @@ const CustomDrawer = ({ navigation, onLoginPress }) => {
             <Pressable style={styles.bottomMenuPress}>
               <Text style={styles.bottomMenuText}>Returns & Cancellations</Text>
             </Pressable>
-            <Pressable style={styles.bottomMenuPress}>
+            <Pressable style={styles.bottomMenuPress} onPress={() => navigation.navigate('TermsAndConditon')}>
               <Text style={styles.bottomMenuText}>Terms & conditions</Text>
             </Pressable>
             <Pressable style={styles.bottomMenuPress}>

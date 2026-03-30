@@ -294,7 +294,7 @@ export const ProductData = {
                         ],
                         "Quantity": 30,
                         "StoreIds": "J002,J003,J005,J007,J014,J018,J021,J023,J025,J035,J039,J041,J043",
-                        "LastInStockOut": "2025-12-14 12:35:56",
+                        "LastInStockOut": "2025-03-19 12:35:56",
                         "mostgiftedFlag": 0,
                         "bestsellerFlag": 1,
                         "expressAvailability": 0,

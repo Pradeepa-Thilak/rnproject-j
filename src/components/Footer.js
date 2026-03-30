@@ -62,7 +62,7 @@ const Footer = () => {
   );
 
   return (
-    <View>
+    <View style={{backgroundColor: '#fff', paddingTop: 5}}>
       <View>
         <FlatList
           data={footBadges}

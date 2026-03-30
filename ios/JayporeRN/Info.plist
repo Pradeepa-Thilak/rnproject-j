@@ -56,9 +56,11 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>EBGaramond-Italic.ttf</string>
 		<string>EBGaramond-Regular.ttf</string>
 		<string>Lato-Bold.ttf</string>
 		<string>Lato-Regular.ttf</string>
+		<string>Roboto_Condensed-Light.ttf</string>
 	</array>
 </dict>
 </plist>

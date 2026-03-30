@@ -14,7 +14,9 @@ import MyInformation from '../screens/MyInformation/index';
 import MyAddress from '../screens/MyAddress/index';
 import JayporeCredits from '../screens/JayporeCredits/index';
 import EnterZip from '../components/EnterZip';
-import Savedcards from "../screens/Savedcards/index"
+import TermsAndCondition from '../screens/T&C/index';
+import Savedcards from "../screens/Savedcards/index";
+
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
@@ -35,7 +37,7 @@ const DrawerNavigation = () => {
           <Pressable style={styles.headerimg} onPress={() => navigation.navigate('Home')}>
             <Image
               source={{uri: 'https://imagescdn.jaypore.com/img/app/brands/jaypore/jaypore.png'}}
-                style={{ height: 20, aspectRatio: 6 }}
+                style={{ height: 20, aspectRatio: 6, marginLeft: '-20%' }}
                 
             />
           </Pressable>
@@ -75,7 +77,7 @@ const DrawerNavigation = () => {
         <Drawer.Screen name='Savedcards' component={Savedcards}/>
         <Drawer.Screen name='JayporeCredits' component={JayporeCredits} />
         <Drawer.Screen name='EnterZip' component={EnterZip}/>
-        
+        <Drawer.Screen name='TermsAndConditon' component={TermsAndCondition}/>
 
       </Drawer.Navigator>
          <AuthModal

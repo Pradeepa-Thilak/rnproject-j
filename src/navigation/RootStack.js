@@ -3,6 +3,8 @@ import BottomTabNavigation from './BottomTabNavigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import PLP from '../screens/PLP';
 import PDP from '../screens/PDP/index';
+
+import Corporategifting from "../sections/Corporategifting/index"
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
@@ -11,10 +13,14 @@ import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
 import EossScreen from '../screens/Eoss/index';   
+import Coastal from '../screens/coastal/index';
+
+
 
 const Stack = createStackNavigator();
 
-const HeaderRight = ({ navigation, isLoggedIn, setModalVisible }) => {
+const HeaderRight = ({navigation, isLoggedIn, setModalVisible}) => {
+
   const wishlist = useSelector(state => state.wishlist.items);
   const cart = useSelector(state => state.cart.cartItems);
 
@@ -85,14 +91,14 @@ const RootStack = () => {
       <Stack.Navigator
         screenOptions={({ navigation }) => ({
           headerTitle: () => (
-            <Pressable
-              style={styles.headerimg}
-              onPress={() => navigation.navigate('Home')}>
-              <Image
-                source={{ uri: 'https://imagescdn.jaypore.com/img/app/brands/jaypore/jaypore.png' }}
-                style={{ height: 20, aspectRatio: 6 }}
-              />
-            </Pressable>
+
+        <Pressable style={styles.headerimg} onPress={() => navigation.navigate('Home')}>
+            <Image
+              source={{uri: 'https://imagescdn.jaypore.com/img/app/brands/jaypore/jaypore.png'}}
+                style={{ height: 20, aspectRatio: 6 , marginLeft: '-20%'}}
+            />
+          </Pressable>
+
           ),
           headerLeft: () => (
             <IconButton
@@ -105,6 +111,7 @@ const RootStack = () => {
               }}
             />
           ),
+
           headerRight: () => (
             <HeaderRight
               navigation={navigation}
@@ -113,6 +120,7 @@ const RootStack = () => {
             />
           ),
         })}>
+
 
         <Stack.Screen
           name={'BottomTab'}
@@ -145,6 +153,10 @@ const RootStack = () => {
         />
         <Stack.Screen name={'CLP'} component={CLP} />
         <Stack.Screen name={'EOSS'} component={EossScreen} />
+
+        <Stack.Screen name={'Corporategifting'} component={Corporategifting} />
+
+        <Stack.Screen name={'coastal'} component={Coastal} />
 
       </Stack.Navigator>
       <AuthModal

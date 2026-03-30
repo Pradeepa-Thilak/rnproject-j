@@ -1,35 +1,30 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';  
+import { Pressable, View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Gridproducts } from '../../lib/ConstData';
 
 const GridDisplay = ({ navigation: navProp }) => {
-  const navigation = navProp || useNavigation(); 
+  const navigationHook = useNavigation();
+  const navigation = navProp || navigationHook;
 
-  const renderItems = item => (
-    <TouchableOpacity
+  const renderItems = (item) => (
+    <Pressable
       style={styles.product}
-      activeOpacity={item.navigationlink ? 0.7 : 1}
       onPress={() => {
         if (item.navigationlink) {
           navigation.navigate(item.navigationlink);
         }
-      }}>
+      }}
+    >
       <View style={{ aspectRatio: 279 / 365 }}>
         <Image source={{ uri: item.uri }} style={styles.img} />
       </View>
+
       <Text style={styles.imgName}>{item.name}</Text>
       <Text style={styles.imgCat}>{item.cat}</Text>
       <Text style={styles.imgDes}>{item.des}</Text>
       <Text style={styles.shop}>shop now</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 
   return (

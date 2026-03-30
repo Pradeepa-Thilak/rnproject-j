@@ -58,6 +58,7 @@ export const Gridproducts = [
     name: 'Daily to Celebratory Radiance',
     cat: 'silver jewels',
     des: "Jewels Celebrating India's Legacy in Heritage Crafts",
+    navigationlink:"Corporategifting"
   },
   {
     id: 2,
@@ -65,6 +66,7 @@ export const Gridproducts = [
     name: 'Prayers to Sacred Moments',
     cat: 'divine pooja essentials',
     des: 'Idols and Divinities in Dokra, Kansa, and more',
+    navigationlink: 'coastal'
   },
   {
     id: 3,
@@ -567,3 +569,12 @@ export const sizedata = [
   { id: 5, size: 'XL', bust: 35, waist: 32, hips: 39, quantity: 5 },
   { id: 6, size: 'XXL', bust: 35, waist: 32, hips: 39, quantity: 5 },
 ];
+
+export const terms = [
+  'Offer valid on online orders only.',
+  'Maximum discount of Rs. 1000/-.',
+  'Offer cannot be clubbed with other active offers & coupon codes.',
+  'Offer not valid for Silver Coins',
+  'In case of any partial returns/cancellations, the discount amount will be debited proportionately.',
+  'Jaypore reserves the right to pull-back the offer without any prior notice.'
+]
