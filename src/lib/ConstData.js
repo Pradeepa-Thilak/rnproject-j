@@ -72,6 +72,7 @@ export const Gridproducts = [
     name: 'Everyday to Partywear',
     cat: 'handcrafted silhouettes',
     des: 'Modish Black Hues Rooted in Heritage Weaves',
+    navigationlink: 'EOSS',   
   },
   {
     id: 4,
@@ -227,7 +228,7 @@ export const footValues = [
   },
 ];
 
-// CLP page Images
+
 
 export const CLPImg = [
   {

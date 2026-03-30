@@ -1,18 +1,35 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';  
 import { Gridproducts } from '../../lib/ConstData';
 
-const GridDisplay = () => {
+const GridDisplay = ({ navigation: navProp }) => {
+  const navigation = navProp || useNavigation(); 
+
   const renderItems = item => (
-    <View style={styles.product}>
-      <View style={{aspectRatio: 279/365}}>
-      <Image source={{ uri: item.uri }} style={styles.img} />
+    <TouchableOpacity
+      style={styles.product}
+      activeOpacity={item.navigationlink ? 0.7 : 1}
+      onPress={() => {
+        if (item.navigationlink) {
+          navigation.navigate(item.navigationlink);
+        }
+      }}>
+      <View style={{ aspectRatio: 279 / 365 }}>
+        <Image source={{ uri: item.uri }} style={styles.img} />
       </View>
       <Text style={styles.imgName}>{item.name}</Text>
       <Text style={styles.imgCat}>{item.cat}</Text>
       <Text style={styles.imgDes}>{item.des}</Text>
       <Text style={styles.shop}>shop now</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -21,7 +38,6 @@ const GridDisplay = () => {
         <View style={styles.header}>
           <Text style={styles.gridHead}>featured collections</Text>
         </View>
-
         <FlatList
           data={Gridproducts}
           keyExtractor={(item, index) => index.toString()}
@@ -30,16 +46,12 @@ const GridDisplay = () => {
           columnWrapperStyle={{ justifyContent: 'space-between' }}
         />
       </View>
-      <View style={{ paddingHorizontal: 10, aspectRatio: 600/134 }}>
+      <View style={{ paddingHorizontal: 10, aspectRatio: 600 / 134 }}>
         <Image
           source={{
             uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/3_710X158-Feb-09-The-World-of-Botanicals-Skinny-Banner-Mobile_3771_1770631596664.jpg',
           }}
-          style={{
-            height: '100%',
-            width: '100%',
-            resizeMode: 'contain',
-          }}
+          style={{ height: '100%', width: '100%', resizeMode: 'contain' }}
         />
       </View>
     </View>

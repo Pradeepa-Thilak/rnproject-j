@@ -4,79 +4,80 @@ import { createStackNavigator } from '@react-navigation/stack';
 import PLP from '../screens/PLP';
 import PDP from '../screens/PDP/index';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
-import { Icon, IconButton } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import Cart from '../screens/Cart/index';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
+import EossScreen from '../screens/Eoss/index';   
 
 const Stack = createStackNavigator();
 
-const HeaderRight = ({navigation, isLoggedIn}) => {
+const HeaderRight = ({ navigation, isLoggedIn, setModalVisible }) => {
   const wishlist = useSelector(state => state.wishlist.items);
   const cart = useSelector(state => state.cart.cartItems);
- return (
- <View
-   style={{
-     flexDirection: 'row',
-   }}
- >
-   <IconButton icon={'magnify'} size={25} />
-   <View style={{ position: 'relative' }}>
-     <IconButton
-       icon={'heart-outline'}
-       size={25}
-       onPress={() => {
-                  if (!isLoggedIn) {
-                    setModalVisible(true);
-                  } else {
-                    navigation.navigate('BottomTab', { screen: 'Wishlist' });
-                  }
-                }}
-     />
-     {wishlist.length > 0 && (
-       <Text
-         style={{
-           position: 'absolute',
-           backgroundColor: '#bf7154',
-           color: '#fff',
-           borderRadius: 10,
-           paddingHorizontal: 4,
-           paddingVertical: 1.5,
-           top: 23,
-           right: 12,
-           fontSize: 10,
-         }}
-       >
-         {wishlist.length}
-       </Text>
-     )}
-   </View>
-   <View style={{position:'relative'}}>
-      <IconButton icon={'shopping-outline'} size={25} onPress={() => navigation.navigate('Cart')} />
-      {cart.length > 0 && (
-        <Text style={{
-          position: 'absolute',
-          backgroundColor: '#bf7154',
-          color: '#fff',
-          borderRadius: 10,
-          paddingHorizontal: 4,
-          paddingVertical: 1.5,
-          top: 23,
-          right: 12,
-          fontSize: 10,
-        }}>{cart.length}</Text>
-      )}
+
+  return (
+    <View style={{ flexDirection: 'row' }}>
+      <IconButton icon={'magnify'} size={25} />
+      <View style={{ position: 'relative' }}>
+        <IconButton
+          icon={'heart-outline'}
+          size={25}
+          onPress={() => {
+            if (!isLoggedIn) {
+              setModalVisible(true);
+            } else {
+              navigation.navigate('BottomTab', { screen: 'Wishlist' });
+            }
+          }}
+        />
+        {wishlist.length > 0 && (
+          <Text style={{
+            position: 'absolute',
+            backgroundColor: '#bf7154',
+            color: '#fff',
+            borderRadius: 10,
+            paddingHorizontal: 4,
+            paddingVertical: 1.5,
+            top: 23,
+            right: 12,
+            fontSize: 10,
+          }}>
+            {wishlist.length}
+          </Text>
+        )}
+      </View>
+      <View style={{ position: 'relative' }}>
+        <IconButton
+          icon={'shopping-outline'}
+          size={25}
+          onPress={() => navigation.navigate('Cart')}
+        />
+        {cart.length > 0 && (
+          <Text style={{
+            position: 'absolute',
+            backgroundColor: '#bf7154',
+            color: '#fff',
+            borderRadius: 10,
+            paddingHorizontal: 4,
+            paddingVertical: 1.5,
+            top: 23,
+            right: 12,
+            fontSize: 10,
+          }}>
+            {cart.length}
+          </Text>
+        )}
+      </View>
     </View>
- </View>
- );
-}
+  );
+};
 
 const RootStack = () => {
-  const cart = useSelector((state) => state.cart.cartItems);
+  const cart = useSelector(state => state.cart.cartItems);
   const { isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -84,13 +85,14 @@ const RootStack = () => {
       <Stack.Navigator
         screenOptions={({ navigation }) => ({
           headerTitle: () => (
-          <Pressable style={styles.headerimg} onPress={() => navigation.navigate('Home')}>
-            <Image
-              source={{uri: 'https://imagescdn.jaypore.com/img/app/brands/jaypore/jaypore.png'}}
+            <Pressable
+              style={styles.headerimg}
+              onPress={() => navigation.navigate('Home')}>
+              <Image
+                source={{ uri: 'https://imagescdn.jaypore.com/img/app/brands/jaypore/jaypore.png' }}
                 style={{ height: 20, aspectRatio: 6 }}
-                
-            />
-          </Pressable>
+              />
+            </Pressable>
           ),
           headerLeft: () => (
             <IconButton
@@ -103,9 +105,15 @@ const RootStack = () => {
               }}
             />
           ),
-          headerRight: () => <HeaderRight navigation={navigation} isLoggedIn={isLoggedIn} />,
-        })}
-      >
+          headerRight: () => (
+            <HeaderRight
+              navigation={navigation}
+              isLoggedIn={isLoggedIn}
+              setModalVisible={setModalVisible}
+            />
+          ),
+        })}>
+
         <Stack.Screen
           name={'BottomTab'}
           component={BottomTabNavigation}
@@ -113,21 +121,30 @@ const RootStack = () => {
         />
         <Stack.Screen name={'PLP'} component={PLP} />
         <Stack.Screen name={'PDP'} component={PDP} />
-        <Stack.Screen name={'Cart'} component={Cart} options={{
-          headerTitle: () => (
-            <View>
-              <Text style={[styles.cartTxt, {fontSize: 20}]}>
-                Shopping Bag <Text style={{color: '#ccc'}}>({cart.length})</Text>
-              </Text>
-            </View>
-          ),
-          headerRight: () => (
-            <View style={styles.cartHead}>
-              <Text style={styles.cartTxt}>Step 1  </Text><Text style={[styles.cartTxt, {color: '#707070', fontFamily:'Lato-Regular'}]}>of 2</Text>
-            </View>
-          )
-        }} />
+        <Stack.Screen
+          name={'Cart'}
+          component={Cart}
+          options={{
+            headerTitle: () => (
+              <View>
+                <Text style={[styles.cartTxt, { fontSize: 20 }]}>
+                  Shopping Bag{' '}
+                  <Text style={{ color: '#ccc' }}>({cart.length})</Text>
+                </Text>
+              </View>
+            ),
+            headerRight: () => (
+              <View style={styles.cartHead}>
+                <Text style={styles.cartTxt}>Step 1  </Text>
+                <Text style={[styles.cartTxt, { color: '#707070', fontFamily: 'Lato-Regular' }]}>
+                  of 2
+                </Text>
+              </View>
+            ),
+          }}
+        />
         <Stack.Screen name={'CLP'} component={CLP} />
+        <Stack.Screen name={'EOSS'} component={EossScreen} />
 
       </Stack.Navigator>
       <AuthModal
@@ -135,7 +152,6 @@ const RootStack = () => {
         onClose={() => setModalVisible(false)}
       />
     </>
-
   );
 };
 
@@ -153,8 +169,8 @@ const styles = StyleSheet.create({
   cartTxt: {
     fontSize: 16,
     fontFamily: 'Lato-Bold',
-    color: '#212121'
-  }
+    color: '#212121',
+  },
 });
 
 export default RootStack;
