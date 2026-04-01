@@ -1,13 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 const CurvedDisplay = () => {
+ 
   const first = {
     id: 1,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-1_3771_1770632379038.jpg',
     name: 'The World of Botanicals',
     cat: 'styles for modern indian summer',
+    navigationlink: 'dokra'
   };
   const curved = [
     {
@@ -23,16 +26,19 @@ const CurvedDisplay = () => {
       cat: 'handcrafted jewels at older, lower prices',
     },
   ];
+   const navigation = useNavigation();
 
   const renderProducts = item => (
-    <View style={styles.product}>
+    <Pressable
+    onPress={()=>navigation.navigate(item.navigationlink || 'dokra')}
+     style={styles.product}>
       <View style={{aspectRatio: 300/453}}>
       <Image source={{ uri: item.uri }} style={styles.img} />
       </View>
       <Text style={styles.imgName}>{item.name}</Text>
       <Text style={[styles.imgCat, { fontSize: 12 }]}>{item.cat}</Text>
       <Text style={styles.shop}>shop now</Text>
-    </View>
+    </Pressable>
   );
 
   return (
@@ -41,7 +47,9 @@ const CurvedDisplay = () => {
         <Text style={styles.headText}>japore finest</Text>
       </View>
       <View>
-        <View style={{ width: '100%', marginBottom: 15 }}>
+        <Pressable 
+        onPress={()=>navigation.navigate(first.navigationlink)}
+        style={{ width: '100%', marginBottom: 15 }}>
           <View style={{aspectRatio: 600/700}}>
           <Image
             source={{ uri: first.uri }}
@@ -55,7 +63,7 @@ const CurvedDisplay = () => {
           <Text style={styles.imgName}>{first.name}</Text>
           <Text style={styles.imgCat}>{first.cat}</Text>
           <Text style={styles.shop}>shop now</Text>
-        </View>
+        </Pressable>
         <FlatList
           data={curved}
           initialNumToRender={1}

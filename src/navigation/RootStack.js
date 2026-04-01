@@ -3,8 +3,8 @@ import BottomTabNavigation from './BottomTabNavigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import PLP from '../screens/PLP';
 import PDP from '../screens/PDP/index';
-
-import Corporategifting from "../sections/Corporategifting/index"
+import Corporategifting from "../components/micrositee/corporategiftingpage"
+import Dokra from "../components/micrositee/dokrapage"
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
@@ -12,8 +12,8 @@ import Cart from '../screens/Cart/index';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
-import EossScreen from '../screens/Eoss/index';   
-import Coastal from '../screens/coastal/index';
+import EossScreen from '../components/micrositee/eosspage';   
+import Coastal from '../components/micrositee/coastal';
 
 
 
@@ -157,6 +157,8 @@ const RootStack = () => {
         <Stack.Screen name={'Corporategifting'} component={Corporategifting} />
 
         <Stack.Screen name={'coastal'} component={Coastal} />
+        <Stack.Screen name={'dokra'} component={Dokra} />
+
 
       </Stack.Navigator>
       <AuthModal
