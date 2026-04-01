@@ -1,13 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-
+import { useNavigation } from '@react-navigation/native';
 const CurvedDisplay = () => {
+  const navigation = useNavigation();
   const first = {
     id: 1,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-1_3771_1770632379038.jpg',
     name: 'The World of Botanicals',
     cat: 'styles for modern indian summer',
+    navigationlink: 'SareeStore',
   };
   const curved = [
     {
@@ -15,58 +23,64 @@ const CurvedDisplay = () => {
       uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-2_3771_1770632434812.jpg',
       name: 'The Brass & Kansa Edit',
       cat: 'gifting-perfect brass and kansa serveware',
+      navigationlink: 'SareeStore',
     },
     {
       id: 3,
       uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-3_3771_1770632481475.jpg',
       name: 'Silver at Old Rates',
       cat: 'handcrafted jewels at older, lower prices',
+      navigationlink: 'SareeStore',
     },
   ];
-
-  const renderProducts = item => (
-    <View style={styles.product}>
-      <View style={{aspectRatio: 300/453}}>
-      <Image source={{ uri: item.uri }} style={styles.img} />
+  const handleNavigation = (item) => {
+    if (item?.navigationlink) {
+      navigation.navigate(item.navigationlink);
+    }
+  };
+  const renderProducts = ({ item }) => (
+    <Pressable
+      style={styles.product}
+      onPress={() => handleNavigation(item)}
+    >
+      <View style={{ aspectRatio: 300 / 453 }}>
+        <Image source={{ uri: item.uri }} style={styles.img} />
       </View>
       <Text style={styles.imgName}>{item.name}</Text>
-      <Text style={[styles.imgCat, { fontSize: 12 }]}>{item.cat}</Text>
+      <Text style={styles.imgCat}>{item.cat}</Text>
       <Text style={styles.shop}>shop now</Text>
-    </View>
+    </Pressable>
   );
-
   return (
     <View style={styles.whole}>
+      {/* HEADER */}
       <View style={styles.head}>
-        <Text style={styles.headText}>japore finest</Text>
+        <Text style={styles.headText}>jaypore finest</Text>
       </View>
-      <View>
-        <View style={{ width: '100%', marginBottom: 15 }}>
-          <View style={{aspectRatio: 600/700}}>
-          <Image
-            source={{ uri: first.uri }}
-            style={{
-              height: '100%',
-              width: '100%',
-              resizeMode: 'contain',
-            }}
-          />
-          </View>
-          <Text style={styles.imgName}>{first.name}</Text>
-          <Text style={styles.imgCat}>{first.cat}</Text>
-          <Text style={styles.shop}>shop now</Text>
+      {/* FIRST BIG CARD */}
+      <Pressable
+        style={{ marginBottom: 20 }}
+        onPress={() => handleNavigation(first)}
+      >
+        <View style={{ aspectRatio: 600 / 700 }}>
+          <Image source={{ uri: first.uri }} style={styles.img} />
         </View>
-        <FlatList
-          data={curved}
-          initialNumToRender={1}
-          renderItem={({ item }) => renderProducts(item)}
-          numColumns={2}
-        />
-      </View>
+        <Text style={styles.imgName}>{first.name}</Text>
+        <Text style={styles.imgCat}>{first.cat}</Text>
+        <Text style={styles.shop}>shop now</Text>
+      </Pressable>
+      {/* GRID LIST */}
+      <FlatList
+        data={curved}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderProducts}
+        numColumns={2}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
+      />
     </View>
   );
 };
-
+export default CurvedDisplay;
 const styles = StyleSheet.create({
   whole: {
     paddingHorizontal: 10,
@@ -83,25 +97,23 @@ const styles = StyleSheet.create({
     color: '#212121',
   },
   product: {
-    width: '50%',
-    marginRight: 10,
+    width: '48%',
     marginBottom: 20,
-  },
-  imgName: {
-    flexWrap: 'wrap',
-    fontSize: 20,
-    fontFamily: 'EBGaramond-Regular',
-    paddingTop: 2,
-    marginBottom: 2,
-    color: '#212121',
   },
   img: {
     height: '100%',
     width: '100%',
     resizeMode: 'contain',
   },
+  imgName: {
+    fontSize: 18,
+    fontFamily: 'EBGaramond-Regular',
+    marginTop: 5,
+    marginBottom: 2,
+    color: '#212121',
+  },
   imgCat: {
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: 'EBGaramond-Regular',
     textTransform: 'uppercase',
     marginBottom: 2,
@@ -110,10 +122,7 @@ const styles = StyleSheet.create({
   shop: {
     fontSize: 13,
     fontFamily: 'EBGaramond-Regular',
-    textTransform: 'capitalize',
     textDecorationLine: 'underline',
     color: '#bb4225',
   },
 });
-
-export default CurvedDisplay;

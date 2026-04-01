@@ -11,9 +11,9 @@ import OrderDetails from '../screens/MyOrders/OrderDetails';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
-import CorporateGifts from '../Sections/Corporategifts';
+import CorporateGifts from '../components/Microsites/corporategifts';
+import SareeStore from '../components/Microsites/SareeStore';
 const Stack = createStackNavigator();
-
 const HeaderRight = ({navigation, isLoggedIn}) => {
   const wishlist = useSelector(state => state.wishlist.items);
   const cart = useSelector(state => state.cart.cartItems);
@@ -131,6 +131,7 @@ const RootStack = () => {
         <Stack.Screen name={'CLP'} component={CLP} />
         <Stack.Screen name={'OrderDetails'} component={OrderDetails}/>
         <Stack.Screen name={'Corporategifts'} component={CorporateGifts}/>
+        <Stack.Screen name={'SareeStore'} component={SareeStore}/>
       </Stack.Navigator>
       <AuthModal
         visible={modalVisible}
