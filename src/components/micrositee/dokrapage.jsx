@@ -6,6 +6,7 @@ import Shopbyprice from '../../components/micrositee/sections/Shopbyprice';
 import { decode } from 'html-entities';
 import LastingImpression from '../../components/micrositee/sections/LastingImpression';
 import Footer from '../Footer';
+import Supportingartisans from "../../components/micrositee/sections/Supportingartisans"
 export default function Dokra() {
   return (
     <ScrollView>
@@ -75,6 +76,9 @@ export default function Dokra() {
                         }
 
 />
+<Supportingartisans
+      apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=dokra&deviceType=mobile&shopId=26"
+      position={7}/>
  <LastingImpression
   apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=dokra&deviceType=mobile&shopId=26"
    topIndex={1}

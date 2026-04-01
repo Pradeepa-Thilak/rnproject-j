@@ -50,10 +50,11 @@ const styles=StyleSheet.create({
     label: {
    paddingVertical:20,
     fontSize: 16,
-
+      textAlign:"center",
     textDecorationLine: "underline",
     fontFamily:"Lato-Regular",
-    textTransform:"uppercase"
+    textTransform:"uppercase",
+    width:"90%"
     
   },
 })
