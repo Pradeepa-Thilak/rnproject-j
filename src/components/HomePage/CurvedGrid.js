@@ -1,21 +1,15 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+
 const CurvedDisplay = () => {
-  const navigation = useNavigation();
   const first = {
     id: 1,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-1_3771_1770632379038.jpg',
     name: 'The World of Botanicals',
     cat: 'styles for modern indian summer',
-    navigationlink: 'SareeStore',
+    navigationlink: 'dokra'
   };
   const curved = [
     {
@@ -33,18 +27,15 @@ const CurvedDisplay = () => {
       navigationlink: 'SareeStore',
     },
   ];
-  const handleNavigation = (item) => {
-    if (item?.navigationlink) {
-      navigation.navigate(item.navigationlink);
-    }
-  };
-  const renderProducts = ({ item }) => (
+   const navigation = useNavigation();
+
+  const renderProducts = item => (
     <Pressable
-      style={styles.product}
-      onPress={() => handleNavigation(item)}
-    >
-      <View style={{ aspectRatio: 300 / 453 }}>
-        <Image source={{ uri: item.uri }} style={styles.img} />
+    onPress={()=>navigation.navigate(item.navigationlink || 'dokra')}
+     style={styles.product}>
+      <View style={{aspectRatio: 300/453}}>
+      <Image source={{ uri: item.uri }} style={styles.img} />
+
       </View>
       <Text style={styles.imgName}>{item.name}</Text>
       <Text style={styles.imgCat}>{item.cat}</Text>
@@ -57,26 +48,31 @@ const CurvedDisplay = () => {
       <View style={styles.head}>
         <Text style={styles.headText}>jaypore finest</Text>
       </View>
-      {/* FIRST BIG CARD */}
-      <Pressable
-        style={{ marginBottom: 20 }}
-        onPress={() => handleNavigation(first)}
-      >
-        <View style={{ aspectRatio: 600 / 700 }}>
-          <Image source={{ uri: first.uri }} style={styles.img} />
-        </View>
-        <Text style={styles.imgName}>{first.name}</Text>
-        <Text style={styles.imgCat}>{first.cat}</Text>
-        <Text style={styles.shop}>shop now</Text>
-      </Pressable>
-      {/* GRID LIST */}
-      <FlatList
-        data={curved}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderProducts}
-        numColumns={2}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-      />
+      <View>
+        <Pressable 
+        onPress={()=>navigation.navigate(first.navigationlink)}
+        style={{ width: '100%', marginBottom: 15 }}>
+          <View style={{aspectRatio: 600/700}}>
+          <Image
+            source={{ uri: first.uri }}
+            style={{
+              height: '100%',
+              width: '100%',
+              resizeMode: 'contain',
+            }}
+          />
+          </View>
+          <Text style={styles.imgName}>{first.name}</Text>
+          <Text style={styles.imgCat}>{first.cat}</Text>
+          <Text style={styles.shop}>shop now</Text>
+        </Pressable>
+        <FlatList
+          data={curved}
+          initialNumToRender={1}
+          renderItem={({ item }) => renderProducts(item)}
+          numColumns={2}
+        />
+      </View>
     </View>
   );
 };

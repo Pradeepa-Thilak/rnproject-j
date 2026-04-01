@@ -26,3 +26,6 @@ const SpriteIcon = ({ x, y, w, h, spriteWidth, spriteHeight }) => {
 };
 
 export default SpriteIcon;
+// const scale = bgSize / originalWidth;
+// const spriteWidth = bgSize;
+// const spriteHeight = originalHeight * scale;

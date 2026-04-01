@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 12,
     marginBottom: 10,
-    // backgroundColor:'white'
   },
   dot: {
     width: 7,

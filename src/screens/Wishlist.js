@@ -14,6 +14,9 @@ import { removeFromWishlist } from '../slice/wishListSlice';
 import { addToCart } from '../slice/cartSlice';
 import ToastMsg from '../components/ToastMsg';
 import { useNavigation } from '@react-navigation/native';
+import { checkStock } from '../utils/StockChecker';
+import PortalCom from '../components/PortalCom';
+import { updateWishlistSize } from '../slice/wishListSlice';
 
 const Wishlist = () => {
   const wishlist = useSelector(state => state.wishlist.items);
@@ -23,6 +26,8 @@ const Wishlist = () => {
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const navigation = useNavigation();
+  const [dropdownPos, setDropdownPos] = useState({ x: 0, y: 0 });
+  const [size, setSizeval] = useState('');
 
   const showToast = msg => {
     setToastVisible(true);
@@ -43,16 +48,29 @@ const Wishlist = () => {
 
   const renderWishlist = item => {
     const product = item._source;
+    const isInStock = checkStock(product);
     console.log(item);
     const img = item._source.Media.Images[0];
 
     return (
       <View style={styles.outerBox}>
+        {!isInStock && (
+          <View style={styles.outOfStockOverlay}>
+            <Text style={styles.outOfStockOverlayText}>Out of stock</Text>
+          </View>
+        )}
+        <IconButton
+            icon={'close'}
+            style={styles.icon}
+            iconColor="#000"
+            onPress={() => removefromWishlist(item)}
+          />
         <Pressable
           style={{
             position: 'relative',
           }}
-          onPress={() => navigation.navigate("PDP",{product: item})}
+          onPress={() => navigation.navigate("PDP", { product: item })}
+          disabled={!isInStock}
         >
           <Image
             source={{
@@ -60,12 +78,7 @@ const Wishlist = () => {
             }}
             style={styles.proImg}
           />
-          <IconButton
-            icon={'close'}
-            style={styles.icon}
-            iconColor="#000"
-            onPress={() => removefromWishlist(item)}
-          />
+          
         </Pressable>
         <View style={{ paddingVertical: 10 }}>
           <Text style={styles.ProductBrand}>{product.Features.Brand}</Text>
@@ -96,24 +109,50 @@ const Wishlist = () => {
           </View>
           <Pressable
             style={styles.sizeBtn}
-            onPress={() => setSize(item._id === sizeOpen ? null : item._id)}
+            onPress={(event) => {
+              const { pageX, pageY } = event.nativeEvent;
+
+              if (sizeOpen !== item._id) {
+                setSize(item._id);
+                setDropdownPos({
+                  x: pageX,
+                  y: pageY
+                })
+              } else {
+                setSize(null)
+              }
+            }}
+            disabled={!isInStock}
           >
-            <Text style={styles.sizeText}>Size</Text>
+            <Text style={styles.sizeText}>Size {item.selectedSize || ''}</Text>
             <Icon source={'chevron-down'} size={15} />
           </Pressable>
           {sizeOpen === item._id && (
-            <FlatList
-              data={product.Sizes}
-              renderItem={({ item }) => (
-                <Pressable style={styles.sizeBox}>
-                  <Text>{item.Name}</Text>
+            <PortalCom
+              positions={{
+                x: dropdownPos.x,
+                y: dropdownPos.y
+              }}
+              onBackdropPress={() => setSize(null)}
+            >
+              <View style={styles.dropDownMenuContainer}>
+              {product.Sizes.map((size, ind) => (
+                <Pressable key={ind} onPress={() => {
+                  dispatch(updateWishlistSize({id:item._id, size:size.Name}));
+                  setSize(null);
+                }}
+                style={[styles.DropdownMenu, item.selectedSize===size.Name && {backgroundColor: '#bb4225'}]}
+                >
+                  <Text
+                    style={[styles.DropdownMenuTxt, item.selectedSize === size.Name && {color: '#fff'} ]}
+                  >{size.Name}</Text>
                 </Pressable>
-              )}
-              style={styles.sizeRender}
-            />
+              ))}
+            </View>
+            </PortalCom>
           )}
         </View>
-        <Pressable style={styles.bagBtn} onPress={() => addtoCart(item)}>
+        <Pressable style={styles.bagBtn} onPress={() => addtoCart(item)} disabled={!isInStock}>
           <Text style={styles.bagText}>Add to Bag</Text>
         </Pressable>
       </View>
@@ -170,6 +209,25 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     padding: 20,
     marginBottom: 20,
+    position: 'relative'
+  },
+  outOfStockOverlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    zIndex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  outOfStockOverlayText: {
+    fontSize: 14,
+    fontFamily: 'Lato-Bold',
+    color: '#eb3840',
+    fontWeight: 900,
+    textAlign:'center',
   },
   proImg: {
     height: 350,
@@ -178,9 +236,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    right: 10,
-    top: 5,
+    right: '10%',
+    top: '3%',
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    zIndex: 10,
   },
   ProductBrand: {
     fontSize: 12,
@@ -265,6 +324,29 @@ const styles = StyleSheet.create({
   sizeBox: {
     padding: 5,
   },
+  dropDownMenuContainer: {
+        position: 'absolute',
+        top: '100%',
+        left: 0,
+        marginTop: 5,
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 4,
+        elevation: 10,
+        zIndex: 999,
+        width: 80,
+    },
+    DropdownMenu: {
+        paddingVertical: 6,
+        paddingHorizontal: 10,
+    },
+    DropdownMenuTxt: {
+        fontFamily: 'Lato-Regular',
+        fontSize: 16,
+        color: '#000',
+        textTransform: 'uppercase',
+    },
 });
 
 export default Wishlist;
