@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from "react-native";
-import JourneySection from "./Sections/JourneySection/Index";
+import JourneySection from "../micrositee/sections/JourneySection/Index";
 import Footer from "../../components/Footer";
 const CorporateGifts = () => {
   const [data, setData] = useState(null);

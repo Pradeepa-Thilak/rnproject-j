@@ -3,7 +3,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import VideoSection from './Sections/VideoSection';
+import VideoSection from '../micrositee/sections/VideoSection';
 import Footer from '../../components/Footer';
 const SareeStore = () => {
   const [data, setData] = useState(null);

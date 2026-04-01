@@ -14,8 +14,8 @@ import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
 
-import CorporateGifts from '../components/Microsites/corporategifts';
-import SareeStore from '../components/Microsites/SareeStore';
+import CorporateGifts from "../components/micrositee/corporategifts";
+import SareeStore from "../components/micrositee/SareeStore";
 
 import EossScreen from '../components/micrositee/eosspage';   
 import Coastal from '../components/micrositee/coastal';
