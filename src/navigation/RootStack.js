@@ -9,9 +9,14 @@ import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import Cart from '../screens/Cart/index';
+import OrderDetails from '../screens/MyOrders/OrderDetails';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
+
+import CorporateGifts from '../components/Microsites/corporategifts';
+import SareeStore from '../components/Microsites/SareeStore';
+
 import EossScreen from '../components/micrositee/eosspage';   
 import Coastal from '../components/micrositee/coastal';
 
@@ -20,6 +25,7 @@ import Coastal from '../components/micrositee/coastal';
 const Stack = createStackNavigator();
 
 const HeaderRight = ({navigation, isLoggedIn, setModalVisible}) => {
+
 
   const wishlist = useSelector(state => state.wishlist.items);
   const cart = useSelector(state => state.cart.cartItems);
@@ -152,6 +158,11 @@ const RootStack = () => {
           }}
         />
         <Stack.Screen name={'CLP'} component={CLP} />
+
+        <Stack.Screen name={'OrderDetails'} component={OrderDetails}/>
+        <Stack.Screen name={'Corporategifts'} component={CorporateGifts}/>
+        <Stack.Screen name={'SareeStore'} component={SareeStore}/>
+
         <Stack.Screen name={'EOSS'} component={EossScreen} />
 
         <Stack.Screen name={'Corporategifting'} component={Corporategifting} />

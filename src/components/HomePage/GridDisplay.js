@@ -2,7 +2,6 @@ import React from 'react';
 import { Pressable, View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Gridproducts } from '../../lib/ConstData';
-
 const GridDisplay = ({ navigation: navProp }) => {
   const navigationHook = useNavigation();
   const navigation = navProp || navigationHook;
@@ -18,6 +17,7 @@ const GridDisplay = ({ navigation: navProp }) => {
     >
       <View style={{ aspectRatio: 279 / 365 }}>
         <Image source={{ uri: item.uri }} style={styles.img} />
+
       </View>
 
       <Text style={styles.imgName}>{item.name}</Text>
