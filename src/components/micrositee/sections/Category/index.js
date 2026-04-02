@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 
-export default function Category({ apiUrl, containerStyle, imageStyle }) {
- const [images,setImages]=useState([])
+export default function Category({ apiUrl, containerStyle, imageStyle ,pos}) {
+ const [data,setData]=useState([])
 
  useEffect(()=>{
     const fetchData= async ()=>{
@@ -21,10 +21,10 @@ export default function Category({ apiUrl, containerStyle, imageStyle }) {
 
             const sections=json?.results?.SectionDetails || []
 
-            const section2=sections.find(sec=> sec.position === 2)
+            const section2=sections.find(sec=> sec.position === pos)
 
             if (section2?.MediaDetails?.length > 0){
-                setImages(section2.MediaDetails)
+                setData(section2.MediaDetails)
             }
         }catch(err){
             console.log("api error",err)
@@ -32,46 +32,62 @@ export default function Category({ apiUrl, containerStyle, imageStyle }) {
     }
     fetchData()
 
- },[apiUrl])
-   if (!images.length) return null;
+ },[apiUrl,pos])
+   if (!data.length) return null;
+   const bgImage = data.find(item => item.a_media_type === "BackgroundImage");
+
+const headingText = data.find(item => item.a_media_type === "Text");
+
+const categories = data
+  .filter(item => item.a_media_type === "Image")
+  .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
+  .slice(0, 4);
   return (
-    <View style={{position:"relative",paddingBottom:40,backgroundColor:"white"}}> 
+  <View style={{ position: "relative", paddingBottom: 40, backgroundColor: "white" }}>
 
-          <Image
-            source={{
-              uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/Component_20_1_19_1720682783637_3771_1730193509295.png',
-            }}
-            style={{
-              width: '100%',
-             position:"absolute",
-              aspectRatio: 1080 / 329,
-              paddingVertical: 20,
-            
-            }}
-            resizeMode="contain"
-          />
-        
-   <View style={styles.categorycon} >
-        <Text style={styles.heading}>Shop by Ocassion</Text>
-        <View style={styles.categories}>
-            
- {images.slice(0,4).map((item, index) => (
-    <Pressable key={index} style={{ marginBottom: 10 ,backgroundColor:"pink"}}>
-    
+    {/* Background */}
+    {bgImage?.a_image ? (
       <Image
-        source={{ uri: item.a_image }}
-        style={imageStyle}
+        source={{ uri: bgImage.a_image }}
+        style={{
+          width: '100%',
+          aspectRatio: 1080 / 329,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0
+        }}
+        resizeMode="contain"
       />
-    </Pressable>
-  ))}
-        </View>
-           </View>
-    </View>
-     
+    ) : null}
 
-      
-   
-  );
+    <View style={styles.categorycon}>
+
+      {headingText?.a_title ? (
+        <Text style={styles.heading}>
+          {headingText.a_title}
+        </Text>
+      ) : null}
+
+      <View style={styles.categories}>
+        {categories.map((item, index) => (
+          <Pressable key={index} 
+           style={[
+      styles.item,
+      index === categories.length - 1 && { marginBottom: 0 }
+    ]}>
+            <Image
+              source={{ uri: item.a_image }}
+              style={imageStyle}
+            />
+          
+          </Pressable>
+        ))}
+      </View>
+
+    </View>
+  </View>
+);
 }
 
 const styles = StyleSheet.create({
@@ -86,13 +102,15 @@ const styles = StyleSheet.create({
     color:"#383938",
        fontFamily:"EBGaramond-Regular",
     fontSize:26,
+    textAlign:"center"
   },
   categories:{
         paddingVertical:30,
-        paddingHorizontal:50
+        paddingHorizontal:50,
+        
   },
-  imageStyle:{
-    width:100,
-    height:100
-  }
+  item:{
+    marginBottom:20
+  },
+ 
 });

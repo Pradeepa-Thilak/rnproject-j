@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import GridImages from '../Gridimages';
+import {decode as atob} from "base-64"
 
 export default function Bestsellers({ apiUrl, containerStyle, imageStyle , imgbguri ,imgbgstyle,titleimg,titleimgstyle,para,categorytopimg,categorytopimgstyle,pos, transformData,categoryconstyle,}) {
   const [images, setImages] = useState([]);
@@ -54,7 +55,7 @@ const category = transformData
 <View style={{ maxWidth: 280, alignItems: 'center' }}>
 
           <Text style={styles.para}>
-            {para}
+            {atob(para)}
           </Text>
 </View>
         </View>
@@ -85,7 +86,8 @@ const styles = StyleSheet.create({
   para: {
        fontFamily:"EBGaramond-Regular",
     fontSize: 14,
-    marginBottom: 40,
+    lineHeight:18,
+  maxWidth:300,
     textAlign: 'center',
   },
   category: {

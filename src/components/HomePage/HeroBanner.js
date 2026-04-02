@@ -10,13 +10,16 @@ import {
 import { bannerImg } from '../../lib/ConstData';
 import { useNavigation } from '@react-navigation/native';
 const { width } = Dimensions.get('window');
-const HeroBanner = ({ isHome = true, clpData, aspectRatio}) => {
+const HeroBanner = ({ isHome = true, clpData, aspectRatio,apiUrl,pos,}) => {
 
   const navigation = useNavigation();
   const [active, setActive] = useState(0);
+    const [apiData, setApiData] = useState([]);
   const flatListRef = useRef(null);
   // Data — HomeScreen: bannerImg, CLP: clpData
-  const bannerData = isHome ? bannerImg : clpData;
+ const bannerData = apiUrl
+  ? apiData
+  : (isHome ? bannerImg : clpData);
   const loopData = [...bannerData, ...bannerData, ...bannerData];
   const currentIndex = useRef(bannerData.length);
   const handleScroll = event => {
@@ -38,6 +41,37 @@ const HeroBanner = ({ isHome = true, clpData, aspectRatio}) => {
       });
     }
   };
+
+  //  if apiUrl given
+  useEffect(() => {
+    if (!apiUrl) return;
+
+    const fetchData = async () => {
+      try {
+        const res = await fetch(apiUrl);
+        const json = await res.json();
+
+        const sections = json?.results?.SectionDetails || [];
+        const section = sections.find(sec => sec.position === pos);
+
+        if (section?.MediaDetails?.length > 0) {
+          const images = section.MediaDetails
+            .filter(item => item.a_media_type === "Image")
+            .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
+            .map(item => ({
+              uri: item.a_image,
+              link: item.a_link
+            }));
+
+          setApiData(images);
+        }
+      } catch (err) {
+        console.log("api error", err);
+      }
+    };
+
+    fetchData();
+  }, [apiUrl, pos]);
   useEffect(() => {
     const interval = setInterval(() => {
       let nextIndex = currentIndex.current + 1;

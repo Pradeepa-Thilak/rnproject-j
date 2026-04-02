@@ -8,7 +8,7 @@ const Thumbnail = () => {
   const renderThumbNail = item => (
     <Pressable
       style={styles.thumbWhole}
-      onPress={() => navigation.navigate('PLP')}
+      onPress={() => navigation.navigate(item.navigationlink)}
     >
       <View style={{aspectRatio: 1}}>
       <Image source={{ uri: item.uri }} style={styles.img} />

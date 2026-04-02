@@ -1,79 +1,86 @@
 import {
   View,
   Text,
-  Pressable,
   StyleSheet,
   ImageBackground,
-    FlatList,
-  Image,
- 
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import GridImages from "../Gridimages";
-export default function Popgiftcategory({ apiUrl, containerStyle, imageStyle }) {
- const [images,setImages]=useState([])
+import { decode as atob } from "base-64";
 
- useEffect(()=>{
-    const fetchData= async ()=>{
-        try{
-            const res= await fetch(apiUrl)
-            const json = await res.json()
+export default function Popgiftcategory({ apiUrl, pos = 3 }) {
 
-            const sections=json?.results?.SectionDetails || []
+  const [data, setData] = useState([]);
 
-            const section2=sections.find(sec=> sec.position === 3)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(apiUrl);
+        const json = await res.json();
 
-            if (section2?.MediaDetails?.length > 0){
-                setImages(section2.MediaDetails)
-            }
-        }catch(err){
-            console.log("api error",err)
+        const sections = json?.results?.SectionDetails || [];
+        const section = sections.find(sec => sec.position === pos);
+
+        if (section?.MediaDetails?.length > 0) {
+          setData(section.MediaDetails);
         }
-    }
-    fetchData()
+      } catch (err) {
+        console.log("api error", err);
+      }
+    };
 
- },[apiUrl])
-   if (!images.length) return null;
-   const category=images.slice(0,8).map(item => item.a_image)
+    fetchData();
+  }, [apiUrl, pos]);
+
+  if (!data.length) return null;
+
+ 
+  const bgImage = data.find(item => item.a_media_type === "BackgroundImage");
+
+  const textItems = data.filter(item => item.a_media_type === "Text");
+
+  const heading = textItems[0]?.a_title;
+  const description = textItems[1]?.a_description || textItems[0]?.a_description;
+
+  const images = data
+    .filter(item => item.a_media_type === "Image")
+    .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
+    .slice(0, 8)
+    .map(item => item.a_image);
+
   return (
-    
+    <ImageBackground
+      source={{ uri: bgImage?.a_image }}
+      style={styles.bg}
+      resizeMode="contain"
+    >
+      <View style={styles.categorycon}>
 
-          <ImageBackground
-            source={{
-              uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/Component_45_1_19_1720702352438_3771_1730193588284.jpg',
-            }}
-            style={{
-              width: '100%',
-            
-              aspectRatio: 9 / 26,
-              paddingVertical: 20,
-            
-            }}
-            resizeMode="contain"
-          >
-        
-   <View style={styles.categorycon} >
-        <Text style={styles.heading}>Popular gifting categories</Text>
-        <View style={{maxWidth:350}}  >
+        {heading ? (
+          <Text style={styles.heading}>{heading}</Text>
+        ) : null}
 
-        <Text style={styles.para}>A thoughtful gift is timeless. At Jaypore, we curate the finest crafts from India so your gift becomes a prized possession. Explore our most popular categories to get started.</Text>
-        </View>
+        {description ? (
+          <View style={{ maxWidth: 350 }}>
+            <Text style={styles.para}>
+              {atob(description)}
+            </Text>
+          </View>
+        ) : null}
 
         <View style={styles.category}>
-                <GridImages
-                 data={category}  
-                 spacing={20}
-                 imageStyle={{
-                    width:"100%",
-                    aspectRatio:4/5,
-                    
-                 }}
-                />
-                
+          <GridImages
+            data={images}
+            spacing={20}
+            imageStyle={{
+              width: "100%",
+              aspectRatio: 4 / 5,
+            }}
+          />
         </View>
-           </View>
-  </ImageBackground>
 
+      </View>
+    </ImageBackground>
   );
 }
 
@@ -98,5 +105,9 @@ const styles = StyleSheet.create({
   category:{
     paddingHorizontal:30
   },
- 
+ bg: {
+  width: '100%',
+  aspectRatio: 9 / 26,
+  paddingVertical: 20,
+}
 });

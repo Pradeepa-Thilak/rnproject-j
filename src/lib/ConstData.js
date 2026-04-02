@@ -3,11 +3,14 @@ export const thumbnailBanner = [
     id: 1,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/Sale_Upto50OFF_M_3771_1770697998406.jpg',
     label: 'Sale upto 50% off',
+    navigationlink:'PLP'
+
   },
   {
     id: 2,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/2_M-3_3771_1771398590090.jpg',
     label: 'Kurta & kurta sets',
+      navigationlink:'thegiftedit'
   },
   {
     id: 3,
