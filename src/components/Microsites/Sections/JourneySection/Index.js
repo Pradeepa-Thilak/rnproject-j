@@ -7,29 +7,33 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { decode as atob } from 'base-64';
 const JourneySection = ({ section }) => {
   const items = section?.MediaDetails || [];
-  const contact = items.find(i =>
-    i?.a_title?.toLowerCase().includes('get in touch')
+  // ✅ TEXT ITEM (API)
+  const textItem = items.find(
+    item => item.a_media_type === 'Text'
   );
+  // ✅ IMAGE ITEMS (API)
+  const imageItems = items
+    .filter(item => item.a_media_type === 'Image')
+    .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence));
+  const description = textItem?.a_description
+    ? atob(textItem.a_description)
+    : '';
   return (
-    <View style={styles.sectionBox}>
-      {/* CONTACT */}
-      {contact && (
-        <>
-          <Text style={styles.heading}>{contact.a_title}</Text>
-          <Text style={styles.subText}>
-            {contact.a_shortdescription}
-          </Text>
-          <Text style={styles.email}>
-            b2b@jaypore.com
-          </Text>
-          <Text style={styles.phone}>
-            Ph: (+91) 8087549632
-          </Text>
-        </>
-      )}
-      {/* FORM */}
+    <View style={styles.container}>
+      {/* 🔹 GET IN TOUCH SECTION */}
+      <Text style={styles.heading}>
+        Get In Touch With Us
+      </Text>
+      <Text style={styles.desc}>
+        We will be happy to assist you with your queries.
+        Please feel free to contact us via email at:
+      </Text>
+      <Text style={styles.email}>b2b@jaypore.com</Text>
+      <Text style={styles.phone}>Ph: (+91) 8087549632</Text>
+      {/* 🔹 FORM */}
       <View style={{ marginTop: 15 }}>
         <TextInput placeholder="Name" style={styles.input} />
         <TextInput placeholder="Email-ID" style={styles.input} />
@@ -43,29 +47,39 @@ const JourneySection = ({ section }) => {
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </View>
-      {/* JOURNEY */}
+      {/* 🔹 JOURNEY TITLE FROM API */}
+      <Text style={[styles.heading, { marginTop: 30 }]}>
+        {textItem?.a_title}
+      </Text>
+      {/* 🔹 JOURNEY DESCRIPTION FROM API */}
+      <Text style={styles.desc}>
+        {description}
+      </Text>
+      {/* 🔹 JOURNEY ITEMS FROM API */}
       <View style={{ marginTop: 20 }}>
-        {items.map((item, i) => {
-          if (!item?.a_image) return null;
-          return (
-            <View key={i} style={styles.journeyItem}>
-              <Image
-                source={{ uri: item.a_image }}
-                style={styles.journeyImage}
-              />
-              <Text style={styles.journeyText}>
+        {imageItems.map((item, i) => (
+          <View key={i} style={styles.row}>
+            <Image
+              source={{ uri: item.a_image }}
+              style={styles.icon}
+            />
+            <View style={{ flex: 1 }}>
+              <Text style={styles.title}>
                 {item.a_title}
               </Text>
+              <Text style={styles.sub}>
+                {item.a_shortdescription}
+              </Text>
             </View>
-          );
-        })}
+          </View>
+        ))}
       </View>
     </View>
   );
 };
 export default JourneySection;
 const styles = StyleSheet.create({
-  sectionBox: {
+  container: {
     padding: 20,
     backgroundColor: '#f5f1ea',
   },
@@ -74,11 +88,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
     fontWeight: '600',
+    color: '#212121',
   },
-  subText: {
+  desc: {
     textAlign: 'center',
-    marginBottom: 10,
+    fontSize: 14,
     color: '#555',
+    marginBottom: 10,
   },
   email: {
     textAlign: 'center',
@@ -103,16 +119,23 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
   },
-  journeyItem: {
+  row: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginBottom: 20,
   },
-  journeyImage: {
-    width: 80,
-    height: 80,
+  icon: {
+    width: 60,
+    height: 60,
+    marginRight: 15,
   },
-  journeyText: {
-    marginTop: 5,
-    textAlign: 'center',
+  title: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  sub: {
+    fontSize: 12,
+    color: '#555',
+    marginTop: 2,
   },
 });
