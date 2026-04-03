@@ -6,6 +6,7 @@ import Shopbyprice from '../../components/micrositee/sections/Shopbyprice';
 import { decode } from 'html-entities';
 import LastingImpression from '../../components/micrositee/sections/LastingImpression';
 import Footer from '../Footer';
+import Supportingartisans from "../../components/micrositee/sections/Supportingartisans"
 export default function Dokra() {
   return (
     <ScrollView>
@@ -35,9 +36,7 @@ export default function Dokra() {
           aspectRatio: 177 / 38,
           width: '80%',
         }}
-        para={
-          "Dokra, a 4,500-year-old craft passed down through generations, is a testament to patience & artistry. The process begins with shaping a clay core, which is meticulously coated in layers of wax. Skilled artisans then hand-carve intricate patterns & details into the wax. Through the lost-wax technique, molten brass is poured in to take the place of the wax as it melts away. Once the metal cools, the clay mold is broken, unveiling a one-of-a-kind brass creation. Each piece reflects ancient craftsmanship & the enduring spirit of India's cultural heritage."
-        }
+      para={"RG9rcmEsIGEgNCw1MDAteWVhci1vbGQgY3JhZnQgcGFzc2VkIGRvd24gdGhyb3VnaCBnZW5lcmF0aW9ucywgaXMgYSB0ZXN0YW1lbnQgdG8gcGF0aWVuY2UgJiBhcnRpc3RyeS4gVGhlIHByb2Nlc3MgYmVnaW5zIHdpdGggc2hhcGluZyBhIGNsYXkgY29yZSwgd2hpY2ggaXMgbWV0aWN1bG91c2x5IGNvYXRlZCBpbiBsYXllcnMgb2Ygd2F4LiBTa2lsbGVkIGFydGlzYW5zIHRoZW4gaGFuZC1jYXJ2ZSBpbnRyaWNhdGUgcGF0dGVybnMgJiBkZXRhaWxzIGludG8gdGhlIHdheC4gVGhyb3VnaCB0aGUgbG9zdC13YXggdGVjaG5pcXVlLCBtb2x0ZW4gYnJhc3MgaXMgcG91cmVkIGluIHRvIHRha2UgdGhlIHBsYWNlIG9mIHRoZSB3YXggYXMgaXQgbWVsdHMgYXdheS4gT25jZSB0aGUgbWV0YWwgY29vbHMsIHRoZSBjbGF5IG1vbGQgaXMgYnJva2VuLCB1bnZlaWxpbmcgYSBvbmUtb2YtYS1raW5kIGJyYXNzIGNyZWF0aW9uLiBFYWNoIHBpZWNlIHJlZmxlY3RzIGFuY2llbnQgY3JhZnRzbWFuc2hpcCAmIHRoZSBlbmR1cmluZyBzcGlyaXQgb2YgSW5kaWEncyBjdWx0dXJhbCBoZXJpdGFnZS4="}
         categorytopimg={
           'https://imagescdn.jaypore.com/uploads/micrositmedia/production/0_Forged_in_Tradition_3771_1731320781201.jpg'
         }
@@ -45,6 +44,7 @@ export default function Dokra() {
           width: '100%',
           aspectRatio: 939 / 946,
         }}
+        parastyle={{ paddingBottom:20}}
         pos={4}
         transformData={images => images.slice(0, 4).map(item => item.a_image)}
       />
@@ -75,6 +75,9 @@ export default function Dokra() {
                         }
 
 />
+<Supportingartisans
+      apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=dokra&deviceType=mobile&shopId=26"
+      position={7}/>
  <LastingImpression
   apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=dokra&deviceType=mobile&shopId=26"
    topIndex={1}

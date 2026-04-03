@@ -1,20 +1,22 @@
-import { ScrollView } from "react-native";
-
-import MsiteHeroBanner from "../../components/micrositee/sections/Msiteherobanner";
-import Category from "../../components/micrositee/sections/Category";
-import Popgiftcategory from "../../components/micrositee/sections/Popgiftcategory";
-import BestSellers from "../../components/micrositee/sections/Bestsellers";
-import Shopbyprice from "../../components/micrositee/sections/Shopbyprice";
-import LastingImpression from "../../components/micrositee/sections/LastingImpression";
-
-import Footer from "../../components/Footer";
-import { decode } from "html-entities";
-
-export default function SareeStore() {
-
-  const api =
-    "https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=the-saree-store&deviceType=mobile&shopId=26";
-
+import React, { useEffect, useState } from 'react';
+import {
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
+import VideoSection from '../micrositee/sections/VideoSection';
+import Footer from '../../components/Footer';
+const SareeStore = () => {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch(
+      'https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=the-saree-store&deviceType=mobile&shopId=26'
+    )
+      .then(res => res.json())
+      .then(json => setData(json))
+      .catch(err => console.log(err));
+  }, []);
+  if (!data) return <ActivityIndicator size="large" />;
+  const sections = data?.results?.SectionDetails || [];
   return (
     <ScrollView style={{ flex: 1 }}>
 

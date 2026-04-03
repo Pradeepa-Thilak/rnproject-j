@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 export default function ShopByCategory({ position, api }) {
-  const [heading, setHeading] = useState('');
+
   const [badge, setBadge] = useState(null);
   const [chips, setChips] = useState([]);
 
@@ -34,7 +34,6 @@ export default function ShopByCategory({ position, api }) {
         );
         setBadge(badgeItem?.a_image || null);
 
-        // 🔥 Chips (all other text items except heading)
         const chipItems = section.MediaDetails
           .filter(item =>
             item.a_media_type === 'Text' &&
@@ -58,7 +57,7 @@ export default function ShopByCategory({ position, api }) {
   return (
     <View style={styles.container}>
       
-      {/* 🔥 Heading + Badge */}
+    
     <View style={styles.headingRow}>
   
     <Text style={styles.heading}>Shop by category</Text>
@@ -71,7 +70,7 @@ export default function ShopByCategory({ position, api }) {
     />
   )}
 </View>
-      {/* 🔥 Chips */}
+ 
       <View style={styles.row}>
         {chips.map(item => (
           <TouchableOpacity

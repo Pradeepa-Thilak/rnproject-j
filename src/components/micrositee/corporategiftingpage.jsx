@@ -32,10 +32,11 @@ export default function Corporategifting(){
     width: "100%",
     aspectRatio: 799 / 1002,   
     resizeMode: "cover",
-  }}/>
+  }}
+  pos={2}/>
   <Popgiftcategory
    apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=corporategifting&deviceType=mobile&shopId=26"
-
+pos={3}
   />
   <BestSellers
    apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=corporategifting&deviceType=mobile&shopId=26"
@@ -45,16 +46,19 @@ export default function Corporategifting(){
           aspectRatio: 40 / 21,
         }}
         categoryconstyle={{
-           justifyContent:"center",
-    alignItems: 'center',
-   marginTop:-200
+          position:"absolute",
+          top:55,
+          left:20,
+          right:0,
+          bottom:0,
+          alignItems:"center"
         }}
    titleimg="https://imagescdn.jaypore.com/uploads/micrositmedia/production/Our_Bestsellers2x_19_1720702707071_3771_1730195857261.png"
    titleimgstyle={{
       aspectRatio:97/30,
    width:"58%"
    }}
-   para={"A curated collection of timeless treasures that have captured hearts far & wide. Elevate your style with our most-loved picks & make every moment extraordinary. Discover Jaypore's top picks & indulge in the art of curated excellence."}
+   para={"QSBjdXJhdGVkIGNvbGxlY3Rpb24gb2YgdGltZWxlc3MgdHJlYXN1cmVzIHRoYXQgaGF2ZSBjYXB0dXJlZCBoZWFydHMgZmFyICYgd2lkZS4gRWxldmF0ZSB5b3VyIHN0eWxlIHdpdGggb3VyIG1vc3QtbG92ZWQgcGlja3MgJiBtYWtlIGV2ZXJ5IG1vbWVudCBleHRyYW9yZGluYXJ5LiBEaXNjb3ZlciBKYXlwb3JlJ3MgdG9wIHBpY2tzICYgaW5kdWxnZSBpbiB0aGUgYXJ0IG9mIGN1cmF0ZWQgZXhjZWxsZW5jZS4="}
    categorytopimg={"https://imagescdn.jaypore.com/uploads/micrositmedia/production/13_Top_Banner_19_1720682525223_3771_1729683128121.jpg"}
    categorytopimgstyle={{width:"100%",
                 aspectRatio:329/331

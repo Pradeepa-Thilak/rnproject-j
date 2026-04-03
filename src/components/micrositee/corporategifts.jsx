@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, ActivityIndicator } from "react-native";
+import { ScrollView, 
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet, } from "react-native";
 import Msiteherobanner from "../micrositee/sections/Msiteherobanner";
 import FeaturedCollections from "../micrositee/sections/FeaturedCollections";
 import JourneySection from "./Sections/JourneySection/Index";
