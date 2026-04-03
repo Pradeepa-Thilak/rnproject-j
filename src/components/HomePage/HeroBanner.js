@@ -85,7 +85,7 @@ const HeroBanner = ({ isHome = true, clpData, aspectRatio,apiUrl,pos,}) => {
       currentIndex.current = nextIndex;
     }, isHome ? 2000 : 3000);  //  HomeScreen: 2000, CLP: 3000
     return () => clearInterval(interval);
-  }, []);
+  }, [isHome,bannerData.length]);
   return (
     <View style={{ backgroundColor: '#fff' }}>
       <FlatList

@@ -43,10 +43,10 @@ export default function Popgiftcategory({ apiUrl, pos = 3 }) {
   const description = textItems[1]?.a_description || textItems[0]?.a_description;
 
   const images = data
-    .filter(item => item.a_media_type === "Image")
+    .filter(item => item.a_media_type === "Image" && item.a_image)
     .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
-    .slice(0, 8)
-    .map(item => item.a_image);
+    .map(item => item.a_image)
+
 
   return (
     <ImageBackground

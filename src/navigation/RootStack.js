@@ -3,8 +3,6 @@ import BottomTabNavigation from './BottomTabNavigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import PLP from '../screens/PLP';
 import PDP from '../screens/PDP/index';
-import Corporategifting from "../components/micrositee/corporategiftingpage"
-import Dokra from "../components/micrositee/dokrapage"
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
@@ -14,6 +12,9 @@ import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
 
+import Corporategifting from "../components/micrositee/corporategiftingpage"
+import Dokra from "../components/micrositee/dokrapage"
+import Houseofsilver from "../components/micrositee/houseofsilver"
 import CorporateGifts from "../components/micrositee/corporategifts";
 import SareeStore from "../components/micrositee/SareeStore";
 
@@ -166,6 +167,7 @@ const RootStack = () => {
         <Stack.Screen name={'EOSS'} component={EossScreen} />
 
         <Stack.Screen name={'Corporategifting'} component={Corporategifting} />
+        <Stack.Screen name={'Houseofsilver'} component={Houseofsilver} />
 
         <Stack.Screen name={'coastal'} component={Coastal} />
         <Stack.Screen name={'dokra'} component={Dokra} />

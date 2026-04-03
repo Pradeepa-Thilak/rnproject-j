@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import GridImages from '../Gridimages';
 import {decode as atob} from "base-64"
 
-export default function Bestsellers({ apiUrl, containerStyle, imageStyle , imgbguri ,imgbgstyle,titleimg,titleimgstyle,para,categorytopimg,categorytopimgstyle,pos, transformData,categoryconstyle,}) {
+export default function Bestsellers({ apiUrl, containerStyle, imageStyle , imgbguri ,imgbgstyle,titleimg,titleimgstyle,para,categorytopimg,categorytopimgstyle,pos, transformData,categoryconstyle,parastyle}) {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const category = transformData
           style={titleimgstyle}/>
 <View style={{ maxWidth: 280, alignItems: 'center' }}>
 
-          <Text style={styles.para}>
+          <Text style={[styles.para,parastyle]}>
             {atob(para)}
           </Text>
 </View>
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     lineHeight:18,
   maxWidth:300,
     textAlign: 'center',
+
   },
   category: {
     paddingHorizontal:30

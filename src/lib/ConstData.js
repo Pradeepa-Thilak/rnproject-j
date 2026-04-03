@@ -16,6 +16,7 @@ export const thumbnailBanner = [
     id: 3,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/3_M-8_3771_1771398727242.jpg',
     label: 'joy of gifting',
+    navigationlink:'Houseofsilver'
   },
   {
     id: 4,
