@@ -34,6 +34,7 @@ export const thumbnailBanner = [
     id: 6,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/6_M-5_3771_1771399314136.jpg',
     label: ' indo-fusion',
+    navigationlink:'weddingseason'
   },
   {
     id: 7,

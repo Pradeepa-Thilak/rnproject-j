@@ -22,6 +22,7 @@ import EossScreen from '../components/micrositee/eosspage';
 import Coastal from '../components/micrositee/coastal';
 import Springsummer from "../components/micrositee/springsummer2025"
 import Newarrivals from "../components/micrositee/newarrival"
+import Weddingseason from "../components/micrositee/weddingseason"
 import Thegiftedit from "../components/micrositee/thegifteditpage"
 
 const Stack = createStackNavigator();
@@ -173,6 +174,7 @@ const RootStack = () => {
         <Stack.Screen name={'coastal'} component={Coastal} />
         <Stack.Screen name={'springsummer'} component={Springsummer} />
         <Stack.Screen name={'newarrivals'} component={Newarrivals} />
+        <Stack.Screen name={'weddingseason'} component={Weddingseason} />
 
         <Stack.Screen name={'dokra'} component={Dokra} />
         <Stack.Screen name={'thegiftedit'} component={Thegiftedit} />

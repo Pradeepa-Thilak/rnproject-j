@@ -4,20 +4,27 @@ import { View, Text, ImageBackground } from 'react-native';
 import { getDecodeText } from '../../../../utils/DecodeText';
 import { styles } from '../../coastal';
 
-const ComponentWithImage_HeaderAndDescription = ({ details, AR, bgImage=true,imgIndex =0,bgIndex=0 ,  reverseBg = false  }) => {
+const ComponentWithImage_HeaderAndDescription = ({ details, AR, bgImage=true,imgIndex =0,bgIndex=0 ,  reverseBg = false,imgar ,reverseimg=false }) => {
  
   const aspectRatio = AR || 32 / 49;
+  const imageaspectratio = imgar || 120 / 151 
 
   const media = details?.MediaDetails || [];
-  const images = media.filter(item => item.a_media_type === 'Image');
- 
+
+  const rawimages = media.filter(item => item.a_media_type === 'Image');
+
+  const images= reverseimg ? [...rawimages].reverse() : rawimages
+   console.log("reverse images",images);
+   
   const imgData =
     images.length > 1
       ? images[imgIndex] || images[0]
       : images[0];
 
   const textData = media.find(item => item.a_media_type === 'Text');
-
+const finalDescription = getDecodeText(
+  imgData?.a_description || textData?.a_description
+);
   const rawBgs = bgImage
   ? media.filter(item => item.a_media_type === 'BackgroundImage')
   : [];
@@ -50,10 +57,10 @@ const bgData =
   <Image
   
     source={{ uri: imgData?.a_image }}
-    style={{ width: '75%', aspectRatio: 120/151, marginBottom: 10 }}
+    style={{ width: '75%', aspectRatio: imageaspectratio, marginBottom: 10 }}
   />
 
-        <Text style={[styles.componentTxt,{width: '85%', fontSize: 12, letterSpacing: 0.}]}>{getDecodeText(textData?.a_description) }</Text>
+        <Text style={[styles.componentTxt,{width: '85%', fontSize: 12, letterSpacing: 0.}]}>{finalDescription}</Text>
         <Pressable style={styles.componentButton}>
           <Text style={styles.componentButtonTxt}>Shop Now</Text>
         </Pressable>

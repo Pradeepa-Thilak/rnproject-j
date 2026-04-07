@@ -5,6 +5,7 @@ import ComponentWithImage_HeaderAndDescription from '../micrositee/sections/Comp
 import ComponentWithHeaderAndGrid from '../micrositee/sections/ComponentWithHeaderAndGrid';
 import ImageAndDescriptionComponent from '../micrositee/sections/ImageAndDescriptionComponent';
 import ImageHeaderAndGrid from '../micrositee/sections/ImageHeaderAndGrid';
+import Twocompswithimgdes from './sections/Twocompswithimgdes';
 import BGImage from '../micrositee/sections/BGImage';
 import Msiteherobanner from "../micrositee/sections/Msiteherobanner";
 import Footer from '../../components/Footer';
@@ -50,6 +51,7 @@ const Coastal = () => {
           <ImageAndDescriptionComponent details={sectionData[5]} /> {/* section-5*/}
           {/* <BGImage details={sectionData[6]}/> */}
           {/* <ComponentWithImage_HeaderAndDescription details={sectionData[7]}/>  has 2 images*/}
+            <Twocompswithimgdes details={sectionData[7]}  AR={32 / 49} />
           <ComponentWithImage_HeaderAndDescription details={sectionData[8]} />
           <ComponentWithImage_HeaderAndDescription details={sectionData[10]} bgImage={false} />
           <BGImage details={sectionData[10]} />

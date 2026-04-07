@@ -2,7 +2,8 @@
 import {View,Text,Pressable,ImageBackground,StyleSheet,Image} from "react-native"
 import { getDecodeText } from '../../../../utils/DecodeText';
 
-export default function Parawithtextimagebtn({ details, AR}){
+export default function Parawithtextimagebtn({ details, AR,   bgImageStyle,    
+  bottomBgStyle }){
  const aspectRatio = AR || 32 / 49;
 
   const media = details?.MediaDetails || [];
@@ -55,10 +56,11 @@ let currentBg = null;
           {bg?.a_image && (
             <Image
               source={{ uri: bg.a_image }}
-              style={[
-                styles.bgImage,
-                isBottomBg && styles.bottomBg
-              ]}
+            style={[
+              styles.bgImage,
+              bgImageStyle,                    
+              isBottomBg && [styles.bottomBg, bottomBgStyle] 
+            ]}
               resizeMode="cover"
             />
           )}
@@ -136,6 +138,7 @@ bgImage: {
 bottomBg: {
   top: "auto",
   bottom: 0,
+  
   height: 70, 
 },
 

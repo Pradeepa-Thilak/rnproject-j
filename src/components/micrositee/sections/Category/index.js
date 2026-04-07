@@ -10,30 +10,12 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 
-export default function Category({ apiUrl, containerStyle, imageStyle ,pos}) {
- const [data,setData]=useState([])
+export default function Category({ details, imageStyle}) {
+ 
+  const data = details?.MediaDetails || [];
 
- useEffect(()=>{
-    const fetchData= async ()=>{
-        try{
-            const res= await fetch(apiUrl)
-            const json = await res.json()
-
-            const sections=json?.results?.SectionDetails || []
-
-            const section2=sections.find(sec=> sec.position === pos)
-
-            if (section2?.MediaDetails?.length > 0){
-                setData(section2.MediaDetails)
-            }
-        }catch(err){
-            console.log("api error",err)
-        }
-    }
-    fetchData()
-
- },[apiUrl,pos])
-   if (!data.length) return null;
+  if (!data.length) return null;
+  
    const bgImage = data.find(item => item.a_media_type === "BackgroundImage");
 
 const headingText = data.find(item => item.a_media_type === "Text");

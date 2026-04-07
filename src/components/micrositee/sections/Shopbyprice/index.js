@@ -4,46 +4,36 @@ import { decode } from "html-entities";
 
 import GridImages from "../Gridimages";
 
-export default function Shopbyprice({apiUrl,containerStyle,imageStyle, pos,
-  titleimg,titleimgstyle,
+export default function Shopbyprice({details,containerStyle,imageStyle, 
+  titleimgstyle,
   transformData,}){
-    const [images,setImages]=useState([])
-    useEffect(()=>{
-        const fetchdata = async ()=>{
-                try{
-                    const res=await fetch(apiUrl)
-                    const json = await res.json()
+   
+ const images = details?.MediaDetails || [];
 
-            const sections=json?.results?.SectionDetails || []
+if (!images.length) return null;
 
-            const section2=sections.find(sec=> sec.position === pos)
+const titleImage = images.filter(
+  item => item.a_media_type === "Image"
+).find(
+  item => String(item.a_sequence) === "0"
+);
 
-            if (section2?.MediaDetails?.length > 0){
-                setImages(section2.MediaDetails)
-            }
-        }catch(err){
-            console.log("api error",err)
-        }
-    }
-    fetchdata()
-    },[apiUrl,pos])
+const categoryImages = images.filter(
+  item => String(item.a_sequence) !== "0"
+);
+console.log("title image",titleImage);
 
-     if (!images.length) return null;
-
- const category = transformData
-  ? transformData(images)
-  : images.map(item => ({
+const category = transformData
+  ? transformData(categoryImages)
+  : categoryImages.map(item => ({
       image: item.a_image,
       title: decode(item.a_title)?.toUpperCase()
     }));
-
-
-
     return(
         <View style={styles.container}>
                 <View style={styles.top}>
                         <Image
-                        source={{uri:titleimg}}
+                        source={{uri:titleImage.a_image}}
                        style={titleimgstyle}
 
                         />

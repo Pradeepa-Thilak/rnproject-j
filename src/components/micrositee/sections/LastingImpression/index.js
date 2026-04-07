@@ -4,43 +4,32 @@ import { useState,useEffect } from "react"
 import { decode as atob } from 'base-64';
 import Video from 'react-native-video';
 import SpriteIcon from "../../../SpriteIcon";
-export default function LastingImpression({apiUrl,
+export default function LastingImpression({details,
   topIndex = 0,
   bottomIndex = 1,
 topitemstyle,
 bottomitemstyle}){
-        const [images,setImages]=useState([])
+       
         const [isPlaying, setIsPlaying] = useState(false);
         const [isMuted, setIsMuted] = useState(true);
 
-        useEffect(()=>{
-            const fetchdata= async ()=>{
-                try{
-                    const res=await fetch(apiUrl)
-                    const json=await res.json()
+       
+   const media = details?.MediaDetails || [];
+  if (!media.length) return null;
 
-                    const sections=json?.results?.SectionDetails || []
-                    const section2=sections.find(sec=>sec.position === 8)
-                     if (section2?.MediaDetails?.length > 0){
-                setImages(section2.MediaDetails)
-            }
-        }catch(err){
-            console.log("api error",err)
-        }
-    }
-    fetchdata()
-    },[apiUrl])
+  const textData = media.find(item => item.a_media_type === "Text");
 
-    const textData = images.find(item => item.a_media_type === "Text");
+  const mediaItems = media.filter(
+    item => item.a_media_type !== "Text"
+  );
 
-const mediaItems = images.filter(item => item.a_media_type !== "Text");
 const description = textData?.a_description
   ? atob(textData.a_description) 
   : "";
   const topItem = mediaItems[topIndex];
 const bottomItem = mediaItems[bottomIndex];
 const isVideo = (url) => url?.endsWith(".mp4");
-    if (!images.length) return null;
+    
   
     return(
     <View style={styles.maincon}>

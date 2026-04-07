@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import ComponentWithImage_HeaderAndDescription from "../ComponentWithImage_HeaderAndDescription";
 import Compwithbgontop from "../Compwithbgontop"
-export default function TwoCompsWithImgDes({ details, AR ,reversebg=false}) {
+export default function TwoCompsWithImgDes({ details, AR ,reversebg=false,reverseimg=false}) {
   return (
     <View>
       <Compwithbgontop
@@ -11,6 +11,7 @@ export default function TwoCompsWithImgDes({ details, AR ,reversebg=false}) {
         imgIndex={0}
         bgIndex={0}
         reverseBg={reversebg}
+        reverseimg={reverseimg}
       />
 
       <ComponentWithImage_HeaderAndDescription
@@ -19,6 +20,7 @@ export default function TwoCompsWithImgDes({ details, AR ,reversebg=false}) {
         imgIndex={1}
         bgIndex={1}
         reverseBg={reversebg}
+        reverseimg={reverseimg}
       />
     </View>
   );

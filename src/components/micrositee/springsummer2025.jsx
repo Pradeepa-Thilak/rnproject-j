@@ -14,7 +14,7 @@ import Footer from '../../components/Footer';
 
 const Springsummer2025 = () => {
 
-    const [coastalData, setData] = useState({});
+    const [ssdata, setData] = useState({});
     
     useEffect(() => {
         const fetchData = async () => {
@@ -28,22 +28,21 @@ const Springsummer2025 = () => {
         fetchData();
     }, []);
 
-    console.log(coastalData);
+    console.log(ssdata);
 
-    const sectionData = coastalData?.SectionDetails || [];
+    const sectionData = ssdata?.SectionDetails || [];
 
   return (
       <ScrollView style={{backgroundColor: '#faf2e5'}}>
           <Msiteherobanner
-                  apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=springsummer2025&deviceType=mobile&shopId=26"
-                
+                    details={sectionData[0]}
                   imagestyle={{
                     width: "100%",
                  
                     aspectRatio: 360 / 564,
                     resizeMode: "cover",
                   }}
-                  pos={1}
+              
                 />
           <ComponentWithImage_HeaderAndDescription details={sectionData[1]} AR={32 / 49} />
           <ComponentWithHeaderAndGrid details={sectionData[2]} />

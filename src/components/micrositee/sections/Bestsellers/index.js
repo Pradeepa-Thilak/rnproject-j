@@ -10,38 +10,40 @@ import { useState, useEffect } from 'react';
 import GridImages from '../Gridimages';
 import {decode as atob} from "base-64"
 
-export default function Bestsellers({ apiUrl, containerStyle, imageStyle , imgbguri ,imgbgstyle,titleimg,titleimgstyle,para,categorytopimg,categorytopimgstyle,pos, transformData,categoryconstyle,parastyle}) {
-  const [images, setImages] = useState([]);
+export default function Bestsellers({ details, containerStyle, imageStyle ,imgbgstyle,titleimgstyle,categorytopimgstyle, transformData,categoryconstyle,parastyle}) {
+    const media = details?.MediaDetails || [];
+  if (!media.length) return null;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(apiUrl);
-        const json = await res.json();
 
-        const sections = json?.results?.SectionDetails || [];
+ const imageItems = media.filter(
+    item => item.a_media_type === "Image"
+  );
 
-        const section2 = sections.find(sec => sec.position === pos);
+  const bgImage = media.find(
+    item => item.a_media_type === "BackgroundImage"
+  );
 
-        if (section2?.MediaDetails?.length > 0) {
-          setImages(section2.MediaDetails);
-        }
-      } catch (err) {
-        console.log('api error', err);
-      }
-    };
-    fetchData();
-  }, [apiUrl,pos]);
-  
-  if (!images.length) return null;
-const category = transformData
-  ? transformData(images)
-  : images.map(item => item.a_image); 
+  const textData = media.find(
+    item => item.a_media_type === "Text"
+  );
+
+  const titleImage = imageItems.find(
+    item => String(item.a_sequence) === "0"
+  );
+  const topimage = imageItems.find(item => String(item.a_sequence) === "1")
+  const categoryImages = imageItems
+    .filter(item =>
+  !["0", "1"].includes(String(item.a_sequence))
+)
+    .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence));
+
+  const category = categoryImages.map(item => item.a_image);
+
   return (
     <View style={{ paddingVertical: 50 ,}}>
       <ImageBackground
         source={{
-          uri: imgbguri,
+          uri: bgImage.a_image,
         }}
         style={imgbgstyle}
         resizeMode="cover"
@@ -50,18 +52,18 @@ const category = transformData
       </ImageBackground>
         <View style={categoryconstyle}>
           <Image 
-          source={{uri:titleimg}}
+          source={{uri:titleImage.a_image}}
           style={titleimgstyle}/>
 <View style={{ maxWidth: 280, alignItems: 'center' }}>
 
           <Text style={[styles.para,parastyle]}>
-            {atob(para)}
+               {atob(textData.a_description)}
           </Text>
 </View>
         </View>
           <View style={styles.category}>
             <Image
-            source={{uri:categorytopimg}}
+            source={{uri:topimage.a_image}}
             style={categorytopimgstyle}
             />
             <GridImages

@@ -8,13 +8,18 @@ const ComponentWithBgOnTop = ({
   bgImage = true,
   imgIndex = 0,
   bgIndex = 0,
-  reverseBg=false
+  reverseBg=false,
+  reverseimg=false
 }) => {
   const aspectRatio = AR || 32 / 49;
 
   const media = details?.MediaDetails || [];
 
-  const images = media.filter(item => item.a_media_type === 'Image');
+  const rawimages = media.filter(item => item.a_media_type === 'Image');
+
+  const images= reverseimg ? [...rawimages].reverse() : rawimages
+   console.log("reverse images",images);
+   
   const imgData =
     images.length > 1
       ? images[imgIndex] || images[0]
