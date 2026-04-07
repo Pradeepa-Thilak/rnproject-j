@@ -3,19 +3,21 @@ import { View, Text, ScrollView ,StyleSheet} from 'react-native';
 import { getMicrositeData } from '../../api/micrositeApi'; 
 import ComponentWithImage_HeaderAndDescription from '../micrositee/sections/ComponentWithImage_HeaderAndDescription';
 import ComponentWithHeaderAndGrid from '../micrositee/sections/ComponentWithHeaderAndGrid';
-import ImageAndDescriptionComponent from '../micrositee/sections/ImageAndDescriptionComponent';
+
 import ImageHeaderAndGrid from '../micrositee/sections/ImageHeaderAndGrid';
 import BGImage from '../micrositee/sections/BGImage';
-import Msiteherobanner from "../micrositee/sections/Msiteherobanner";
+import Msiteherobanner from './sections/Msiteherobanner';
+
+import Twocompswithimgdes from "./sections/Twocompswithimgdes"
 import Footer from '../../components/Footer';
 
-const Coastal = () => {
+const Newarrival = () => {
 
     const [coastalData, setData] = useState({});
     
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getMicrositeData('coastal');
+            const data = await getMicrositeData('newarrivals');
             if (data.msg === 'success')
                 setData(data.results);
             else
@@ -29,28 +31,35 @@ const Coastal = () => {
 
     const sectionData = coastalData?.SectionDetails || [];
 
-    console.log('Section',sectionData[9]);
   return (
       <ScrollView style={{backgroundColor: '#faf2e5'}}>
           <Msiteherobanner
-          apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=coastal&deviceType=mobile&shopId=26"
-        
-          imagestyle={{
-            width: "100%",
-         
-            aspectRatio: 360 / 564,
-            resizeMode: "cover",
-          }}
-          pos={1}
-        />
-          <ComponentWithImage_HeaderAndDescription details={sectionData[1]} AR={32 / 49} />
+                  apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=newarrivals&deviceType=mobile&shopId=26"
+                
+                  imagestyle={{
+                    width: "100%",
+                 
+                    aspectRatio: 360 / 650,
+                    resizeMode: "cover",
+                  }}
+                  pos={1}
+                />
+       
           <ComponentWithHeaderAndGrid details={sectionData[2]} />
           <ImageHeaderAndGrid details={sectionData[3]} />
           <ComponentWithImage_HeaderAndDescription details={sectionData[4]} AR={40/61}/>
-          <ImageAndDescriptionComponent details={sectionData[5]} /> {/* section-5*/}
+         
+         
+          {/* section-5*/}
+              
+                <Twocompswithimgdes details={sectionData[7]}  AR={32 / 49} />
+              
+               
           {/* <BGImage details={sectionData[6]}/> */}
           {/* <ComponentWithImage_HeaderAndDescription details={sectionData[7]}/>  has 2 images*/}
-          <ComponentWithImage_HeaderAndDescription details={sectionData[8]} />
+          
+          
+        
           <ComponentWithImage_HeaderAndDescription details={sectionData[10]} bgImage={false} />
           <BGImage details={sectionData[10]} />
           <Footer />
@@ -58,7 +67,7 @@ const Coastal = () => {
   )
 }
 
-export default Coastal
+export default Newarrival
 
 
 export const styles = StyleSheet.create({
@@ -112,11 +121,5 @@ export const styles = StyleSheet.create({
         width: '100%',
         aspectRatio: 138 / 173
     },
-      bgTopImage: {
-        position:"absolute",
-  width: '100%',
-  top:0,
-  right:40,
-  height:300 ,
-zIndex:2 },
+   
 })

@@ -1,5 +1,5 @@
-import { View,Text,Image,Linking,Pressable} from "react-native";
-
+import { View,Text,Image,Pressable } from "react-native";
+import Video from "react-native-video";
 import { useState ,useEffect} from "react";
 
 
@@ -30,16 +30,28 @@ export default function Msiteherobanner({apiUrl,containerStyle,imagestyle,pos}){
   },[apiUrl,pos]);
 
    if (!banner) return null;
+    const isVideo =
+   
+    banner?.a_image?.endsWith(".mp4");
 
      return (
     <View style={containerStyle}>
-      <Pressable
-        
-      >
-        <Image
-          source={{ uri: banner.a_image }}
-          style={imagestyle}
-        />
+    <Pressable>
+        {isVideo ? (
+          <Video
+            source={{ uri: banner.a_image }}
+            style={imagestyle}
+            muted={true}        
+            repeat={true}        
+            resizeMode="cover"
+            paused={false}      
+          />
+        ) : (
+          <Image
+            source={{ uri: banner.a_image }}
+            style={imagestyle}
+          />
+        )}
       </Pressable>
     </View>
   );

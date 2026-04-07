@@ -22,11 +22,13 @@ export const thumbnailBanner = [
     id: 4,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/4_M-4_3771_1771398767219.jpg',
     label: 'Earring',
+    navigationlink:'springsummer'
   },
   {
     id: 5,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/5_M-2_3771_1771399270041.jpg',
     label: 'sarees',
+     navigationlink:'newarrivals'
   },
   {
     id: 6,

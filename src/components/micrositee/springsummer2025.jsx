@@ -6,16 +6,19 @@ import ComponentWithHeaderAndGrid from '../micrositee/sections/ComponentWithHead
 import ImageAndDescriptionComponent from '../micrositee/sections/ImageAndDescriptionComponent';
 import ImageHeaderAndGrid from '../micrositee/sections/ImageHeaderAndGrid';
 import BGImage from '../micrositee/sections/BGImage';
-import Msiteherobanner from "../micrositee/sections/Msiteherobanner";
+import Msiteherobanner from './sections/Msiteherobanner';
+import Parawithtextimagebtn from "./sections/Parawithtextimagebtn/index"
+import GridImages from './sections/Gridimages';
+import Twocompswithimgdes from './sections/Twocompswithimgdes';
 import Footer from '../../components/Footer';
 
-const Coastal = () => {
+const Springsummer2025 = () => {
 
     const [coastalData, setData] = useState({});
     
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getMicrositeData('coastal');
+            const data = await getMicrositeData('springsummer2025');
             if (data.msg === 'success')
                 setData(data.results);
             else
@@ -29,28 +32,48 @@ const Coastal = () => {
 
     const sectionData = coastalData?.SectionDetails || [];
 
-    console.log('Section',sectionData[9]);
   return (
       <ScrollView style={{backgroundColor: '#faf2e5'}}>
           <Msiteherobanner
-          apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=coastal&deviceType=mobile&shopId=26"
-        
-          imagestyle={{
-            width: "100%",
-         
-            aspectRatio: 360 / 564,
-            resizeMode: "cover",
-          }}
-          pos={1}
-        />
+                  apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=springsummer2025&deviceType=mobile&shopId=26"
+                
+                  imagestyle={{
+                    width: "100%",
+                 
+                    aspectRatio: 360 / 564,
+                    resizeMode: "cover",
+                  }}
+                  pos={1}
+                />
           <ComponentWithImage_HeaderAndDescription details={sectionData[1]} AR={32 / 49} />
           <ComponentWithHeaderAndGrid details={sectionData[2]} />
           <ImageHeaderAndGrid details={sectionData[3]} />
-          <ComponentWithImage_HeaderAndDescription details={sectionData[4]} AR={40/61}/>
-          <ImageAndDescriptionComponent details={sectionData[5]} /> {/* section-5*/}
+         
+          <ImageAndDescriptionComponent details={sectionData[5]} /> 
+          {/* section-5*/}
+              <GridImages
+                      data={sectionData[6]?.MediaDetails?.filter(
+      item => item.a_media_type === "Image")?.map(item =>({
+        image: item.a_image,
+        title: item.a_title
+      }))}
+                      spacing={20}
+                      imageStyle={{
+                        width: "100%",
+                        aspectRatio: 1 / 1,
+                      }}
+                      style={{paddingHorizontal:20,paddingVertical:30}}
+                    />
+                 <Twocompswithimgdes details={sectionData[7]}  AR={32 / 49}
+                 reversebg={true} />
+                             
           {/* <BGImage details={sectionData[6]}/> */}
           {/* <ComponentWithImage_HeaderAndDescription details={sectionData[7]}/>  has 2 images*/}
-          <ComponentWithImage_HeaderAndDescription details={sectionData[8]} />
+          <ComponentWithImage_HeaderAndDescription details={sectionData[8]}  AR={32 / 49} />
+          <Parawithtextimagebtn
+           details={sectionData[9]}
+             AR={32 / 49}/>
+        
           <ComponentWithImage_HeaderAndDescription details={sectionData[10]} bgImage={false} />
           <BGImage details={sectionData[10]} />
           <Footer />
@@ -58,7 +81,7 @@ const Coastal = () => {
   )
 }
 
-export default Coastal
+export default Springsummer2025
 
 
 export const styles = StyleSheet.create({
@@ -112,11 +135,5 @@ export const styles = StyleSheet.create({
         width: '100%',
         aspectRatio: 138 / 173
     },
-      bgTopImage: {
-        position:"absolute",
-  width: '100%',
-  top:0,
-  right:40,
-  height:300 ,
-zIndex:2 },
+   
 })

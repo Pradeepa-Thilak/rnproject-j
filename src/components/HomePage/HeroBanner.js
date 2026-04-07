@@ -25,7 +25,9 @@ const HeroBanner = ({ isHome = true, clpData, aspectRatio,apiUrl,pos,}) => {
   const handleScroll = event => {
     const slide = Math.round(event.nativeEvent.contentOffset.x / width);
     currentIndex.current = slide;
-    setActive(slide % bannerData.length);
+   if (bannerData.length > 0) {
+  setActive(slide % bannerData.length);
+}
     if (slide >= bannerData.length * 2) {
       const restInd = slide - bannerData.length;
       flatListRef.current.scrollToIndex({
@@ -72,20 +74,26 @@ const HeroBanner = ({ isHome = true, clpData, aspectRatio,apiUrl,pos,}) => {
 
     fetchData();
   }, [apiUrl, pos]);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      let nextIndex = currentIndex.current + 1;
-      if (nextIndex >= bannerData.length * 2) {
-        nextIndex = bannerData.length;
-      }
-      flatListRef.current?.scrollToIndex({
-        index: nextIndex,
-        animated: true,
-      });
-      currentIndex.current = nextIndex;
-    }, isHome ? 2000 : 3000);  //  HomeScreen: 2000, CLP: 3000
-    return () => clearInterval(interval);
-  }, [isHome,bannerData.length]);
+useEffect(() => {
+  if (!bannerData || bannerData.length === 0) return; // 🔥 FIX
+
+  const interval = setInterval(() => {
+    let nextIndex = currentIndex.current + 1;
+
+    if (nextIndex >= bannerData.length * 2) {
+      nextIndex = bannerData.length;
+    }
+
+    flatListRef.current?.scrollToIndex({
+      index: nextIndex,
+      animated: true,
+    });
+
+    currentIndex.current = nextIndex;
+  }, isHome ? 2000 : 3000);
+
+  return () => clearInterval(interval);
+}, [isHome, bannerData.length,bannerData]);
   return (
     <View style={{ backgroundColor: '#fff' }}>
       <FlatList
@@ -101,7 +109,7 @@ const HeroBanner = ({ isHome = true, clpData, aspectRatio,apiUrl,pos,}) => {
           index,
         })}
         showsHorizontalScrollIndicator={false}
-        initialScrollIndex={bannerData.length}
+        initialScrollIndex={bannerData.length > 0 ? bannerData.length : 0}
         renderItem={({ item }) => (
           <Pressable
             onPress={() => navigation.navigate('PLP')}
