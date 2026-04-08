@@ -4,7 +4,9 @@ export const getDecodeText = (text) => {
   if (!text || typeof text !== 'string') return '';
 
   try {
-    return atob(text);
+    const decoded = atob(text);
+
+    return decoded.replace(/<[^>]+>/g, '');
   } catch (e) {
     console.log("DECODE ERROR:", e);
     return text;

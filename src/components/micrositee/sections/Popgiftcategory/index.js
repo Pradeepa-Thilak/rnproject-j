@@ -8,29 +8,9 @@ import { useState, useEffect } from 'react';
 import GridImages from "../Gridimages";
 import { decode as atob } from "base-64";
 
-export default function Popgiftcategory({ apiUrl, pos = 3 }) {
+export default function Popgiftcategory({ details}) {
 
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(apiUrl);
-        const json = await res.json();
-
-        const sections = json?.results?.SectionDetails || [];
-        const section = sections.find(sec => sec.position === pos);
-
-        if (section?.MediaDetails?.length > 0) {
-          setData(section.MediaDetails);
-        }
-      } catch (err) {
-        console.log("api error", err);
-      }
-    };
-
-    fetchData();
-  }, [apiUrl, pos]);
+   const data = details?.MediaDetails || [];
 
   if (!data.length) return null;
 

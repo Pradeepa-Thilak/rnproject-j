@@ -3,20 +3,23 @@ import { View, Text, ScrollView ,StyleSheet} from 'react-native';
 import { getMicrositeData } from '../../api/micrositeApi'; 
 import ComponentWithImage_HeaderAndDescription from '../micrositee/sections/ComponentWithImage_HeaderAndDescription';
 import ComponentWithHeaderAndGrid from '../micrositee/sections/ComponentWithHeaderAndGrid';
-import ImageAndDescriptionComponent from '../micrositee/sections/ImageAndDescriptionComponent';
+import ImageAndDescriptionComponent from './sections/ImageAndDescriptionComponent';
 import ImageHeaderAndGrid from '../micrositee/sections/ImageHeaderAndGrid';
-import Twocompswithimgdes from './sections/Twocompswithimgdes';
 import BGImage from '../micrositee/sections/BGImage';
-import Msiteherobanner from "../micrositee/sections/Msiteherobanner";
+import Msiteherobanner from './sections/Msiteherobanner';
+import GridImages from './sections/Gridimages';
+import HeroBanner from '../HomePage/HeroBanner';
+import Twocompswithimgdes from "./sections/Twocompswithimgdes"
+import Parawithtextimagebtn from './sections/Parawithtextimagebtn';
 import Footer from '../../components/Footer';
 
-const Coastal = () => {
+const Weddingseason = () => {
 
-    const [coastalData, setData] = useState({});
+    const [wsdata, setData] = useState({});
     
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getMicrositeData('coastal');
+            const data = await getMicrositeData('wedding-season');
             if (data.msg === 'success')
                 setData(data.results);
             else
@@ -26,41 +29,68 @@ const Coastal = () => {
         fetchData();
     }, []);
 
-    console.log(coastalData);
+    console.log(wsdata);
 
-    const sectionData = coastalData?.SectionDetails || [];
+    const sectionData = wsdata?.SectionDetails || [];
 
-    console.log('Section',sectionData[9]);
   return (
       <ScrollView style={{backgroundColor: '#faf2e5'}}>
-          <Msiteherobanner
-          details={sectionData[0]}
-    
-          imagestyle={{
-            width: "100%",
-         
-            aspectRatio: 360 / 564,
-            resizeMode: "cover",
-          }}
-        
-        />
-          <ComponentWithImage_HeaderAndDescription details={sectionData[1]} AR={32 / 49} />
+            <HeroBanner
+  apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=wedding-season&deviceType=mobile&shopId=26"
+isHome={true}
+aspectRatio={360/563}
+  pos={1}
+/>
+       
           <ComponentWithHeaderAndGrid details={sectionData[2]} />
           <ImageHeaderAndGrid details={sectionData[3]} />
           <ComponentWithImage_HeaderAndDescription details={sectionData[4]} AR={40/61}/>
-          <ImageAndDescriptionComponent details={sectionData[5]} /> {/* section-5*/}
+         
+         
+          {/* section-5*/}
+           <ImageAndDescriptionComponent details={sectionData[5]} /> 
+          {/* section-5*/}
+              <GridImages
+                      data={sectionData[6]?.MediaDetails?.filter(
+      item => item.a_media_type === "Image")?.map(item =>({
+        image: item.a_image,
+        title: item.a_title
+      }))}
+                      spacing={20}
+                      imageStyle={{
+                        width: "100%",
+                        aspectRatio: 1 / 1,
+                      }}
+                      style={{paddingHorizontal:20,paddingVertical:30}}
+                    />
+              
+                <Twocompswithimgdes details={sectionData[7]}  AR={32 / 49} 
+                reverseimg={true}
+                />
+              
+               
           {/* <BGImage details={sectionData[6]}/> */}
           {/* <ComponentWithImage_HeaderAndDescription details={sectionData[7]}/>  has 2 images*/}
-            <Twocompswithimgdes details={sectionData[7]}  AR={32 / 49} />
-          <ComponentWithImage_HeaderAndDescription details={sectionData[8]} />
-          <ComponentWithImage_HeaderAndDescription details={sectionData[10]} bgImage={false} />
+                  <ComponentWithImage_HeaderAndDescription details={sectionData[8]}  AR={32 / 49} 
+                  imgar={939 / 946}/>
+         
+          
+        <Parawithtextimagebtn
+                   details={sectionData[9]}
+                     AR={32 / 49}
+                     bgImageStyle={{
+                        height:515,
+                     }}
+                    />
+          <ComponentWithImage_HeaderAndDescription details={sectionData[10]} bgImage={false} 
+          imgar={939 / 946}/>
           <BGImage details={sectionData[10]} />
           <Footer />
       </ScrollView>
   )
 }
 
-export default Coastal
+export default Weddingseason
 
 
 export const styles = StyleSheet.create({
@@ -114,11 +144,5 @@ export const styles = StyleSheet.create({
         width: '100%',
         aspectRatio: 138 / 173
     },
-      bgTopImage: {
-        position:"absolute",
-  width: '100%',
-  top:0,
-  right:40,
-  height:300 ,
-zIndex:2 },
+   
 })

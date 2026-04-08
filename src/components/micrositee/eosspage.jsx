@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-
+import { useState,useEffect } from 'react';
 import ShopByCategory from './sections/ShopByCategory';
 import SeasonsFavorites from './sections/SeasonsFavorites';
 import WearYourRoots from './sections/WearYourRoots';
@@ -10,13 +10,30 @@ import FeaturedCollections from './sections/FeaturedCollections';
 import ShopByBrand from './sections/ShopByBrand';
 import NewIn from './sections/NewIn';
 import Msiteherobanner from './sections/Msiteherobanner';
-
+import { getMicrositeData } from '../../api/micrositeApi';
 const EossScreen = () => {
+   const [eosdata, setData] = useState({});
+        
+        useEffect(() => {
+            const fetchData = async () => {
+                const data = await getMicrositeData('eoss');
+                if (data.msg === 'success')
+                    setData(data.results);
+                else
+                    console.log("Message: Failure");
+            }
+    
+            fetchData();
+        }, []);
+    
+        const sectionData = eosdata?.SectionDetails || [];
+    const getSection = (pos) =>
+    sectionData.find(sec => sec.position === pos);
+      
   return (
     <ScrollView style={styles.screen}>
       <Msiteherobanner
-      pos={1}
-  apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=eoss&deviceType=mobile&shopId=26"
+      details={getSection(1)}
   imagestyle={{
     width:"100%",
      aspectRatio: 90 / 83,
