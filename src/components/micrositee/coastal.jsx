@@ -34,15 +34,15 @@ const Coastal = () => {
   return (
       <ScrollView style={{backgroundColor: '#faf2e5'}}>
           <Msiteherobanner
-          apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=coastal&deviceType=mobile&shopId=26"
-        
+          details={sectionData[0]}
+    
           imagestyle={{
             width: "100%",
          
             aspectRatio: 360 / 564,
             resizeMode: "cover",
           }}
-          pos={1}
+        
         />
           <ComponentWithImage_HeaderAndDescription details={sectionData[1]} AR={32 / 49} />
           <ComponentWithHeaderAndGrid details={sectionData[2]} />
