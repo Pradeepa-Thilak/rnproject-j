@@ -1,39 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import {
-  ScrollView,
-  ActivityIndicator,
-} from 'react-native';
-import VideoSection from '../micrositee/sections/VideoSection';
+import React from 'react';
+import { ScrollView } from 'react-native';
+import MsiteHeroBanner from "../../components/micrositee/sections/Msiteherobanner";
+import Category from "../../components/micrositee/sections/Category";
+import Popgiftcategory from "../../components/micrositee/sections/Popgiftcategory";
+import BestSellers from "../../components/micrositee/sections/Bestsellers";
+import Shopbyprice from "../../components/micrositee/sections/Shopbyprice";
+import LastingImpression from "../../components/micrositee/sections/LastingImpression";
 import Footer from '../../components/Footer';
-const SareeStore = () => {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    fetch(
-      'https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=the-saree-store&deviceType=mobile&shopId=26'
-    )
-      .then(res => res.json())
-      .then(json => setData(json))
-      .catch(err => console.log(err));
-  }, []);
-  if (!data) return <ActivityIndicator size="large" />;
-  const sections = data?.results?.SectionDetails || [];
+import { decode } from "html-entities";
+const API =
+  "https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=the-saree-store&deviceType=mobile&shopId=26";
+export default function SareeStore() {
   return (
-    <ScrollView style={{ flex: 1 }}>
-
-      {/* ✅ HERO BANNER */}
+    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      {/* 🔹 HERO BANNER */}
       <MsiteHeroBanner
-        apiUrl={api}
+        apiUrl={API}
         imagestyle={{
           width: "100%",
-          aspectRatio: 360 / 551,
+          aspectRatio: 420 / 551,
           resizeMode: "cover",
         }}
         pos={1}
       />
-
-      {/* ✅ SHOP BY OCCASION */}
+      {/* 🔹 SHOP BY OCCASION */}
       <Category
-        apiUrl={api}
+        apiUrl={API}
         pos={2}
         imageStyle={{
           width: "100%",
@@ -41,25 +33,32 @@ const SareeStore = () => {
           resizeMode: "cover",
         }}
       />
-
-      {/* ✅ SHOP BY CRAFT */}
+      {/* 🔹 SHOP BY CRAFT */}
       <Popgiftcategory
-        apiUrl={api}
+        apiUrl={API}
         pos={3}
       />
-
-      {/* ✅ SHOP BY FABRIC */}
+      {/* 🔹 SHOP BY FABRIC */}
       <BestSellers
-        apiUrl={api}
+        apiUrl={API}
         pos={4}
+        para={"WW91IGFyZSB0aGUgY3JlYXRvciwgdGhlIG51cnR1cmVyLCB0aGUgaGVhcnQgb2YgZXZlcnkgY2VsZWJyYXRpb24uIFdoZXRoZXIgeW91J3JlIGEgZ3Vlc3Qgb3IgdGhlIGJyaWRlY2FsbCdzIGZhdm91cml0ZSBzaXN0ZXIsIHdyYXAgeW91cnNlbGYgaW4gYSBkcmFwZSBib3JuIG9mIGFnZS1vbGQgY3JhZnQgYW5kIHRpbWVsZXNzIGdyYWNlLg=="}
+        parastyle={{
+          textAlign: "center",
+          marginTop: 10,
+        }}
+        categoryconstyle={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: -120,   
+        }}
         transformData={(images) =>
           images.slice(1, 5).map(item => item.a_image)
         }
       />
-
-      {/* ✅ SHOP BY COLOR */}
+      {/* 🔹 SHOP BY COLOR */}
       <Shopbyprice
-        apiUrl={api}
+        apiUrl={API}
         pos={6}
         transformData={(images) =>
           images.slice(1, 5).map(item => ({
@@ -68,10 +67,10 @@ const SareeStore = () => {
           }))
         }
       />
-
-      {/* ✅ VIDEO LAST */}
+      {/* 🔹 LAST SECTION (VIDEO) */}
       <LastingImpression
-        apiUrl={api}
+        apiUrl={API}
+        pos={8}
         topIndex={2}
         bottomIndex={3}
         topitemstyle={{
@@ -83,9 +82,7 @@ const SareeStore = () => {
           aspectRatio: 396 / 235,
         }}
       />
-
       <Footer />
-
     </ScrollView>
   );
 }

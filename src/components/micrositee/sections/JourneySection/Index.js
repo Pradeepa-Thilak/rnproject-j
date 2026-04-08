@@ -58,7 +58,7 @@ const JourneySection = ({ section }) => {
       {/* 🔹 JOURNEY ITEMS FROM API */}
       <View style={{ marginTop: 20 }}>
         {imageItems.map((item, i) => (
-          <View key={i} style={styles.row}>
+          <View key={i} style={styles.column}>
             <Image
               source={{ uri: item.a_image }}
               style={styles.icon}
@@ -119,18 +119,19 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
   },
-  row: {
-    flexDirection: 'row',
+  column: {
+    flexDirection: 'column',
     alignItems: 'center',
     marginBottom: 20,
   },
   icon: {
-    width: 60,
-    height: 60,
+    width: 110,
+    height: 100,
     marginRight: 15,
   },
   title: {
     fontSize: 14,
+    alignItems: 'center',
     fontWeight: '600',
   },
   sub: {

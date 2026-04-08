@@ -6,7 +6,7 @@ import { ScrollView,
   StyleSheet, } from "react-native";
 import Msiteherobanner from "../micrositee/sections/Msiteherobanner";
 import FeaturedCollections from "../micrositee/sections/FeaturedCollections";
-import JourneySection from "./Sections/JourneySection/Index";
+import JourneySection from "./sections/JourneySection/Index";
 import Footer from "../../components/Footer";
 const API =
   "https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=corporategifts&deviceType=mobile&shopId=26";
