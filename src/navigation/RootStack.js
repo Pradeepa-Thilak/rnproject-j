@@ -11,13 +11,17 @@ import OrderDetails from '../screens/MyOrders/OrderDetails';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from '../components/AuthModal';
 import CLP from '../screens/CLPpage/index';
-
+import houseoffashionjewelry from "../components/micrositee/houseoffashionjewelry"
 import Corporategifting from "../components/micrositee/corporategiftingpage"
 import Dokra from "../components/micrositee/dokrapage"
 import Houseofsilver from "../components/micrositee/houseofsilver"
 import CorporateGifts from "../components/micrositee/corporategifts";
 import SareeStore from "../components/micrositee/SareeStore";
-
+import utsav from "../components/micrositee/utsav";
+import theanjumodicollection from "../components/micrositee/theanjumodicollection";
+import springsummer from "../components/micrositee/springsummer";
+import craft from "../components/micrositee/craft";
+import gifts from "../components/micrositee/gifts";
 import EossScreen from '../components/micrositee/eosspage';   
 import Coastal from '../components/micrositee/coastal';
 import Springsummer from "../components/micrositee/springsummer2025"
@@ -165,9 +169,9 @@ const RootStack = () => {
         <Stack.Screen name={'OrderDetails'} component={OrderDetails}/>
         <Stack.Screen name={'Corporategifts'} component={CorporateGifts}/>
         <Stack.Screen name={'SareeStore'} component={SareeStore}/>
-
+        <Stack.Screen name={'houseoffashionjewelry'} component={houseoffashionjewelry}/>  
         <Stack.Screen name={'EOSS'} component={EossScreen} />
-
+        <Stack.Screen name={'theanjumodicollection'} component={theanjumodicollection}/>  
         <Stack.Screen name={'Corporategifting'} component={Corporategifting} />
         <Stack.Screen name={'Houseofsilver'} component={Houseofsilver} />
 
@@ -178,8 +182,10 @@ const RootStack = () => {
 
         <Stack.Screen name={'dokra'} component={Dokra} />
         <Stack.Screen name={'thegiftedit'} component={Thegiftedit} />
-
-
+        <Stack.Screen name={'utsav'} component={utsav}/>  
+        <Stack.Screen name={'springsummerr'} component={springsummer}/>  
+        <Stack.Screen name={'craft'} component={craft}/>
+        <Stack.Screen name={'gifts'} component={gifts}/>
       </Stack.Navigator>
       <AuthModal
         visible={modalVisible}

@@ -8,7 +8,7 @@ const Reclaim = () => {
   const navigation = useNavigation();
 
   const renderProducts = item => (
-    <Pressable style={styles.catItems} onPress={() => navigation.navigate('CLP')}>
+    <Pressable style={styles.catItems} onPress={() => navigation.navigate(item.navigationlink)}>
       <View style={{aspectRatio: 279/384}}>
       <Image source={{ uri: item.uri }} style={styles.img} />
       </View>

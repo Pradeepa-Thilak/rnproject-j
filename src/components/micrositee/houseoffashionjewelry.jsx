@@ -10,12 +10,12 @@ import Footer from '../../components/Footer';
 import { useState, useEffect } from 'react';
 import { decode } from "html-entities";
 import { getMicrositeData } from '../../api/micrositeApi';
-export default function SareeStore() {
+export default function houseoffashionjewelry() {
     const [data, setData] = useState({});
   
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getMicrositeData("the-saree-store");
+      const res = await getMicrositeData("house-of-fashion-jewelry");
       if (res?.msg === "success") {
         setData(res.results);
       }
@@ -55,12 +55,12 @@ export default function SareeStore() {
        <BestSellers
          details={getSection(4)}
          imgbgstyle={{
-                width: '40%',
-                aspectRatio: 20 / 21,
+                width: '100%',
+                aspectRatio: 40 / 21,
               }}
               categoryconstyle={{
                 position:"absolute",
-                top:50,
+                top:55,
                 left:20,
                 right:0,
                 bottom:0,
@@ -102,8 +102,8 @@ export default function SareeStore() {
         details={getSection(8)}
         topIndex={1}
         bottomIndex={0}
-       topitemstyle={{width:"80%",
-                aspectRatio:747/119
+       topitemstyle={{width:"100%",
+                aspectRatio:1080/101
             }}
             bottomitemstyle={{ width: "100%", aspectRatio: 396 / 235 }}
       />

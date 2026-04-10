@@ -43,7 +43,7 @@ export default function Bestsellers({ details, containerStyle, imageStyle ,imgbg
     <View style={{ paddingVertical: 50 ,}}>
       <ImageBackground
         source={{
-          uri: bgImage.a_image,
+          uri: bgImage?.a_image,
         }}
         style={imgbgstyle}
         resizeMode="cover"

@@ -24,7 +24,7 @@ const CurvedDisplay = () => {
       uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/M-Jaypore_Finest-3_3771_1770632481475.jpg',
       name: 'Silver at Old Rates',
       cat: 'handcrafted jewels at older, lower prices',
-      navigationlink: 'SareeStore',
+      navigationlink: 'houseoffashionjewelry',
     },
   ];
    const navigation = useNavigation();

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -13,50 +13,31 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = (width - 40) / 2;
 const IMAGE_ASPECT_RATIO = 175 / 231;
 
+export default function SeasonsFavorites({ details }) {
 
-export default function  SeasonsFavorites ({ position ,api}) {
-  const [data, setData] = useState([]);
-  const [heading, setHeading] = useState('');
+  const media = details?.MediaDetails || [];
+
+  if (!media.length) return null;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(api);
-        const json = await res.json();
+  // 🔥 Heading
+  const titleItem = media.find(
+    item => item.a_media_type === 'Text'
+  );
 
-        const section = json?.results?.SectionDetails?.find(
-          sec => sec.position === position
-        );
+  const heading = titleItem?.a_title || '';
 
-        if (!section) return;
-
-      
-        const titleItem = section.MediaDetails.find(
-          item => item.a_media_type === 'Text'
-        );
-
-        setHeading(titleItem?.a_title || '');
-
-        
-        const formattedData = section.MediaDetails
-          .filter(item => item.a_media_type === 'Image')
-          .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
-          .map(item => ({
-            id: item.media_id,
-            uri: item.a_image,
-            label: item.a_title,
-          }));
-
-        setData(formattedData);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  }, [position,api]);
+  // 🔥 Images
+  const data = media
+    .filter(item => item.a_media_type === 'Image')
+    .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
+    .map(item => ({
+      id: item.media_id,
+      uri: item.a_image,
+      label: item.a_title,
+    }));
 
   const handleScroll = event => {
     const index = Math.round(
@@ -83,13 +64,14 @@ export default function  SeasonsFavorites ({ position ,api}) {
   );
 
   return (
-  
-  
-    <View style={[styles.container,{paddingTop: heading ? 24 : 10}]}>
-     {heading && (
-  <Text style={styles.heading}>{heading}</Text>
-)}
+    <View style={[styles.container, { paddingTop: heading ? 24 : 10 }]}>
 
+      {/* 🔹 Heading */}
+      {heading ? (
+        <Text style={styles.heading}>{heading}</Text>
+      ) : null}
+
+      {/* 🔹 Carousel */}
       <FlatList
         ref={flatListRef}
         data={data}
@@ -110,29 +92,30 @@ export default function  SeasonsFavorites ({ position ,api}) {
         })}
       />
 
+      {/* 🔹 Dots */}
       <View style={styles.dotsRow}>
-  {[0, 1, 2, 3].map(i => (
-    <TouchableOpacity key={i} onPress={() => handleDotPress(i)}>
-      <View
-        style={[
-          styles.dot,
-          i === activeIndex && styles.activeDot,
-        ]}
-      />
-    </TouchableOpacity>
-  ))}
-</View>
+        {data.map((_, i) => (
+          <TouchableOpacity key={i} onPress={() => handleDotPress(i)}>
+            <View
+              style={[
+                styles.dot,
+                i === activeIndex && styles.activeDot,
+              ]}
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
+
     </View>
   );
-};
-
+}
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    marginBottom:40
- 
+    marginBottom: 40,
   },
+
   heading: {
     fontSize: 22,
     fontFamily: 'EBGaramond-Regular',
@@ -142,15 +125,17 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     letterSpacing: 0.5,
   },
+
   card: {
     width: CARD_WIDTH,
     marginHorizontal: 6,
   },
+
   image: {
     width: '100%',
     aspectRatio: IMAGE_ASPECT_RATIO,
-  
   },
+
   label: {
     marginTop: 8,
     fontSize: 12,
@@ -160,11 +145,13 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     textTransform: 'uppercase',
   },
+
   dotsRow: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 12,
   },
+
   dot: {
     width: 7,
     height: 7,
@@ -172,6 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     marginHorizontal: 4,
   },
+
   activeDot: {
     backgroundColor: '#bf7154',
     width: 10,

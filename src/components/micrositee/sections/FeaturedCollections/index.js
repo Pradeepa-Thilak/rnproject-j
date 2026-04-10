@@ -1,88 +1,82 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TouchableOpacity,
-} from 'react-native';
+} from "react-native";
+import { decode } from "html-entities";
 
-export default function FeaturedCollections({ position, api }) {
-  const [data, setData] = useState([]);
-  const [heading, setHeading] = useState('');
-  const [badge, setBadge] = useState(null);
+export default function FeaturedCollections({ details }) {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(api);
-        const json = await res.json();
+  const media = details?.MediaDetails || [];
 
-        const section = json?.results?.SectionDetails?.find(
-          sec => sec.position === position
-        );
+  if (!media.length) return null;
 
-        if (!section) return;
+  // Heading (Text type)
+  const titleItem = media.find(
+    item => item.a_media_type === "Text"
+  );
 
-        const titleItem = section.MediaDetails.find(
-          item => item.a_media_type === 'Text'
-        );
-        setHeading(titleItem?.a_title || '');
+  const heading = decode(titleItem?.a_title || "");
 
-        const sorted = section.MediaDetails
-          .filter(item => item.a_media_type === 'Image')
-          .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence));
+  // Sort images
+  const sortedImages = media
+    .filter(item => item.a_media_type === "Image")
+    .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence));
 
-        const badgeItem = sorted.find(item => item.a_title === "discount image");
-        setBadge(badgeItem?.a_image || null);
+  // Badge
+  const badgeItem = sortedImages.find(
+    item => item.a_title === "discount image"
+  );
 
-        const cards = sorted
-  .filter(item => item.a_title !== "discount image")
-          .map(item => ({
-            id: item.media_id,
-            uri: item.a_image,
-            title: item.a_title,
-            description: item.a_shortdescription,
-            buttonText: 'Shop Now',
-          }));
+  const badge = badgeItem?.a_image || null;
 
-        setData(cards);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  }, [position, api]);
+  // Cards
+  const cards = sortedImages
+    .filter(item => item.a_title !== "discount image")
+    .map(item => ({
+      id: item.media_id,
+      uri: item.a_image,
+      title: decode(item.a_title),
+      description: decode(item.a_shortdescription),
+      buttonText: "Shop Now",
+    }));
 
   return (
     <View style={styles.container}>
-     <View style={styles.headingRow}>
-  <View style={styles.headingWrapper}>
-    <Text style={styles.heading}>{heading}</Text>
-  </View>
 
-  {badge && (
-    <Image
-      source={{ uri: badge }}
-      style={styles.headingBadge}
-    />
-  )}
-</View>
+      {/* Heading Row */}
+      <View style={styles.headingRow}>
+        <View style={styles.headingWrapper}>
+          <Text style={styles.heading}>{heading}</Text>
+        </View>
 
-      {data.map((item,index) => (
+        {badge && (
+          <Image
+            source={{ uri: badge }}
+            style={styles.headingBadge}
+          />
+        )}
+      </View>
+
+      {/* Cards */}
+      {cards.map((item, index) => (
         <View
-    key={item.id}
-    style={[
-      styles.card,
-      index === data.length - 1 && { marginBottom: 0 }
-    ]}>
+          key={item.id}
+          style={[
+            styles.card,
+            index === cards.length - 1 && { marginBottom: 0 }
+          ]}
+        >
           <View style={styles.imageWrapper}>
             <Image source={{ uri: item.uri }} style={styles.image} />
           </View>
 
           <View style={styles.contentWrapper}>
             <Text style={styles.title}>{item.title}</Text>
+
             <Text style={styles.description}>
               {item.description}
             </Text>
@@ -97,91 +91,87 @@ export default function FeaturedCollections({ position, api }) {
       ))}
     </View>
   );
-};
-
+}
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    marginBottom:60
+    backgroundColor: "#fff",
+    marginBottom: 60,
   },
-headingRow: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  marginTop: 42,
-  marginBottom: 25,
-  paddingHorizontal: 10,
-},
-headingWrapper: {
-  flexShrink: 1,
-  alignItems: 'center', 
-},
+  headingRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 42,
+    marginBottom: 25,
+    paddingHorizontal: 10,
+  },
+  headingWrapper: {
+    flexShrink: 1,
+    alignItems: "center",
+  },
   heading: {
     fontSize: 22,
-    fontFamily: 'EBGaramond-Regular',
-    fontWeight: '690',
-    color: '#212121',
-    textAlign: 'center',
+    fontFamily: "EBGaramond-Regular",
+    fontWeight: "600",
+    color: "#212121",
+    textAlign: "center",
     letterSpacing: 1,
     lineHeight: 35,
-  
   },
   headingBadge: {
     width: 55,
     height: 55,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   card: {
-    width: '100%',
-    backgroundColor: '#fff',
+    width: "100%",
+    backgroundColor: "#fff",
     marginBottom: 24,
-    paddingHorizontal:10
+    paddingHorizontal: 10,
   },
   imageWrapper: {
-    width: '100%',
-    aspectRatio: 4.5/ 3,
+    width: "100%",
+    aspectRatio: 4.5 / 3,
   },
   image: {
-    width: '100%',
-    height: '100%',       
-    resizeMode: 'cover',
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
   contentWrapper: {
     paddingHorizontal: 16,
     paddingVertical: 16,
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
     fontSize: 22,
-    fontFamily: 'EBGaramond-Regular',
-    fontWeight: '600',
-    color: '#212121',
-    textAlign: 'center',
-    letterSpacing: 0.3,
+    fontFamily: "EBGaramond-Regular",
+    fontWeight: "600",
+    color: "#212121",
+    textAlign: "center",
   },
   description: {
     marginTop: 6,
     fontSize: 13,
-    fontFamily: 'Lato-Regular',
-    color: '#212121',
-    textAlign: 'center',
+    fontFamily: "Lato-Regular",
+    color: "#212121",
+    textAlign: "center",
     lineHeight: 20,
     paddingHorizontal: 10,
   },
   button: {
     marginTop: 16,
     borderWidth: 1,
-    borderColor: '#212121',
+    borderColor: "#212121",
     borderRadius: 4,
     paddingVertical: 12,
     paddingHorizontal: 40,
   },
   buttonText: {
     fontSize: 15,
-    fontFamily: 'Lato-Regular',
-    color: '#212121',
+    fontFamily: "Lato-Regular",
+    color: "#212121",
     letterSpacing: 0.5,
-    fontWeight:700,
+    fontWeight: "700",
   },
 });
-

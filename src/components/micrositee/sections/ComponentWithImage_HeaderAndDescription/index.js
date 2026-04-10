@@ -1,73 +1,98 @@
 import React from 'react';
-import { Image, Pressable } from 'react-native';
-import { View, Text, ImageBackground } from 'react-native';
+import { Image, Pressable, View, Text, ImageBackground } from 'react-native';
 import { getDecodeText } from '../../../../utils/DecodeText';
 import { styles } from '../../coastal';
 
-const ComponentWithImage_HeaderAndDescription = ({ details, AR, bgImage=true,imgIndex =0,bgIndex=0 ,  reverseBg = false,imgar ,reverseimg=false }) => {
- 
+const ComponentWithImage_HeaderAndDescription = ({
+  details,
+  AR,
+  bgImage = true,
+  imgIndex = 0,
+  bgIndex = 0,
+  reverseBg = false,
+  imgar,
+  reverseimg = false,
+  buttonText = "Shop Now" 
+}) => {
+
   const aspectRatio = AR || 32 / 49;
-  const imageaspectratio = imgar || 120 / 151 
+  const imageaspectratio = imgar || 120 / 151;
 
   const media = details?.MediaDetails || [];
 
+  // 🔥 Images
   const rawimages = media.filter(item => item.a_media_type === 'Image');
+  const images = reverseimg ? [...rawimages].reverse() : rawimages;
 
-  const images= reverseimg ? [...rawimages].reverse() : rawimages
-   console.log("reverse images",images);
-   
   const imgData =
     images.length > 1
       ? images[imgIndex] || images[0]
       : images[0];
 
+  // 🔥 Text
   const textData = media.find(item => item.a_media_type === 'Text');
-const finalDescription = getDecodeText(
-  imgData?.a_description || textData?.a_description
-);
+
+  const finalDescription = getDecodeText(
+    imgData?.a_description || textData?.a_description
+  );
+
+  // 🔥 Backgrounds
   const rawBgs = bgImage
-  ? media.filter(item => item.a_media_type === 'BackgroundImage')
-  : [];
+    ? media.filter(item => item.a_media_type === 'BackgroundImage')
+    : [];
 
+  const bgs = reverseBg ? [...rawBgs].reverse() : rawBgs;
 
-const bgs = reverseBg ? [...rawBgs].reverse() : rawBgs;
+  const bgData =
+    bgs.length > 1
+      ? bgs[bgIndex] || bgs[0]
+      : bgs[0];
 
-const bgData =
-  bgs.length > 1
-    ? bgs[bgIndex] || bgs[0]
-    : bgs[0];
-
-  console.log("ALL IMAGES:", images);
-
-  // console.log(getDecodeText(textData?.a_description));
-
-  
+  //  CONDITION: image exists or not
+  const hasImage = !!imgData?.a_image;
   return (
-    <View style={[styles.componentContainer, {aspectRatio: aspectRatio}]}>
-    
-      
+    <View style={[styles.componentContainer, { aspectRatio }]}>
       <ImageBackground
-        source={{ uri: bgData?.a_image}}
+        source={{ uri: bgData?.a_image }}
         style={styles.componentBackground}
       >
-        {imgIndex === 0 &&  
-        <Text style={styles.componentTxt}>{textData?.a_title}</Text>
-        }
 
-  <Image
-  
-    source={{ uri: imgData?.a_image }}
-    style={{ width: '75%', aspectRatio: imageaspectratio, marginBottom: 10 }}
-  />
+        {/*  HEADING (always) */}
+        <Text style={styles.componentTxt}>
+          {textData?.a_title}
+        </Text>
 
-        <Text style={[styles.componentTxt,{width: '85%', fontSize: 12, letterSpacing: 0.}]}>{finalDescription}</Text>
+        {/*  IMAGE (only if exists) */}
+        {hasImage && (
+          <Image
+            source={{ uri: imgData?.a_image }}
+            style={{
+              width: '75%',
+              aspectRatio: imageaspectratio,
+              marginBottom: 10
+            }}
+          />
+        )}
+
+        {/*  DESCRIPTION */}
+        <Text
+          style={[
+            styles.componentTxt,
+            { width: '85%', fontSize: 12 }
+          ]}
+        >
+          {finalDescription}
+        </Text>
+
+        {/*  BUTTON */}
         <Pressable style={styles.componentButton}>
-          <Text style={styles.componentButtonTxt}>Shop Now</Text>
+          <Text style={styles.componentButtonTxt}>
+            {buttonText}
+          </Text>
         </Pressable>
+
       </ImageBackground>
-      
     </View>
   );
 };
-
 export default ComponentWithImage_HeaderAndDescription;

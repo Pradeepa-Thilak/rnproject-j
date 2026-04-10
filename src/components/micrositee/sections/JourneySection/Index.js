@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { decode as atob } from 'base-64';
+import HalfBannerCard from '../HalfBannerCard';
 const JourneySection = ({ section }) => {
   const items = section?.MediaDetails || [];
   // ✅ TEXT ITEM (API)
@@ -29,9 +30,9 @@ const JourneySection = ({ section }) => {
       </Text>
       <Text style={styles.desc}>
         We will be happy to assist you with your queries.
-        Please feel free to contact us via email at:
+        Please feel free to contact us via email at: b2b@jaypore.com
       </Text>
-      <Text style={styles.email}>b2b@jaypore.com</Text>
+      <Text style={styles.email}>You can also call us:</Text>
       <Text style={styles.phone}>Ph: (+91) 8087549632</Text>
       {/* 🔹 FORM */}
       <View style={{ marginTop: 15 }}>
@@ -56,24 +57,25 @@ const JourneySection = ({ section }) => {
         {description}
       </Text>
       {/* 🔹 JOURNEY ITEMS FROM API */}
-      <View style={{ marginTop: 20 }}>
-        {imageItems.map((item, i) => (
-          <View key={i} style={styles.column}>
-            <Image
-              source={{ uri: item.a_image }}
-              style={styles.icon}
-            />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.title}>
-                {item.a_title}
-              </Text>
-              <Text style={styles.sub}>
-                {item.a_shortdescription}
-              </Text>
-            </View>
-          </View>
-        ))}
-      </View>
+      <View style={marginTop=20}>
+  {imageItems.map((item) => {
+    const position = Number(item.a_sequence);
+
+    return (
+      <HalfBannerCard
+        key={item.media_id}
+        positions={[position]}
+        details={[
+          {
+            position: position,
+            MediaDetails: [item],
+          },
+        ]}
+        isNeeded={false}
+      />
+    );
+  })}
+</View>
     </View>
   );
 };
@@ -84,25 +86,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f1ea',
   },
   heading: {
-    fontSize: 22,
+    fontSize: 32,
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
+    fontFamily: "EBGaramond-Regular",
     fontWeight: '600',
     color: '#212121',
   },
   desc: {
     textAlign: 'center',
-    fontSize: 14,
-    color: '#555',
+    fontSize: 18,
+    color: '#212121',
+    fontFamily: "EBGaramond-Regular",
     marginBottom: 10,
   },
   email: {
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: "EBGaramond-Regular",
+    fontSize: 18,
+    color: '#212121',
   },
   phone: {
     textAlign: 'center',
     marginBottom: 10,
+    fontFamily: "EBGaramond-Regular",
+    fontSize: 18,
+    color: '#212121',
   },
   input: {
     backgroundColor: '#eee',
