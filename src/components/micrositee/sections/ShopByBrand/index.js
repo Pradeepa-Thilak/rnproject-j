@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,65 +7,54 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default function ShopByBrand({ position, api }) {
-  const [data, setData] = useState([]);
-  const [heading, setHeading] = useState('');
-  const [buttonText, setButtonText] = useState('');
+export default function ShopByBrand({ details, isNeeded = true }) {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(api);
-        const json = await res.json();
+  const media = details?.MediaDetails || [];
 
-        const section = json?.results?.SectionDetails?.find(
-          sec => sec.position === position
-        );
+  if (!media.length) return null;
 
-        if (!section) return;
+  // 🔥 Heading
+  const headingItem = media.find(
+    item =>
+      item.a_media_type === 'Text' &&
+      item.a_sequence === "0"
+  );
 
-        // 🔥 Heading
-        const headingItem = section.MediaDetails.find(
-          item =>
-            item.a_media_type === 'Text' &&
-            item.a_sequence === "0"
-        );
-        setHeading(headingItem?.a_title || '');
+  const heading = headingItem?.a_title || '';
 
-        const buttonItem = section.MediaDetails.find(
-          item =>
-            item.a_media_type === 'Text' &&
-            item.a_title?.toLowerCase().includes('shop all')
-        );
-        setButtonText(buttonItem?.a_title || '');
+  // 🔥 Button text (optional)
+  const buttonItem = media.find(
+    item =>
+      item.a_media_type === 'Text' &&
+      item.a_title?.toLowerCase().includes('shop')
+  );
 
-        const images = section.MediaDetails
-          .filter(item => item.a_media_type === 'Image')
-          .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
-          .map(item => ({
-            id: item.media_id,
-            uri: item.a_image,
-          }));
+  const buttonText = buttonItem?.a_title || 'Shop All Brands';
 
-        setData(images);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  // 🔥 Images
+  const images = media
+    .filter(item => item.a_media_type === 'Image')
+    .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
+    .map(item => ({
+      id: item.media_id,
+      uri: item.a_image,
+    }));
 
-    fetchData();
-  }, [position, api]);
-
-  
+  // 🔥 rows (2 per row)
   const rows = [];
-  for (let i = 0; i < data.length; i += 2) {
-    rows.push(data.slice(i, i + 2));
+  for (let i = 0; i < images.length; i += 2) {
+    rows.push(images.slice(i, i + 2));
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>{heading}</Text>
 
+      {/* 🔹 Heading */}
+      {heading ? (
+        <Text style={styles.heading}>{heading}</Text>
+      ) : null}
+
+      {/* 🔹 Grid */}
       {rows.map((row, rowIndex) => (
         <View key={rowIndex} style={styles.row}>
           {row.map(item => (
@@ -76,49 +65,53 @@ export default function ShopByBrand({ position, api }) {
         </View>
       ))}
 
-      <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.buttonText}>
-          {buttonText || 'Shop All Brands'}
-        </Text>
-      </TouchableOpacity>
+      {/*   LOGIC AS HALF BANNER */}
+      {isNeeded && (
+        <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+          <Text style={styles.buttonText}>
+            {buttonText}
+          </Text>
+        </TouchableOpacity>
+      )}
+
     </View>
   );
-};
-
-
+}
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    
-    paddingBottom:60,
+    paddingBottom: 60,
     paddingHorizontal: 12,
   },
+
   heading: {
     fontSize: 26,
     fontFamily: 'EBGaramond-Regular',
-  
     color: '#212121',
     textAlign: 'center',
     marginBottom: 16,
     letterSpacing: 0.5,
   },
+
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 24,
   },
+
   card: {
     width: '48.5%',
-    backgroundColor: '#fff',
   },
+
   image: {
     width: '100%',
     aspectRatio: 2 / 3,
     resizeMode: 'cover',
   },
+
   button: {
-    marginTop:24,
+    marginTop: 24,
     alignSelf: 'center',
     borderWidth: 1,
     borderColor: '#212121',
@@ -126,13 +119,12 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 30,
   },
+
   buttonText: {
     fontSize: 14,
     fontFamily: 'Lato-Regular',
     color: '#212121',
     letterSpacing: 0.5,
-    fontWeight:700,
-    textAlign:'center',
-    textTransform:"capitalize"
+    textAlign: 'center',
   },
 });

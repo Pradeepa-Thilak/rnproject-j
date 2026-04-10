@@ -7,29 +7,34 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { decode as atob } from 'base-64';
+import HalfBannerCard from '../HalfBannerCard';
 const JourneySection = ({ section }) => {
   const items = section?.MediaDetails || [];
-  const contact = items.find(i =>
-    i?.a_title?.toLowerCase().includes('get in touch')
+  // ✅ TEXT ITEM (API)
+  const textItem = items.find(
+    item => item.a_media_type === 'Text'
   );
+  // ✅ IMAGE ITEMS (API)
+  const imageItems = items
+    .filter(item => item.a_media_type === 'Image')
+    .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence));
+  const description = textItem?.a_description
+    ? atob(textItem.a_description)
+    : '';
   return (
-    <View style={styles.sectionBox}>
-      {/* CONTACT */}
-      {contact && (
-        <>
-          <Text style={styles.heading}>{contact.a_title}</Text>
-          <Text style={styles.subText}>
-            {contact.a_shortdescription}
-          </Text>
-          <Text style={styles.email}>
-            b2b@jaypore.com
-          </Text>
-          <Text style={styles.phone}>
-            Ph: (+91) 8087549632
-          </Text>
-        </>
-      )}
-      {/* FORM */}
+    <View style={styles.container}>
+      {/* 🔹 GET IN TOUCH SECTION */}
+      <Text style={styles.heading}>
+        Get In Touch With Us
+      </Text>
+      <Text style={styles.desc}>
+        We will be happy to assist you with your queries.
+        Please feel free to contact us via email at: b2b@jaypore.com
+      </Text>
+      <Text style={styles.email}>You can also call us:</Text>
+      <Text style={styles.phone}>Ph: (+91) 8087549632</Text>
+      {/* 🔹 FORM */}
       <View style={{ marginTop: 15 }}>
         <TextInput placeholder="Name" style={styles.input} />
         <TextInput placeholder="Email-ID" style={styles.input} />
@@ -43,50 +48,70 @@ const JourneySection = ({ section }) => {
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </View>
-      {/* JOURNEY */}
-      <View style={{ marginTop: 20 }}>
-        {items.map((item, i) => {
-          if (!item?.a_image) return null;
-          return (
-            <View key={i} style={styles.journeyItem}>
-              <Image
-                source={{ uri: item.a_image }}
-                style={styles.journeyImage}
-              />
-              <Text style={styles.journeyText}>
-                {item.a_title}
-              </Text>
-            </View>
-          );
-        })}
-      </View>
+      {/* 🔹 JOURNEY TITLE FROM API */}
+      <Text style={[styles.heading, { marginTop: 30 }]}>
+        {textItem?.a_title}
+      </Text>
+      {/* 🔹 JOURNEY DESCRIPTION FROM API */}
+      <Text style={styles.desc}>
+        {description}
+      </Text>
+      {/* 🔹 JOURNEY ITEMS FROM API */}
+      <View style={marginTop=20}>
+  {imageItems.map((item) => {
+    const position = Number(item.a_sequence);
+
+    return (
+      <HalfBannerCard
+        key={item.media_id}
+        positions={[position]}
+        details={[
+          {
+            position: position,
+            MediaDetails: [item],
+          },
+        ]}
+        isNeeded={false}
+      />
+    );
+  })}
+</View>
     </View>
   );
 };
 export default JourneySection;
 const styles = StyleSheet.create({
-  sectionBox: {
+  container: {
     padding: 20,
     backgroundColor: '#f5f1ea',
   },
   heading: {
-    fontSize: 22,
+    fontSize: 32,
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
+    fontFamily: "EBGaramond-Regular",
     fontWeight: '600',
+    color: '#212121',
   },
-  subText: {
+  desc: {
     textAlign: 'center',
+    fontSize: 18,
+    color: '#212121',
+    fontFamily: "EBGaramond-Regular",
     marginBottom: 10,
-    color: '#555',
   },
   email: {
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: "EBGaramond-Regular",
+    fontSize: 18,
+    color: '#212121',
   },
   phone: {
     textAlign: 'center',
     marginBottom: 10,
+    fontFamily: "EBGaramond-Regular",
+    fontSize: 18,
+    color: '#212121',
   },
   input: {
     backgroundColor: '#eee',
@@ -103,16 +128,24 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
   },
-  journeyItem: {
+  column: {
+    flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 10,
+    marginBottom: 20,
   },
-  journeyImage: {
-    width: 80,
-    height: 80,
+  icon: {
+    width: 110,
+    height: 100,
+    marginRight: 15,
   },
-  journeyText: {
-    marginTop: 5,
-    textAlign: 'center',
+  title: {
+    fontSize: 14,
+    alignItems: 'center',
+    fontWeight: '600',
+  },
+  sub: {
+    fontSize: 12,
+    color: '#555',
+    marginTop: 2,
   },
 });

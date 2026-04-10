@@ -40,21 +40,25 @@ export const thumbnailBanner = [
     id: 7,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/7_m-2-Dining-Serveware_3771_1770528627882.png',
     label: 'dining & serveware',
+    navigationlink: 'utsav'
   },
   {
     id: 8,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/7_M-6_3771_1771399351101.jpg',
     label: 'necklaces',
+    navigationlink: 'theanjumodicollection'
   },
   {
     id: 9,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/8_M-7_3771_1771399390604.jpg',
     label: "men's half sleeve shirts",
+    navigationlink: 'springsummerr'
   },
   {
     id: 10,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/9_M-9_3771_1771399452466.jpg',
     label: 'dupattas',
+    navigationlink: 'craft'
   },
 ];
 
@@ -133,11 +137,13 @@ export const categories = [
     id: 1,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/Jola-Mobile-1.jpg',
     label: 'ajrakh',
+    navigationlink: 'CLP'
   },
   {
     id: 2,
     uri: 'https://imagescdn.jaypore.com/uploads/micrositmedia/production/Jola-Mobile-2.jpg',
     label: 'dokra',
+    navigationlink: 'gifts'
   },
   {
     id: 3,

@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -12,111 +11,108 @@ import {
 const { width } = Dimensions.get('window');
 const IMAGE_ASPECT_RATIO = 335 / 335;
 
-export default function WearYourRoots ({ position, api }) {
-  const [data, setData] = useState(null);
+export default function WearYourRoots({ details, isNeeded = true }) {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(api);
-        const json = await res.json();
+  const media = details?.MediaDetails || [];
 
-        const section = json?.results?.SectionDetails?.find(
-          sec => sec.position === position
-        );
+  if (!media.length) return null;
 
-        if (!section) return;
+  // 🔥 Get image item
+  const item = media.find(
+    m => m.a_media_type === 'Image'
+  );
 
-        const item = section.MediaDetails.find(
-          item => item.a_media_type === 'Image'
-        );
+  if (!item) return null;
 
-        if (!item) return;
-
-        setData({
-          image: item.a_image,
-          title: item.a_title,
-          description: item.a_shortdescription,
-          link: item?.links?.[0]?.link || item.a_groupLinks,
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  }, [position, api]);
-
-  if (!data) return null;
+  const data = {
+    image: item.a_image,
+    title: item.a_title,
+    description: item.a_shortdescription,
+    link: item?.links?.[0]?.link || item.a_groupLinks,
+  };
 
   return (
     <View style={styles.container}>
+
+      {/* 🔹 IMAGE */}
       <View style={styles.imageWrapper}>
         <Image source={{ uri: data.image }} style={styles.image} />
       </View>
 
+      {/* 🔹 TEXT */}
       <View style={styles.textContainer}>
         <Text style={styles.title}>{data.title}</Text>
+
         <View style={styles.divider} />
+
         <Text style={styles.description}>
           {data.description}
         </Text>
 
-        <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-          <Text style={styles.buttonText}>Shop Now</Text>
-        </TouchableOpacity>
+        {/* 🔥 SAME isNeeded LOGIC */}
+        {isNeeded && (
+          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+            <Text style={styles.buttonText}>Shop Now</Text>
+          </TouchableOpacity>
+        )}
+
       </View>
     </View>
   );
-};
-
-
+}
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     paddingBottom: 24,
-
     alignItems: 'center',
   },
+  
   imageWrapper: {
-    width: width,
+    width: '100%',
     aspectRatio: IMAGE_ASPECT_RATIO,
+    paddingHorizontal:24,
+    marginHorizontal: 10,
+    marginBottom: 24,
   },
+
   image: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
   },
+
   textContainer: {
     width: '50%',
-    paddingHorizontal: 0,
     alignItems: 'center',
     marginTop: 20,
   },
+
   title: {
-    fontSize: 24,              
+    fontSize: 24,
     fontFamily: 'EBGaramond-Regular',
     fontWeight: '600',
     color: '#Bf7154',
     textAlign: 'center',
     letterSpacing: 0.3,
   },
+
   divider: {
-    width: 150,                
+    width: 150,
     height: 1.5,
     backgroundColor: '#Bf7154',
     marginTop: 8,
     marginBottom: 12,
   },
+
   description: {
     fontSize: 13,
     fontFamily: 'Lato-Regular',
     color: '#212121',
     textAlign: 'center',
     lineHeight: 22,
-    paddingHorizontal: 0,
   },
+
   button: {
     marginTop: 20,
     borderWidth: 1,
@@ -125,6 +121,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 48,
   },
+
   buttonText: {
     fontSize: 13,
     fontFamily: 'Lato-Regular',

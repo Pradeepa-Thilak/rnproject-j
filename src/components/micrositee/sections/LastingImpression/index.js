@@ -5,7 +5,7 @@ import { decode as atob } from 'base-64';
 import Video from 'react-native-video';
 import SpriteIcon from "../../../SpriteIcon";
 export default function LastingImpression({details,
-  topIndex = 0,
+  topIndex ,
   bottomIndex = 1,
 topitemstyle,
 bottomitemstyle}){
@@ -33,16 +33,30 @@ const isVideo = (url) => url?.endsWith(".mp4");
   
     return(
     <View style={styles.maincon}>
-        <View style={styles.top}>
-           <Image
-  source={{ uri: topItem?.a_image }}
-            style={topitemstyle}
-            />
-            <Text style={styles.para}>
-                {description}
-            </Text>
+       <View style={styles.top}>
+  {topItem !== undefined ? (
+    <>
+    
+    <Image
+      source={{ uri: topItem?.a_image }}
+      style={topitemstyle}
+    />
+      <Text style={styles.para}>
+        {description}
+      </Text>
+    </>
+  ) : (
+    <>
+      <Text style={styles.title}>
+        {textData?.a_title}
+      </Text>
+      <Text style={styles.para}>
+        {description}
+      </Text>
 
-        </View>
+    </>
+  )}
+</View>
 
         <View style={styles.bottom}>
            {isVideo(bottomItem?.a_image) ? (

@@ -8,11 +8,9 @@ const ImageHeaderAndGrid = ({ details }) => {
     const media = details?.MediaDetails || [];
     // console.log('detaols',details);
     const textData = media.find(item => item.a_media_type === 'Text');
-    const imgData = media.filter(item => item.a_media_type === 'Image');
+    const imgData = media.filter(item => item.a_media_type === 'Image').sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence));
     const bgData = media.find(item => item.a_media_type === 'BackgroundImage')
     const imgGrid = imgData.slice(1);
-  
-
   return (
       <View>
           <View style={[styles.componentContainer, {aspectRatio: 32/49}]}>

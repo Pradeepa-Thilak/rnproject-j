@@ -10,12 +10,13 @@ import ShopByBrand from './sections/ShopByBrand';
 import NewIn from './sections/NewIn';
 import Msiteherobanner from './sections/Msiteherobanner';
 import { getMicrositeData } from '../../api/micrositeApi';
-const EossScreen = () => {
+import Footer from '../Footer';
+const springsummer = () => {
    const [eosdata, setData] = useState({});
         
         useEffect(() => {
             const fetchData = async () => {
-                const data = await getMicrositeData('eoss');
+                const data = await getMicrositeData('springsummer');
                 if (data.msg === 'success')
                     setData(data.results);
                 else
@@ -52,13 +53,15 @@ const EossScreen = () => {
       <SeasonsFavorites details={getSection(14)}/>
     <WearYourRoots details={getSection(15)}/>
        <SeasonsFavorites details={getSection(16)} />
+       {/* <SeasonsFavorites details={getSection(4)}/> */}
 <HalfBannerCard
-  positions={[17,18]}
+  positions={[19]}
   details={eosdata?.SectionDetails}
 />
       <FeaturedCollections details={getSection(20)} />
-      <ShopByBrand details={getSection(22)}/>
+      <ShopByBrand details={getSection(21)} isNeeded={false}/>
       <NewIn />
+      <Footer/>
     </ScrollView>
   );
 };
@@ -70,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EossScreen;
+export default springsummer;
