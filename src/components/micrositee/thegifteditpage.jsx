@@ -34,10 +34,10 @@ export default function Thegifteditpage(){
     return(
         <ScrollView style={{height:"100%",flex:1}}>
           <HeroBanner
-  apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=the-gifting-edit&deviceType=mobile&shopId=26"
+   details={getSection(1)}
 isHome={true}
 aspectRatio={360/400}
-  pos={1}
+ 
 />
   <Category
      details={getSection(2)}

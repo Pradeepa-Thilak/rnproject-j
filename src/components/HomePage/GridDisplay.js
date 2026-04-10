@@ -1,28 +1,30 @@
 import React from 'react';
 import { Pressable, View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Gridproducts } from '../../lib/ConstData';
-const GridDisplay = ({ navigation: navProp }) => {
+import { getDecodeText } from '../../utils/DecodeText';
+const GridDisplay = ({ navigation: navProp,data , isfirst=false }) => {
   const navigationHook = useNavigation();
   const navigation = navProp || navigationHook;
-
-  const renderItems = (item) => (
+   const media = data || []
+  
+   
+  const renderItems = ({item}) => (
     <Pressable
       style={styles.product}
-      onPress={() => {
-        if (item.navigationlink) {
-          navigation.navigate(item.navigationlink);
-        }
-      }}
+      // onPress={() => {
+      //   if (item.navigationlink) {
+      //     navigation.navigate(item.navigationlink);
+      //   }
+      // }}
     >
       <View style={{ aspectRatio: 279 / 365 }}>
-        <Image source={{ uri: item.uri }} style={styles.img} />
+        <Image source={{ uri: item.a_image }} style={styles.img} />
 
       </View>
 
-      <Text style={styles.imgName}>{item.name}</Text>
-      <Text style={styles.imgCat}>{item.cat}</Text>
-      <Text style={styles.imgDes}>{item.des}</Text>
+      <Text style={styles.imgName}>{item.a_title}</Text>
+      <Text style={styles.imgCat}>{item.a_shortdescription}</Text>
+      <Text style={styles.imgDes}>{getDecodeText(item.a_description)}</Text>
       <Text style={styles.shop}>shop now</Text>
     </Pressable>
   );
@@ -30,17 +32,22 @@ const GridDisplay = ({ navigation: navProp }) => {
   return (
     <View>
       <View style={styles.whole}>
+        {isfirst && 
+        
         <View style={styles.header}>
           <Text style={styles.gridHead}>featured collections</Text>
         </View>
+        }
         <FlatList
-          data={Gridproducts}
+          data={media}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => renderItems(item)}
+          renderItem={renderItems}
           numColumns={2}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
         />
       </View>
+      {isfirst &&
+
       <View style={{ paddingHorizontal: 10, aspectRatio: 600 / 134 }}>
         <Image
           source={{
@@ -49,6 +56,7 @@ const GridDisplay = ({ navigation: navProp }) => {
           style={{ height: '100%', width: '100%', resizeMode: 'contain' }}
         />
       </View>
+      }
     </View>
   );
 };

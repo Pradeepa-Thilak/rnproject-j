@@ -1,18 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, Pressable } from 'react-native';
-import { categories } from '../../lib/ConstData';
+
 import { useNavigation } from '@react-navigation/native';
 
-const Reclaim = () => {
+const Reclaim = ({details}) => {
 
   const navigation = useNavigation();
-
-  const renderProducts = item => (
-    <Pressable style={styles.catItems} onPress={() => navigation.navigate('CLP')}>
+  const media = (details?.MediaDetails || []).sort((a,b)=> Number(a.a_sequence )- (Number(b.a_sequence)))
+  const renderProducts = ({item}) => (
+    <Pressable style={styles.catItems} 
+    // onPress={() => navigation.navigate('CLP')}
+    >
       <View style={{aspectRatio: 279/384}}>
-      <Image source={{ uri: item.uri }} style={styles.img} />
+      <Image source={{ uri: item.a_image }} style={styles.img} />
       </View>
-      <Text style={styles.catName}>{item.label}</Text>
+      <Text style={styles.catName}>{item.a_title}</Text>
     </Pressable>
   );
 
@@ -25,9 +27,9 @@ const Reclaim = () => {
         </Text>
       </View>
       <FlatList
-        data={categories}
+        data={media}
         keyExtractor={(item, ind) => ind.toString()}
-        renderItem={({ item }) => renderProducts(item)}
+         renderItem={renderProducts}
         horizontal
         contentContainerStyle={styles.cat}
         showsHorizontalScrollIndicator={false}
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
   whole: {
     backgroundColor: '#fff',
     paddingVertical: 25,
-    marginBottom: 20,
+    
   },
   catItems: {
     marginHorizontal: 10,

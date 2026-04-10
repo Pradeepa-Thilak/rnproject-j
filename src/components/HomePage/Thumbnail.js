@@ -1,25 +1,27 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View,Pressable, Text, Image, FlatList, StyleSheet } from 'react-native';
-import { thumbnailBanner } from '../../lib/ConstData';
 
-const Thumbnail = () => {
+
+const Thumbnail = ({details}) => {
   const navigation = useNavigation();
+  const media= details?.MediaDetails || []
+  media.sort((a,b)=> Number(a.a_sequence) - Number(b.a_sequence))
   const renderThumbNail = item => (
     <Pressable
       style={styles.thumbWhole}
-      onPress={() => navigation.navigate(item.navigationlink)}
+      // onPress={() => navigation.navigate(item.navigationlink)}
     >
       <View style={{aspectRatio: 1}}>
-      <Image source={{ uri: item.uri }} style={styles.img} />
+      <Image source={{ uri: item.a_image }} style={styles.img} />
       </View>
-      <Text style={styles.thumbText}>{item.label}</Text>
+      <Text style={styles.thumbText}>{item.a_title}</Text>
     </Pressable>
   );
 
   return (
     <FlatList
-      data={thumbnailBanner}
+      data={media}
       keyExtractor={(item, index) => item + index}
       renderItem={({ item }) => renderThumbNail(item)}
       horizontal

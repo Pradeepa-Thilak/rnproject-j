@@ -36,10 +36,10 @@ const Weddingseason = () => {
   return (
       <ScrollView style={{backgroundColor: '#faf2e5'}}>
             <HeroBanner
-  apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=wedding-season&deviceType=mobile&shopId=26"
+details={sectionData[0]}
 isHome={true}
 aspectRatio={360/563}
-  pos={1}
+ 
 />
        
           <ComponentWithHeaderAndGrid details={sectionData[2]} />

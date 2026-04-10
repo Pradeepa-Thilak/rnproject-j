@@ -10,15 +10,22 @@ import {
 import { bannerImg } from '../../lib/ConstData';
 import { useNavigation } from '@react-navigation/native';
 const { width } = Dimensions.get('window');
-const HeroBanner = ({ isHome = true, clpData, aspectRatio,apiUrl,pos,}) => {
+const HeroBanner = ({ isHome = true, clpData, aspectRatio,details,}) => {
 
   const navigation = useNavigation();
   const [active, setActive] = useState(0);
-    const [apiData, setApiData] = useState([]);
+  
   const flatListRef = useRef(null);
   // Data — HomeScreen: bannerImg, CLP: clpData
- const bannerData = apiUrl
-  ? apiData
+   
+  const bannerData = details
+  ? (details?.MediaDetails || [])
+      .filter(item => item.a_media_type === "Image")
+      .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
+      .map(item => ({
+        uri: item.a_image,
+        link: item.a_link
+      }))
   : (isHome ? bannerImg : clpData);
   const loopData = [...bannerData, ...bannerData, ...bannerData];
   const currentIndex = useRef(bannerData.length);
@@ -45,35 +52,7 @@ const HeroBanner = ({ isHome = true, clpData, aspectRatio,apiUrl,pos,}) => {
   };
 
   //  if apiUrl given
-  useEffect(() => {
-    if (!apiUrl) return;
 
-    const fetchData = async () => {
-      try {
-        const res = await fetch(apiUrl);
-        const json = await res.json();
-
-        const sections = json?.results?.SectionDetails || [];
-        const section = sections.find(sec => sec.position === pos);
-
-        if (section?.MediaDetails?.length > 0) {
-          const images = section.MediaDetails
-            .filter(item => item.a_media_type === "Image")
-            .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
-            .map(item => ({
-              uri: item.a_image,
-              link: item.a_link
-            }));
-
-          setApiData(images);
-        }
-      } catch (err) {
-        console.log("api error", err);
-      }
-    };
-
-    fetchData();
-  }, [apiUrl, pos]);
 useEffect(() => {
   if (!bannerData || bannerData.length === 0) return; // 🔥 FIX
 
