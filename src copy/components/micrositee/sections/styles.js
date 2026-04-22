@@ -108,7 +108,6 @@ export const styles = StyleSheet.create({
   },
   Image: {
     width: '75%',
-    // aspectRatio: imageaspectratio,
     marginBottom: 10,
   },
 });

@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
 import fonts from '../../assests/fonts';
+import colors from '../../assests/colors';
 export const stylesCart = StyleSheet.create({
   rightBorder: {
     borderRightWidth: 1,
-    borderRightColor: '#ccc',
+    borderRightColor: colors.grayColor6,
   },
 
   leftBorder: {
     borderLeftWidth: 1,
-    borderLeftColor: '#ccc',
+    borderLeftColor: colors.grayColor6,
   },
 
   iconWrapper: {
@@ -38,7 +39,7 @@ export const stylesCart = StyleSheet.create({
   },
 
   applyText: {
-    color: '#bb4125',
+    color: colors.brownColor2,
     fontSize: 16,
   },
 
@@ -53,7 +54,7 @@ export const stylesCart = StyleSheet.create({
   },
 
   saveText: {
-    color: '#4caf50',
+    color: colors.greenColor1,
     fontSize: 12,
     fontFamily: fonts.LatoRegular,
   },
@@ -61,7 +62,7 @@ export const stylesCart = StyleSheet.create({
   termsText: {
     fontSize: 12,
     fontFamily: fonts.LatoRegular,
-    color: '#8e959c',
+    color: colors.grayBlueColor1,
   },
 
   toastContainer: {
@@ -74,7 +75,7 @@ export const stylesCart = StyleSheet.create({
   },
 
   toastBox: {
-    backgroundColor: '#1c1c1c',
+    backgroundColor: colors.blackColor2,
     width: '100%',
     paddingVertical: 10,
     paddingHorizontal: 30,
@@ -82,7 +83,7 @@ export const stylesCart = StyleSheet.create({
   },
 
   toastText: {
-    color: '#fff',
+    color: colors.whiteColor1,
     textAlign: 'center',
   },
   lastItem: {
@@ -103,13 +104,13 @@ export const stylesCart = StyleSheet.create({
   },
 
   strikeSmall: {
-    color: '#707070',
+    color: colors.grayColor14,
     textDecorationLine: 'line-through',
     fontSize: 12,
   },
 
   discountText: {
-    color: '#bb4225',
+    color: colors.brownColor1,
     textTransform: 'capitalize',
     fontSize: 12,
   },
@@ -120,11 +121,11 @@ export const stylesCart = StyleSheet.create({
   },
 
   selectedDropdownItem: {
-    backgroundColor: '#bb4225',
+    backgroundColor: colors.brownColor1,
   },
 
   selectedDropdownText: {
-    color: '#fff',
+    color: colors.whiteColor1,
   },
   container: {
     flex: 1,
@@ -139,13 +140,13 @@ export const stylesCart = StyleSheet.create({
     paddingHorizontal: 0,
   },
   inputHighlight: {
-    borderColor: '#bb4225',
+    borderColor: colors.brownColor1,
   },
   selectedBtn: {
-    backgroundColor: '#bb4225',
+    backgroundColor: colors.brownColor1,
   },
   selectedBtnText: {
-    color: '#fff',
+    color: colors.whiteColor1,
   },
   checkboxRow: {
     flexDirection: 'row',
@@ -154,7 +155,7 @@ export const stylesCart = StyleSheet.create({
   },
 
   disabledBtn: {
-    backgroundColor: '#ccc',
+    backgroundColor: colors.grayColor6,
   },
 
   emptyBox: {
@@ -162,13 +163,13 @@ export const stylesCart = StyleSheet.create({
     paddingHorizontal: 15,
     paddingTop: 28,
     paddingBottom: 30,
-    backgroundColor: '#fff',
+    backgroundColor: colors.whiteColor1,
   },
   emptyText1: {
     fontSize: 21,
     fontFamily: fonts.LatoBold,
     marginTop: 15,
-    color: '#212121',
+    color: colors.grayColor22,
     letterSpacing: 0.25,
     textAlign: 'center',
   },
@@ -178,7 +179,7 @@ export const stylesCart = StyleSheet.create({
     flexWrap: 'wrap',
     lineHeight: 32,
     letterSpacing: 0.35,
-    color: '#707070',
+    color: colors.grayColor14,
     textAlign: 'center',
   },
   emptyBtnBox: {
@@ -189,19 +190,19 @@ export const stylesCart = StyleSheet.create({
     marginHorizontal: 10,
     paddingVertical: 10,
     paddingHorizontal: 8,
-    backgroundColor: '#bb4225',
+    backgroundColor: colors.brownColor1,
     borderRadius: 4,
   },
   shopBtnText: {
     fontSize: 14,
     fontFamily: fonts.LatoRegular,
-    color: '#fff',
+    color: colors.whiteColor1,
     textAlign: 'center',
     textTransform: 'uppercase',
   },
   addressBox: {
     marginTop: 10,
-    backgroundColor: '#fff',
+    backgroundColor: colors.whiteColor1,
     paddingHorizontal: 15,
     paddingVertical: 13,
     flexDirection: 'row',
@@ -211,12 +212,12 @@ export const stylesCart = StyleSheet.create({
     width: '66%',
     fontSize: 14,
     fontFamily: fonts.LatoBold,
-    color: '#616161',
+    color: colors.grayColor11,
     letterSpacing: 0.2,
   },
   addressBox_InputBtn: {
     borderWidth: 1,
-    borderColor: '#bb4225',
+    borderColor: colors.brownColor1,
     paddingHorizontal: 10,
     paddingVertical: 7,
     width: '30%',
@@ -224,7 +225,7 @@ export const stylesCart = StyleSheet.create({
   addressBox_InputBtn_Text: {
     flexWrap: 'wrap',
     textAlign: 'center',
-    color: '#bb4125',
+    color: colors.brownColor2,
     letterSpacing: 0.2,
     fontSize: 13,
     fontFamily: fonts.LatoBold,
@@ -239,7 +240,7 @@ export const stylesCart = StyleSheet.create({
   addressModalBox_head: {
     fontSize: 16,
     fontFamily: fonts.LatoBold,
-    color: '#000',
+    color: colors.blackColor1,
     letterSpacing: 0.2,
   },
   PincodeInputBox_container: {
@@ -254,7 +255,7 @@ export const stylesCart = StyleSheet.create({
     top: '30%',
     fontFamily: fonts.LatoRegular,
     fontSize: 16,
-    color: '#606060',
+    color: colors.grayColor12,
   },
   PincodeInputBoxLabel_active: {
     top: 4,
@@ -265,26 +266,26 @@ export const stylesCart = StyleSheet.create({
     top: '30%',
   },
   PincodeInputBox_check_text: {
-    fontFamily: 'Lato-Regular',
+    fontFamily: fonts.LatoRegular,
     fontSize: 12,
-    color: '#606060',
+    color: colors.grayColor12,
   },
   OrderSummaryContainer: {
     borderRightWidth: 1,
-    borderRightColor: '#ccc',
+    borderRightColor: colors.grayColor6,
   },
   OrderSummarySpriteIconContainer: {
     marginBottom: 10,
   },
   OrderSummarybottomdeetborder: {
     borderLeftWidth: 1,
-    borderLeftColor: '#ccc',
+    borderLeftColor: colors.grayColor6,
   },
   PincodeInputBox: {
     height: 55,
     width: '100%',
     borderWidth: 1,
-    borderColor: '#bb4225',
+    borderColor: colors.brownColor1,
     borderRadius: 6,
     paddingHorizontal: 17,
     paddingTop: 18,
@@ -296,7 +297,7 @@ export const stylesCart = StyleSheet.create({
   },
   addAddress: {
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: colors.blackColor1,
     borderRadius: 4,
   },
   addAddressText: {
@@ -304,7 +305,7 @@ export const stylesCart = StyleSheet.create({
     lineHeight: 40,
     fontSize: 14,
     fontFamily: fonts.LatoBold,
-    color: '#000',
+    color: colors.blackColor1,
   },
   DetailsHead: {
     paddingTop: 5,
@@ -313,7 +314,7 @@ export const stylesCart = StyleSheet.create({
     fontFamily: fonts.LatoBold,
     lineHeight: 20,
     letterSpacing: 0.15,
-    color: '#616161',
+    color: colors.grayColor11,
   },
   contactInputContainer: {
     flexDirection: 'row',
@@ -331,7 +332,7 @@ export const stylesCart = StyleSheet.create({
     top: '30%',
     fontFamily: fonts.LatoRegular,
     fontSize: 16,
-    color: '#606060',
+    color: colors.grayColor12,
     paddingRight: 17,
   },
   InputLabelActive: {
@@ -342,7 +343,7 @@ export const stylesCart = StyleSheet.create({
     // position: 'absolute',
     height: 55,
     borderWidth: 1,
-    borderColor: '#606060',
+    borderColor: colors.grayColor12,
     width: '100%',
     borderRadius: 6,
     paddingHorizontal: 17,
@@ -357,17 +358,17 @@ export const stylesCart = StyleSheet.create({
   AddressBottomContain: {
     padding: 10,
     borderTopWidth: 1,
-    borderColor: '#606060',
+    borderColor: colors.grayColor12,
   },
   AddressSaveBtn: {
     paddingHorizontal: 15,
     paddingVertical: 8,
-    backgroundColor: '#bb4225',
+    backgroundColor: colors.brownColor1,
     borderRadius: 4,
   },
   AddressSaveBtnText: {
     textAlign: 'center',
-    color: '#fff',
+    color: colors.whiteColor1,
     textTransform: 'uppercase',
     lineHeight: 30,
     fontFamily: fonts.LatoRegular,
@@ -381,7 +382,7 @@ export const stylesCart = StyleSheet.create({
   SaveAddressBtn: {
     width: '30%',
     borderWidth: 1,
-    borderColor: '#ededed',
+    borderColor: colors.grayColor27,
     marginRight: 10,
     borderRadius: 5,
     paddingHorizontal: 15,
@@ -396,7 +397,7 @@ export const stylesCart = StyleSheet.create({
   DefaultAddress: {
     fontFamily: fonts.EBGaramondRegular,
     letterSpacing: 0.2,
-    color: '#717171',
+    color: colors.grayColor10,
     fontSize: 13,
   },
 
@@ -406,7 +407,7 @@ export const stylesCart = StyleSheet.create({
   },
   CartProductItem: {
     marginBottom: 12,
-    backgroundColor: '#fff',
+    backgroundColor: colors.whiteColor1,
     overflow: 'visible',
   },
   CartProduct: {
@@ -424,7 +425,7 @@ export const stylesCart = StyleSheet.create({
   CartProBrand: {
     fontFamily: fonts.LatoRegular,
     fontSize: 11,
-    color: '#be4226',
+    color: colors.brownColor12,
     paddingTop: 3,
     textTransform: 'uppercase',
     letterSpacing: 0.2,
@@ -433,7 +434,7 @@ export const stylesCart = StyleSheet.create({
   CartProName: {
     fontFamily: fonts.LatoRegular,
     fontSize: 14,
-    color: '#000',
+    color: colors.blackColor1,
     flexWrap: 'wrap',
     fontWeight: 600,
   },
@@ -469,7 +470,7 @@ export const stylesCart = StyleSheet.create({
     fontSize: 14,
     textTransform: 'capitalize',
     marginRight: 5,
-    color: '#707070',
+    color: colors.grayColor14,
   },
   PopMenuValue: {
     fontFamily: fonts.LatoRegular,
@@ -482,9 +483,9 @@ export const stylesCart = StyleSheet.create({
     top: '100%',
     left: 0,
     marginTop: 5,
-    backgroundColor: '#fff',
+    backgroundColor: colors.whiteColor1,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.grayColor6,
     borderRadius: 4,
     elevation: 10,
     zIndex: 999,
@@ -497,7 +498,7 @@ export const stylesCart = StyleSheet.create({
   DropdownMenuTxt: {
     fontFamily: fonts.LatoRegular,
     fontSize: 16,
-    color: '#000',
+    color: colors.blackColor1,
     textTransform: 'uppercase',
   },
   ProBottomContain: {
@@ -516,7 +517,7 @@ export const stylesCart = StyleSheet.create({
   ProBottomText: {
     fontFamily: fonts.LatoBold,
     fontSize: 12,
-    color: '#000',
+    color: colors.blackColor1,
   },
   DeliveryContain: {
     paddingTop: 5,
@@ -530,11 +531,11 @@ export const stylesCart = StyleSheet.create({
     fontFamily: fonts.LatoRegular,
     fontSize: 12,
     fontWeight: 500,
-    color: '#000',
+    color: colors.blackColor1,
     lineHeight: 20,
   },
   leftTxt: {
-    color: '#db7500',
+    color: colors.brownColor10,
     fontFamily: fonts.LatoBold,
     fontSize: 12,
     lineHeight: 20,
@@ -553,7 +554,7 @@ export const stylesCart = StyleSheet.create({
     fontSize: 16,
     fontFamily: fonts.LatoBold,
     fontWeight: 800,
-    color: '#212121',
+    color: colors.grayColor22,
   },
   modalcon: {
     width: '100%',
@@ -566,19 +567,19 @@ export const stylesCart = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
-    borderColor: '#eee',
+    borderColor: colors.grayColor13,
   },
   innercoupon: {
     paddingVertical: 20,
     paddingHorizontal: 10,
     borderTopWidth: 5,
-    borderTopColor: '#ededed',
+    borderTopColor: colors.grayColor27,
     borderBottomWidth: 5,
-    borderBottomColor: '#ededed',
+    borderBottomColor: colors.grayColor27,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#e8c1a8',
+    borderColor: colors.brownColor14,
     borderRadius: 4,
     position: 'relative',
     flexDirection: 'column',
@@ -587,7 +588,7 @@ export const stylesCart = StyleSheet.create({
   defaultText: {
     position: 'absolute',
     left: 17,
-    color: '#616161',
+    color: colors.grayColor11,
     fontSize: 14,
   },
   label: {
@@ -595,7 +596,7 @@ export const stylesCart = StyleSheet.create({
     top: 9,
     left: 17,
     fontSize: 11,
-    color: '#616161',
+    color: colors.grayColor11,
   },
   textinput: {
     paddingTop: 18,
@@ -610,7 +611,7 @@ export const stylesCart = StyleSheet.create({
     justifyContent: 'center',
   },
   errorText: {
-    color: '#eb3840',
+    color: colors.redColor1,
     fontSize: 16,
     marginTop: 2,
     marginLeft: 4,
@@ -639,15 +640,15 @@ export const stylesCart = StyleSheet.create({
   coupontxt: {
     fontFamily: fonts.LatoRegular,
     fontSize: 14,
-    color: '#666',
+    color: colors.grayColor17,
   },
   removebtn: {
     height: 32,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#000',
-    backgroundColor: '#fff',
+    borderColor: colors.blackColor1,
+    backgroundColor: colors.whiteColor1,
     paddingHorizontal: 12,
     width: 78,
     borderRadius: 4,
@@ -656,13 +657,13 @@ export const stylesCart = StyleSheet.create({
   // Order Summary
   ordercon: {
     marginTop: 10,
-    backgroundColor: '#fffff7',
+    backgroundColor: colors.whiteColor2,
   },
   oshead: {
     paddingHorizontal: 15,
     paddingTop: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e5e5',
+    borderBottomColor: colors.grayColor4,
     marginBottom: 15,
     flexDirection: 'row',
     gap: 5,
@@ -686,7 +687,7 @@ export const stylesCart = StyleSheet.create({
     width: '55%',
     textAlign: 'left',
     fontFamily: fonts.LatoRegular,
-    color: '#212121',
+    color: colors.grayColor27,
     fontSize: 14,
   },
 
@@ -694,7 +695,7 @@ export const stylesCart = StyleSheet.create({
     width: '45%',
     textAlign: 'right',
     fontFamily: fonts.LatoRegular,
-    color: '#212121',
+    color: colors.grayColor27,
     fontSize: 14,
   },
   rightcontainer: {
@@ -706,21 +707,21 @@ export const stylesCart = StyleSheet.create({
 
   strike: {
     textDecorationLine: 'line-through',
-    color: '#707070',
+    color: colors.grayColor14,
     fontSize: 14,
 
     fontFamily: fonts.LatoRegular,
   },
 
   free: {
-    color: '#212121',
+    color: colors.grayColor27,
     fontSize: 14,
     textTransform: 'uppercase',
     fontFamily: fonts.LatoRegular,
   },
   total: {
     borderTopWidth: 1,
-    borderTopColor: '#e5e5e5',
+    borderTopColor: colors.grayColor4,
     marginTop: 5,
     paddingTop: 15,
     flexDirection: 'row',
@@ -729,18 +730,18 @@ export const stylesCart = StyleSheet.create({
     fontFamily: fonts.LatoRegular,
     fontWeight: 700,
     fontSize: 12,
-    color: '#32724c',
+    color: colors.greenColor2,
     flexDirection: 'row',
   },
   bottomlinetxt: {
     fontFamily: fonts.LatoRegular,
     fontWeight: 700,
     fontSize: 12,
-    color: '#32724c',
+    color: colors.greenColor2,
   },
   bottomdeets: {
     paddingVertical: 15,
-    backgroundColor: '#f0f0ea',
+    backgroundColor: colors.grayColor2,
     flexDirection: 'row',
   },
   bottomdeetsitem: {
@@ -758,7 +759,7 @@ export const stylesCart = StyleSheet.create({
 
   // footer
   footer: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.whiteColor1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -770,17 +771,17 @@ export const stylesCart = StyleSheet.create({
   CartFooteTxt: {
     fontFamily: fonts.LatoBold,
     fontSize: 16,
-    color: '#212121',
+    color: colors.grayColor22,
     letterSpacing: 0.2,
   },
   summaryText: {
     fontSize: 13,
     fontFamily: fonts.LatoBold,
-    color: '#212121',
+    color: colors.grayColor27,
     letterSpacing: 0.2,
   },
   CartFooterBtn: {
-    backgroundColor: '#bb4225',
+    backgroundColor: colors.brownColor1,
     width: '100%',
     marginHorizontal: 5,
     borderRadius: 4,
@@ -789,7 +790,7 @@ export const stylesCart = StyleSheet.create({
     textAlign: 'center',
     fontFamily: fonts.LatoBold,
     fontSize: 16,
-    color: '#fff',
+    color: colors.whiteColor1,
     lineHeight: 40,
     textTransform: 'capitalize',
   },

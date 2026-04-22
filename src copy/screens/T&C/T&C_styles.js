@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
 import fonts from '../../assests/fonts';
+import colors from '../../assests/colors';
 export const stylesTandC = StyleSheet.create({
   Text: {
     paddingLeft: 8,
   },
   TandC_Container: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.whiteColor1,
     paddingHorizontal: 16,
   },
   TandC_Head: {
@@ -15,13 +16,13 @@ export const stylesTandC = StyleSheet.create({
     fontFamily: fonts.LatoBold,
     fontSize: 16,
     textAlign: 'center',
-    color: '#212121',
+    color: colors.grayColor22,
     textDecorationLine: 'underline',
   },
   TandC_Content: {
     fontFamily: fonts.LatoRegular,
     fontSize: 18,
-    color: '#616161',
+    color: colors.grayColor11,
     letterSpacing: 0.05,
   },
   TandC_SubHead: {
@@ -30,7 +31,7 @@ export const stylesTandC = StyleSheet.create({
   TandC_SubHeadTxt: {
     fontFamily: fonts.LatoBold,
     fontSize: 16,
-    color: '#212121',
+    color: colors.grayColor22,
   },
   TandC_TermContainer: {
     flexDirection: 'row',
