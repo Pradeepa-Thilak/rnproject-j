@@ -14,6 +14,7 @@ import ModalCom from './ModalCom';
 import fonts from '../../assests/fonts';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 const { width, height } = Dimensions.get('window');
+// const sliderLength = width * 0.5;
 
 const SortAndFilter = ({ sortValues, filterData }) => {
   const [sortValue, setSort] = useState('Popular');
@@ -324,6 +325,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
+    backgroundColor: colors.whiteColor1,
   },
 
   rightBorder: {
@@ -384,7 +386,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '50%',
-    padding: 10,
+    paddingVertical: 10,
   },
   containText: {
     fontFamily: fonts.LatoRegular,
