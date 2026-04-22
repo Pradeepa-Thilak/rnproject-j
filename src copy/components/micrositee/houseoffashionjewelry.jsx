@@ -1,15 +1,15 @@
-import { ScrollView, StyleSheet } from 'react-native';
+import React from 'react';
+import { ScrollView } from 'react-native';
 import MsiteHeroBanner from '../../components/micrositee/sections/Msiteherobanner';
-import Category from './sections/Category';
-import Popgiftcategory from './sections/Popgiftcategory';
+import Category from '../../components/micrositee/sections/Category';
+import Popgiftcategory from '../../components/micrositee/sections/Popgiftcategory';
 import BestSellers from '../../components/micrositee/sections/Bestsellers';
 import Shopbyprice from '../../components/micrositee/sections/Shopbyprice';
 import LastingImpression from '../../components/micrositee/sections/LastingImpression';
-import Footer from '../Footer';
-import { useState, useEffect, React } from 'react';
+import Footer from '../../components/Footer';
+import { useState, useEffect } from 'react';
 import { decode } from 'html-entities';
 import { getMicrositeData } from '../../api/micrositeApi';
-import ScreenWrapper from '../ScreenWrapper';
 export default function Houseoffashionjewelry() {
   const [data, setData] = useState({});
 
@@ -26,98 +26,70 @@ export default function Houseoffashionjewelry() {
   const sectionData = data?.SectionDetails || [];
   const getSection = (pos) => sectionData.find((sec) => sec.position === pos);
   return (
-    <ScreenWrapper>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        {/* 🔹 HERO BANNER */}
-        <MsiteHeroBanner
-          details={getSection(1)}
-          imagestyle={styles.Msitestyle}
-        />
-        {/*🔹 SHOP BY OCCASION */}
-        <Category
-          details={getSection(2)}
-          imageStyle={styles.CategoryImgstyle}
-        />
-        {/* 🔹 SHOP BY CRAFT */}
-        <Popgiftcategory details={getSection(3)} />
-        {/* 🔹 SHOP BY FABRIC */}
-        <BestSellers
-          details={getSection(4)}
-          imgbgstyle={styles.BestsellerImgstyle}
-          categoryconstyle={styles.BestsellerCategoryconstyle}
-          titleimgstyle={styles.BestSellerstitleImgstyle}
-          categorytopimgstyle={styles.BestSellersCategorytopimgstyle}
-        />
-        {/* 🔹 SHOP BY COLOR */}
-        <Shopbyprice
-          details={getSection(6)}
-          titleimgstyle={styles.ShopByPricetitleimgstyle}
-          transformData={(images) =>
-            images.slice(0, 4).map((item) => {
-              return {
-                image: item.a_image,
-                title: decode(item.a_title)?.toUpperCase(),
-              };
-            })
-          }
-        />
-        {/* 🔹 LAST SECTION (VIDEO) */}
-        <LastingImpression
-          details={getSection(8)}
-          topIndex={1}
-          bottomIndex={0}
-          topitemstyle={styles.LastingImpressiontopitemstyle}
-          bottomitemstyle={styles.LastingImpressionbottomitemstyle}
-        />
-        <Footer />
-      </ScrollView>
-    </ScreenWrapper>
+    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      {/* 🔹 HERO BANNER */}
+      <MsiteHeroBanner
+        details={getSection(1)}
+        imagestyle={{
+          width: '100%',
+          aspectRatio: 420 / 551,
+          resizeMode: 'cover',
+        }}
+      />
+      🔹 SHOP BY OCCASION
+      <Category
+        details={getSection(2)}
+        imageStyle={{
+          width: '100%',
+          aspectRatio: 799 / 1002,
+          resizeMode: 'cover',
+        }}
+      />
+      {/* 🔹 SHOP BY CRAFT */}
+      <Popgiftcategory details={getSection(3)} />
+      {/* 🔹 SHOP BY FABRIC */}
+      <BestSellers
+        details={getSection(4)}
+        imgbgstyle={{
+          width: '100%',
+          aspectRatio: 40 / 21,
+        }}
+        categoryconstyle={{
+          position: 'absolute',
+          top: 55,
+          left: 20,
+          right: 0,
+          bottom: 0,
+          alignItems: 'center',
+        }}
+        titleimgstyle={{
+          aspectRatio: 97 / 30,
+          width: '58%',
+        }}
+        categorytopimgstyle={{ width: '100%', aspectRatio: 329 / 331 }}
+      />
+      {/* 🔹 SHOP BY COLOR */}
+      <Shopbyprice
+        details={getSection(6)}
+        titleimgstyle={{ width: '100%', aspectRatio: 595 / 124 }}
+        transformData={(images) =>
+          images.slice(0, 4).map((item) => {
+            return {
+              image: item.a_image,
+              title: decode(item.a_title)?.toUpperCase(),
+            };
+          })
+        }
+      />
+      {/* 🔹 LAST SECTION (VIDEO) */}
+      <LastingImpression
+        details={getSection(8)}
+        topIndex={1}
+        bottomIndex={0}
+        topitemstyle={{ width: '100%', aspectRatio: 1080 / 101 }}
+        bottomitemstyle={{ width: '100%', aspectRatio: 396 / 235 }}
+      />
+      <Footer />
+    </ScrollView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  Msitestyle: {
-    width: '100%',
-    aspectRatio: 420 / 551,
-    resizeMode: 'cover',
-  },
-  CategoryImgstyle: {
-    width: '100%',
-    aspectRatio: 799 / 1002,
-    resizeMode: 'cover',
-  },
-  BestsellerImgstyle: {
-    width: '100%',
-    aspectRatio: 40 / 21,
-  },
-  BestsellerCategoryconstyle: {
-    position: 'absolute',
-    top: 55,
-    left: 20,
-    right: 0,
-    bottom: 0,
-    alignItems: 'center',
-  },
-  BestSellerstitleImgstyle: {
-    aspectRatio: 97 / 30,
-    width: '58%',
-  },
-  BestSellersCategorytopimgstyle: {
-    width: '100%',
-    aspectRatio: 329 / 331,
-  },
-  ShopByPricetitleimgstyle: {
-    width: '100%',
-    aspectRatio: 595 / 124,
-  },
-  LastingImpressiontopitemstyle: {
-    width: '100%',
-    aspectRatio: 1080 / 101,
-  },
-  LastingImpressionbottomitemstyle: {
-    width: '100%',
-    aspectRatio: 396 / 235,
-  },
-});

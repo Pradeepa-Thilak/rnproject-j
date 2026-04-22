@@ -1,20 +1,14 @@
-import base64 from 'react-native-base64';
 import { decode } from 'html-entities';
 
 export const getDecodeText = (text) => {
+  // Handle invalid input
   if (!text || typeof text !== 'string') return '';
 
   try {
-    let decoded = text;
+    // Decode HTML entities (e.g., &amp;, &#39;, etc.)
+    const decoded = decode(text);
 
-    // Base64 decode (safe)
-    try {
-      decoded = base64.decode(text);
-    } catch {}
-
-    decoded = decode(decoded);
-
-    // Remove HTML tags
+    // Remove HTML tags if present
     return decoded.replace(/<[^>]+>/g, '');
   } catch (e) {
     console.log('DECODE ERROR:', e);

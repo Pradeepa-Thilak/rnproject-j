@@ -1,15 +1,14 @@
 import HeroBanner from '../HomePage/HeroBanner';
-import { ScrollView, StyleSheet } from 'react-native';
-import { useState, useEffect, React } from 'react';
-import Category from './sections/Category';
-import Popgiftcategory from './sections/Popgiftcategory';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useState, useEffect } from 'react';
+import Category from '../../components/micrositee/sections/Category';
+import Popgiftcategory from '../../components/micrositee/sections/Popgiftcategory';
 import BestSellers from '../../components/micrositee/sections/Bestsellers';
 import ShopByPrice from '../../components/micrositee/sections/Shopbyprice';
 import LastingImpression from '../../components/micrositee/sections/LastingImpression';
-import Footer from '../Footer';
+import Footer from '../../components/Footer';
 import { getMicrositeData } from '../../api/micrositeApi';
 import { decode } from 'html-entities';
-import ScreenWrapper from '../ScreenWrapper';
 
 export default function Thegifteditpage() {
   const [data, setData] = useState({});
@@ -28,96 +27,70 @@ export default function Thegifteditpage() {
   const getSection = (pos) => sectionData.find((sec) => sec.position === pos);
 
   return (
-    <ScreenWrapper>
-      <ScrollView style={styles.container}>
-        <HeroBanner
-          details={getSection(1)}
-          isHome={true}
-          aspectRatio={360 / 400}
-        />
-        <Category details={getSection(2)} imageStyle={styles.CategoryStyle} />
-        <Popgiftcategory details={getSection(3)} />
-        <BestSellers
-          details={getSection(4)}
-          imgbgstyle={styles.BestSellers}
-          categoryconstyle={styles.categoryconstyle}
-          titleimgstyle={styles.titleimgstyle}
-          categorytopimgstyle={styles.categorytopimgstyle}
-        />
+    <ScrollView style={{ height: '100%', flex: 1 }}>
+      <HeroBanner
+        details={getSection(1)}
+        isHome={true}
+        aspectRatio={360 / 400}
+      />
+      <Category
+        details={getSection(2)}
+        imageStyle={{
+          width: '100%',
+          aspectRatio: 799 / 1002,
+          resizeMode: 'cover',
+        }}
+      />
+      <Popgiftcategory details={getSection(3)} />
+      <BestSellers
+        details={getSection(4)}
+        imgbgstyle={{
+          width: '100%',
+          aspectRatio: 40 / 21,
+        }}
+        categoryconstyle={{
+          position: 'absolute',
+          top: 55,
+          left: 20,
+          right: 0,
+          bottom: 0,
+          alignItems: 'center',
+        }}
+        titleimgstyle={{
+          aspectRatio: 414 / 119,
+          width: '58%',
+        }}
+        categorytopimgstyle={{ width: '100%', aspectRatio: 329 / 331 }}
+      />
 
-        <ShopByPrice
-          details={getSection(6)}
-          titleimgstyle={styles.ShopByPricetitleImg}
-          transformData={(images) =>
-            images
-              .filter((item) => {
-                const seq = Number(item.a_sequence);
-                return seq >= 1 && seq <= 4;
-              })
-              .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
-              .map((item) => {
-                return {
-                  image: item.a_image,
-                  title: decode(item.a_title)?.toUpperCase(),
-                };
-              })
-          }
-        />
+      <ShopByPrice
+        details={getSection(6)}
+        titleimgstyle={{ width: '100%', aspectRatio: 595 / 124 }}
+        transformData={(images) =>
+          images
+            .filter((item) => {
+              const seq = Number(item.a_sequence);
+              return seq >= 1 && seq <= 4;
+            })
+            .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
+            .map((item) => {
+              return {
+                image: item.a_image,
+                title: decode(item.a_title)?.toUpperCase(),
+              };
+            })
+        }
+      />
 
-        <LastingImpression
-          details={getSection(8)}
-          topIndex={0}
-          bottomIndex={2}
-          topitemstyle={styles.LastingImpressiontopItemStyle}
-          bottomitemstyle={styles.LastingImpressionBottomItemStyle}
-        />
+      <LastingImpression
+        details={getSection(8)}
+        topIndex={0}
+        bottomIndex={2}
+        topitemstyle={{ width: '80%', aspectRatio: 747 / 119 }}
+        bottomitemstyle={{ width: '100%', height: 200 }}
+      />
 
-        <Footer />
-      </ScrollView>
-    </ScreenWrapper>
+      <Footer />
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    flex: 1,
-  },
-  CategoryStyle: {
-    width: '100%',
-    aspectRatio: 799 / 1002,
-    resizeMode: 'cover',
-  },
-  BestSellers: {
-    width: '100%',
-    aspectRatio: 40 / 21,
-  },
-  categoryconstyle: {
-    position: 'absolute',
-    top: 55,
-    left: 20,
-    right: 0,
-    bottom: 0,
-    alignItems: 'center',
-  },
-  titleimgstyle: {
-    aspectRatio: 414 / 119,
-    width: '58%',
-  },
-  categorytopimgstyle: {
-    width: '100%',
-    aspectRatio: 329 / 331,
-  },
-  ShopByPricetitleImg: {
-    width: '100%',
-    aspectRatio: 595 / 124,
-  },
-  LastingImpressiontopItemStyle: {
-    width: '80%',
-    aspectRatio: 747 / 119,
-  },
-  LastingImpressionBottomItemStyle: {
-    width: '100%',
-    height: 200,
-  },
-});

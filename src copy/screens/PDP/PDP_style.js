@@ -1,11 +1,10 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import fonts from '../../assests/fonts';
-import colors from '../../assests/colors';
 const { width } = Dimensions.get('window');
 
 export const stylesPro = StyleSheet.create({
   root: {
-    backgroundColor: colors.whiteColor1,
+    backgroundColor: '#fff',
   },
   productInfoContainer: {
     paddingHorizontal: 20,
@@ -23,7 +22,6 @@ export const stylesPro = StyleSheet.create({
   imageWrapper: {
     aspectRatio: 500 / 662,
     position: 'relative',
-    backgroundColor: colors.whiteColor1,
   },
 
   indicatorContainer: {
@@ -32,11 +30,11 @@ export const stylesPro = StyleSheet.create({
   },
 
   indicatorActive: {
-    backgroundColor: colors.brownColor4,
+    backgroundColor: '#bf7154',
   },
 
   indicatorInactive: {
-    backgroundColor: colors.grayColor23,
+    backgroundColor: '#ebeaea',
   },
 
   collectionExtra: {
@@ -46,17 +44,17 @@ export const stylesPro = StyleSheet.create({
   },
 
   strikePrice: {
-    color: colors.grayColor14,
+    color: '#707070',
     textDecorationLine: 'line-through',
   },
 
   discountText: {
-    color: colors.brownColor1,
+    color: '#bb4225',
     textTransform: 'uppercase',
   },
 
   mrpText: {
-    color: colors.grayColor14,
+    color: '#707070',
   },
   paddingRight: {
     paddingRight: 20,
@@ -74,7 +72,7 @@ export const stylesPro = StyleSheet.create({
   breadcrumb: {
     fontFamily: fonts.LatoRegular,
     fontSize: 12,
-    color: colors.grayColor22,
+    color: '#212121',
     letterSpacing: 0.2,
   },
   proImg: {
@@ -100,7 +98,7 @@ export const stylesPro = StyleSheet.create({
   ProductCollection: {
     fontFamily: fonts.LatoRegular,
     fontSize: 14,
-    color: colors.grayColor14,
+    color: '#707070',
     textTransform: 'uppercase',
     fontWeight: 700,
     marginBottom: 10,
@@ -108,7 +106,7 @@ export const stylesPro = StyleSheet.create({
   ProductBrand: {
     fontFamily: fonts.LatoRegular,
     fontSize: 14,
-    color: colors.grayColor14,
+    color: '#707070',
     textTransform: 'uppercase',
     fontWeight: 700,
     marginTop: 10,
@@ -131,7 +129,7 @@ export const stylesPro = StyleSheet.create({
     fontFamily: fonts.LatoRegular,
     marginTop: 12,
     textTransform: 'capitalize',
-    color: colors.greenColor1,
+    color: '#4caf50',
   },
   taxMargin: {
     marginTop: 12,
@@ -145,19 +143,19 @@ export const stylesPro = StyleSheet.create({
     top: '50%',
     transform: [{ translateY: -15 }],
     zIndex: 10,
-    backgroundColor: colors.whiteOpacityColor1,
+    backgroundColor: 'rgba(255,255,255,0.3)',
   },
   rightArrow: {
     position: 'absolute',
     right: 10,
     top: '50%',
-    backgroundColor: colors.whiteOpacityColor1,
+    backgroundColor: 'rgba(255,255,255,0.3)',
     zIndex: 10,
     transform: [{ translateY: -15 }],
   },
   ProductDisplayWhole: {
     marginTop: 8,
-    backgroundColor: colors.whiteColor1,
+    backgroundColor: '#fff',
   },
   ProductDisplayHead: {
     paddingVertical: 8,
@@ -167,7 +165,7 @@ export const stylesPro = StyleSheet.create({
   ProductDisplayHeadTxt: {
     fontSize: 15,
     fontFamily: fonts.LatoRegular,
-    color: colors.grayColor22,
+    color: '#212121',
     fontWeight: 700,
     letterSpacing: 0.2,
   },
@@ -178,7 +176,7 @@ export const stylesPro = StyleSheet.create({
   ProductDes: {
     fontSize: 14,
     fontFamily: fonts.LatoRegular,
-    color: colors.grayColor11,
+    color: '#616161',
     letterSpacing: 0.15,
   },
   ProductDet: {
@@ -190,7 +188,7 @@ export const stylesPro = StyleSheet.create({
     width: '50%',
     fontSize: 14,
     fontFamily: fonts.LatoRegular,
-    color: colors.grayColor11,
+    color: '#616161',
     letterSpacing: 0.2,
     flexWrap: 'wrap',
   },
@@ -198,7 +196,7 @@ export const stylesPro = StyleSheet.create({
     fontSize: 14,
     fontFamily: fonts.LatoBold,
     letterSpacing: 0.2,
-
+    color: '#000',
     flexWrap: 'wrap',
     width: '50%',
   },
@@ -208,7 +206,7 @@ export const stylesPro = StyleSheet.create({
     marginTop: 17,
     letterSpacing: 0.17,
     textDecorationLine: 'underline',
-
+    color: '#000',
     cursor: 'pointer',
   },
   ReadMoreBox: {
@@ -245,7 +243,7 @@ export const stylesPro = StyleSheet.create({
     width: '48%',
     height: 48,
     borderWidth: 1,
-    borderColor: colors.brownColor2,
+    borderColor: '#bb4125',
     borderRadius: 4,
     justifyContent: 'center',
   },
@@ -254,13 +252,13 @@ export const stylesPro = StyleSheet.create({
     fontWeight: 700,
     textTransform: 'uppercase',
     textAlign: 'center',
-    color: colors.brownColor2,
+    color: '#bb4125',
     fontSize: 16,
   },
   btn2: {
     width: '48%',
     height: 48,
-    backgroundColor: colors.brownColor2,
+    backgroundColor: '#bb4125',
     borderRadius: 4,
     justifyContent: 'center',
   },
@@ -269,7 +267,7 @@ export const stylesPro = StyleSheet.create({
     fontWeight: 700,
     textTransform: 'uppercase',
     textAlign: 'center',
-    color: colors.whiteColor1,
+    color: '#fff',
   },
 
   // Scrollable Widget
@@ -282,7 +280,7 @@ export const stylesPro = StyleSheet.create({
   heading: {
     marginLeft: 10,
     fontSize: 14,
-    color: colors.grayColor22,
+    color: '#212121',
     textTransform: 'capitalize',
     fontFamily: fonts.LatoBold,
     fontWeight: 700,
@@ -296,7 +294,7 @@ export const stylesPro = StyleSheet.create({
     width: 163,
     margin: 5,
     borderWidth: 1,
-    borderColor: colors.creamColor12,
+    borderColor: '#f2f2f2',
   },
   imagecon: {
     aspectRatio: 163 / 216,
@@ -314,12 +312,12 @@ export const stylesPro = StyleSheet.create({
   brand: {
     fontSize: 14,
     textTransform: 'capitalize',
-    color: colors.grayColor22,
+    color: '#212121',
     marginTop: 8,
   },
   name: {
     fontSize: 14,
-    color: colors.grayColor22,
+    color: '#212121',
   },
   priceRow: {
     flexDirection: 'row',
@@ -327,33 +325,33 @@ export const stylesPro = StyleSheet.create({
   },
   discountPrice: {
     fontSize: 13,
-    color: colors.grayColor22,
+    color: '#212121',
     marginRight: 8,
     fontFamily: fonts.LatoBold,
     fontWeight: 700,
   },
   originalPrice: {
     fontSize: 14,
-    color: colors.grayColor11,
+    color: '#616161',
     textDecorationLine: 'line-through',
     marginRight: 9,
   },
 
   discount: {
     fontSize: 13,
-    color: colors.brownColor6,
+    color: '#c76321',
     marginTop: 2,
   },
 
   price: {
     fontSize: 12,
-    color: colors.grayColor22,
+    color: '#212121',
   },
   atbbtn: {
     paddingHorizontal: 0,
     marginTop: 10,
     borderTopWidth: 1,
-    borderTopColor: colors.creamColor12,
+    borderTopColor: '#f2f2f2',
   },
   addtobag: {
     fontSize: 16,
@@ -402,7 +400,7 @@ export const stylesPro = StyleSheet.create({
     height: 36,
     paddingHorizontal: 6,
     borderWidth: 2,
-    borderColor: colors.creamColor13,
+    borderColor: '#f0f1f2',
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
@@ -413,8 +411,8 @@ export const stylesPro = StyleSheet.create({
   },
 
   selectedBox: {
-    backgroundColor: colors.grayColor4,
-    borderColor: colors.grayColor4,
+    backgroundColor: '#C5502E',
+    borderColor: '#C5502E',
   },
 
   selectedText: {
@@ -426,13 +424,13 @@ export const stylesPro = StyleSheet.create({
     bottom: -15,
     alignSelf: 'center',
     fontSize: 12,
-    color: colors.brownColor3,
+    color: '#C5502E',
   },
   sizebar: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: colors.creamColor13,
-    backgroundColor: colors.grayColor1,
+    borderColor: '#f0f1f2',
+    backgroundColor: '#f5f5f5',
     marginTop: 5,
     paddingVertical: 3,
     paddingHorizontal: 8,
@@ -458,23 +456,23 @@ export const stylesPro = StyleSheet.create({
   },
   input: {
     borderWidth: 2,
-    borderColor: colors.creamColor13,
+    borderColor: '#f0f1f2',
     borderRadius: 4,
     paddingVertical: 18,
     paddingRight: 17,
-    backgroundColor: colors.creamColor12,
+    backgroundColor: '#F2F2F2',
   },
   checkbtn: {
     position: 'absolute',
     right: 15,
   },
   error: {
-    backgroundColor: colors.creamColor11,
+    backgroundColor: '#ffe8e6',
     borderWidth: 1,
     borderColor: 'red',
   },
   errorText: {
-    color: colors.redColor1,
+    color: '#eb3840',
     marginTop: 5,
     fontSize: 12,
     fontFamily: fonts.LatoRegular,
@@ -491,227 +489,5 @@ export const stylesPro = StyleSheet.create({
     fontSize: 13,
     color: 'black',
     fontFamily: fonts.LatoBold,
-  },
-  container: {
-    width: '100%',
-    height: '100%',
-    paddingTop: '10%',
-  },
-
-  header: {
-    paddingTop: 20,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    // justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  IconButton: {
-    padding: 0,
-    margin: 0,
-  },
-
-  ProductContainerSizeChart: {
-    marginHorizontal: 15,
-    paddingTop: 18,
-    paddingHorizontal: 10,
-    paddingBottom: 10,
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: colors.grayColor6,
-  },
-  ProductContainerSizeChart_ImgContainer: {
-    width: '28%',
-    aspectRatio: 906 / 1200,
-  },
-  ProductContainerSizeChart_Image: {
-    height: '100%',
-    width: '100%',
-  },
-  ProductContainerSizeChart_DetailContainer: {
-    marginLeft: 30,
-    width: '70%',
-  },
-  ProductContainerSizeChart_Collection: {
-    fontFamily: fonts.LatoBold,
-    fontSize: 14,
-    color: colors.blackColor1,
-    marginRight: 10,
-    letterSpacing: 0.16,
-  },
-  ProductContainerSizeChart_Name: {
-    fontFamily: fonts.LatoRegular,
-    fontSize: 12,
-    color: colors.blackColor1,
-    marginRight: 10,
-    letterSpacing: 0.16,
-    flexWrap: 'wrap',
-    lineHeight: 16,
-    marginTop: 2,
-  },
-  ProductContainerSizeChart_ProductPrice: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 12,
-  },
-  Price: {
-    color: colors.grayColor14,
-    textDecorationLine: 'line-through',
-  },
-  ProductContainerSizeChart_Pricecommon: {
-    marginRight: 9,
-    fontFamily: fonts.LatoRegular,
-    fontSize: 14,
-    lineHeight: 17,
-    letterSpacing: 0.22,
-  },
-  Common: {
-    color: colors.brownColor1,
-    textTransform: 'uppercase',
-  },
-  bottom: {
-    paddingTop: 30,
-    paddingHorizontal: 10,
-    paddingBottom: 25,
-  },
-  bottomhead: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-    alignItems: 'center',
-  },
-  bottomheadtxt: {
-    fontFamily: fonts.LatoRegular,
-    fontSize: 14,
-    fontWeight: 700,
-    color: colors.grayColor11,
-    textTransform: 'capitalize',
-  },
-  sizebtn: {
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: colors.brownColor4,
-    width: 50,
-    height: 25,
-    borderRadius: 2,
-
-    overflow: 'hidden',
-  },
-  leftbtn: {
-    width: '50%',
-
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  rightbtn: {
-    width: '50%',
-
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  leftbtntxt: {
-    color: colors.brownColor4,
-    fontSize: 10,
-  },
-
-  rightbtntxt: {
-    color: colors.brownColor4,
-    fontSize: 10,
-  },
-  activeBtn: {
-    backgroundColor: colors.brownColor4,
-  },
-
-  activeText: {
-    color: 'white',
-  },
-
-  table: {
-    borderWidth: 1,
-    borderColor: colors.grayColor6,
-    marginBottom: 20,
-  },
-
-  row: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.grayColor6,
-  },
-
-  radioCell: {
-    width: 40,
-    padding: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRightWidth: 1,
-    borderRightColor: colors.grayColor6,
-  },
-  radioOuter: {
-    width: 15,
-    height: 15,
-    borderRadius: 9,
-    borderWidth: 1,
-    borderColor: colors.grayColor6,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  radioOuterSelected: {
-    borderColor: colors.brownColor2,
-  },
-
-  radioInner: {
-    width: 9,
-    height: 9,
-    borderRadius: 5,
-    backgroundColor: colors.brownColor2,
-  },
-  cell: {
-    width: 75,
-    padding: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRightWidth: 1,
-    borderRightColor: colors.grayColor6,
-  },
-
-  cellText: {
-    textAlign: 'center',
-    fontFamily: fonts.LatoRegular,
-    fontSize: 14,
-
-    color: colors.grayColor11,
-    textTransform: 'capitalize',
-  },
-  headcellText: {
-    textAlign: 'center',
-    fontFamily: fonts.LatoRegular,
-    fontSize: 14,
-    fontWeight: 700,
-    color: colors.grayColor11,
-    textTransform: 'capitalize',
-  },
-  atcbtn: {
-    width: '100%',
-    borderRadius: 4,
-    height: 48,
-    backgroundColor: colors.brownColor2,
-    borderWidth: 1,
-    borderColor: colors.brownColor2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  atcbtntxt: {
-    color: colors.whiteColor1,
-    fontFamily: fonts.LatoBold,
-    fontSize: 16,
-    textTransform: 'capitalize',
-  },
-  disabledBtn: {
-    opacity: 0.75,
   },
 });
