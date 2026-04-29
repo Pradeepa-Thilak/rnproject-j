@@ -13,7 +13,7 @@ import Twocompswithimgdes from './sections/Twocompswithimgdes';
 import Footer from '../Footer';
 import colors from '../../assests/colors';
 import ScreenWrapper from '../ScreenWrapper';
-
+import { HeroBannerSkeleton } from '../Skeleton';
 const Springsummer2025 = () => {
   const [ssdata, setData] = useState({});
 
@@ -28,51 +28,71 @@ const Springsummer2025 = () => {
   }, []);
 
   console.log(ssdata);
-
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMicrositeData('coastal');
+      if (data.msg === 'success') {
+        setData(data.results);
+      } else {
+        console.log('Message: Failure');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  const HERO_SKELETON_AR = 360 / 564;
   const sectionData = ssdata?.SectionDetails || [];
 
   return (
     <ScreenWrapper>
       <ScrollView style={{ backgroundColor: colors.creamColor1 }}>
-        <Msiteherobanner
-          details={sectionData[0]}
-          imagestyle={styles.Msiteimage}
-        />
-        <ComponentWithImage_HeaderAndDescription
-          details={sectionData[1]}
-          AR={32 / 49}
-        />
-        <ComponentWithHeaderAndGrid details={sectionData[2]} />
-        <ImageHeaderAndGrid details={sectionData[3]} />
-
-        <ImageAndDescriptionComponent details={sectionData[5]} />
-        <GridImages
-          data={sectionData[6]?.MediaDetails?.filter(
-            (item) => item.a_media_type === 'Image',
-          )?.map((item) => ({
-            image: item.a_image,
-            title: item.a_title,
-          }))}
-          spacing={20}
-          imageStyle={styles.GridImg}
-          style={styles.GridImgStyle}
-        />
-        <Twocompswithimgdes
-          details={sectionData[7]}
-          AR={32 / 49}
-          reversebg={true}
-        />
-        <ComponentWithImage_HeaderAndDescription
-          details={sectionData[8]}
-          AR={32 / 49}
-        />
-        <Parawithtextimagebtn details={sectionData[9]} AR={32 / 49} />
-        <ComponentWithImage_HeaderAndDescription
-          details={sectionData[10]}
-          bgImage={false}
-        />
-        <BGImage details={sectionData[10]} />
-        <Footer />
+        {loading ? (
+          <>
+            <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
+          </>
+        ) : (
+          <>
+            <Msiteherobanner
+              details={sectionData[0]}
+              imagestyle={styles.Msiteimage}
+            />
+            <ComponentWithImage_HeaderAndDescription
+              details={sectionData[1]}
+              AR={32 / 49}
+            />
+            <ComponentWithHeaderAndGrid details={sectionData[2]} />
+            <ImageHeaderAndGrid details={sectionData[3]} />
+            <ImageAndDescriptionComponent details={sectionData[5]} />
+            <GridImages
+              data={sectionData[6]?.MediaDetails?.filter(
+                (item) => item.a_media_type === 'Image',
+              )?.map((item) => ({
+                image: item.a_image,
+                title: item.a_title,
+              }))}
+              spacing={20}
+              imageStyle={styles.GridImg}
+              style={styles.GridImgStyle}
+            />
+            <Twocompswithimgdes
+              details={sectionData[7]}
+              AR={32 / 49}
+              reversebg={true}
+            />
+            <ComponentWithImage_HeaderAndDescription
+              details={sectionData[8]}
+              AR={32 / 49}
+            />
+            <Parawithtextimagebtn details={sectionData[9]} AR={32 / 49} />
+            <ComponentWithImage_HeaderAndDescription
+              details={sectionData[10]}
+              bgImage={false}
+            />
+            <BGImage details={sectionData[10]} />
+            <Footer />
+          </>
+        )}
       </ScrollView>
     </ScreenWrapper>
   );

@@ -10,6 +10,7 @@ import { useState, useEffect, React } from 'react';
 import { decode } from 'html-entities';
 import { getMicrositeData } from '../../api/micrositeApi';
 import ScreenWrapper from '../ScreenWrapper';
+import { HeroBannerSkeleton } from '../Skeleton';
 export default function Houseoffashionjewelry() {
   const [data, setData] = useState({});
 
@@ -22,48 +23,69 @@ export default function Houseoffashionjewelry() {
     };
     fetchData();
   }, []);
-
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMicrositeData('coastal');
+      if (data.msg === 'success') {
+        setData(data.results);
+      } else {
+        console.log('Message: Failure');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  const HERO_SKELETON_AR = 420 / 551;
   const sectionData = data?.SectionDetails || [];
   const getSection = (pos) => sectionData.find((sec) => sec.position === pos);
   return (
     <ScreenWrapper>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <MsiteHeroBanner
-          details={getSection(1)}
-          imagestyle={styles.Msitestyle}
-        />
-        <Category
-          details={getSection(2)}
-          imageStyle={styles.CategoryImgstyle}
-        />
-        <Popgiftcategory details={getSection(3)} />
-        <BestSellers
-          details={getSection(4)}
-          imgbgstyle={styles.BestsellerImgstyle}
-          categoryconstyle={styles.BestsellerCategoryconstyle}
-          titleimgstyle={styles.BestSellerstitleImgstyle}
-          categorytopimgstyle={styles.BestSellersCategorytopimgstyle}
-        />
-        <Shopbyprice
-          details={getSection(6)}
-          titleimgstyle={styles.ShopByPricetitleimgstyle}
-          transformData={(images) =>
-            images.slice(0, 4).map((item) => {
-              return {
-                image: item.a_image,
-                title: decode(item.a_title)?.toUpperCase(),
-              };
-            })
-          }
-        />
-        <LastingImpression
-          details={getSection(8)}
-          topIndex={1}
-          bottomIndex={0}
-          topitemstyle={styles.LastingImpressiontopitemstyle}
-          bottomitemstyle={styles.LastingImpressionbottomitemstyle}
-        />
-        <Footer />
+        {loading ? (
+          <>
+            <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
+          </>
+        ) : (
+          <>
+            <MsiteHeroBanner
+              details={getSection(1)}
+              imagestyle={styles.Msitestyle}
+            />
+            <Category
+              details={getSection(2)}
+              imageStyle={styles.CategoryImgstyle}
+            />
+            <Popgiftcategory details={getSection(3)} />
+            <BestSellers
+              details={getSection(4)}
+              imgbgstyle={styles.BestsellerImgstyle}
+              categoryconstyle={styles.BestsellerCategoryconstyle}
+              titleimgstyle={styles.BestSellerstitleImgstyle}
+              categorytopimgstyle={styles.BestSellersCategorytopimgstyle}
+            />
+            <Shopbyprice
+              details={getSection(6)}
+              titleimgstyle={styles.ShopByPricetitleimgstyle}
+              transformData={(images) =>
+                images.slice(0, 4).map((item) => {
+                  return {
+                    image: item.a_image,
+                    title: decode(item.a_title)?.toUpperCase(),
+                  };
+                })
+              }
+            />
+            <LastingImpression
+              details={getSection(8)}
+              topIndex={1}
+              bottomIndex={0}
+              topitemstyle={styles.LastingImpressiontopitemstyle}
+              bottomitemstyle={styles.LastingImpressionbottomitemstyle}
+            />
+            <Footer />
+          </>
+        )}
       </ScrollView>
     </ScreenWrapper>
   );

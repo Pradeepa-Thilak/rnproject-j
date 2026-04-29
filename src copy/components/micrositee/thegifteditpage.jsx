@@ -10,7 +10,7 @@ import Footer from '../Footer';
 import { getMicrositeData } from '../../api/micrositeApi';
 import { decode } from 'html-entities';
 import ScreenWrapper from '../ScreenWrapper';
-
+import { HeroBannerSkeleton } from '../Skeleton';
 export default function Thegifteditpage() {
   const [data, setData] = useState({});
 
@@ -23,56 +23,77 @@ export default function Thegifteditpage() {
     };
     fetchData();
   }, []);
-
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMicrositeData('coastal');
+      if (data.msg === 'success') {
+        setData(data.results);
+      } else {
+        console.log('Message: Failure');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  const HERO_SKELETON_AR = 360 / 400;
   const sectionData = data?.SectionDetails || [];
   const getSection = (pos) => sectionData.find((sec) => sec.position === pos);
 
   return (
     <ScreenWrapper>
       <ScrollView style={styles.container}>
-        <HeroBanner
-          details={getSection(1)}
-          isHome={true}
-          aspectRatio={360 / 400}
-        />
-        <Category details={getSection(2)} imageStyle={styles.CategoryStyle} />
-        <Popgiftcategory details={getSection(3)} />
-        <BestSellers
-          details={getSection(4)}
-          imgbgstyle={styles.BestSellers}
-          categoryconstyle={styles.categoryconstyle}
-          titleimgstyle={styles.titleimgstyle}
-          categorytopimgstyle={styles.categorytopimgstyle}
-        />
-
-        <ShopByPrice
-          details={getSection(6)}
-          titleimgstyle={styles.ShopByPricetitleImg}
-          transformData={(images) =>
-            images
-              .filter((item) => {
-                const seq = Number(item.a_sequence);
-                return seq >= 1 && seq <= 4;
-              })
-              .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
-              .map((item) => {
-                return {
-                  image: item.a_image,
-                  title: decode(item.a_title)?.toUpperCase(),
-                };
-              })
-          }
-        />
-
-        <LastingImpression
-          details={getSection(8)}
-          topIndex={0}
-          bottomIndex={2}
-          topitemstyle={styles.LastingImpressiontopItemStyle}
-          bottomitemstyle={styles.LastingImpressionBottomItemStyle}
-        />
-
-        <Footer />
+        {loading ? (
+          <>
+            <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
+          </>
+        ) : (
+          <>
+            <HeroBanner
+              details={getSection(1)}
+              isHome={true}
+              aspectRatio={360 / 400}
+            />
+            <Category
+              details={getSection(2)}
+              imageStyle={styles.CategoryStyle}
+            />
+            <Popgiftcategory details={getSection(3)} />
+            <BestSellers
+              details={getSection(4)}
+              imgbgstyle={styles.BestSellers}
+              categoryconstyle={styles.categoryconstyle}
+              titleimgstyle={styles.titleimgstyle}
+              categorytopimgstyle={styles.categorytopimgstyle}
+            />
+            <ShopByPrice
+              details={getSection(6)}
+              titleimgstyle={styles.ShopByPricetitleImg}
+              transformData={(images) =>
+                images
+                  .filter((item) => {
+                    const seq = Number(item.a_sequence);
+                    return seq >= 1 && seq <= 4;
+                  })
+                  .sort((a, b) => Number(a.a_sequence) - Number(b.a_sequence))
+                  .map((item) => {
+                    return {
+                      image: item.a_image,
+                      title: decode(item.a_title)?.toUpperCase(),
+                    };
+                  })
+              }
+            />
+            <LastingImpression
+              details={getSection(8)}
+              topIndex={0}
+              bottomIndex={2}
+              topitemstyle={styles.LastingImpressiontopItemStyle}
+              bottomitemstyle={styles.LastingImpressionBottomItemStyle}
+            />
+            <Footer />
+          </>
+        )}
       </ScrollView>
     </ScreenWrapper>
   );

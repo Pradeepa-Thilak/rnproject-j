@@ -6,7 +6,7 @@ import { useState, useEffect, React } from 'react';
 import GridImageswithTitle from './sections/GridImageswithTitle';
 import { getMicrositeData } from '../../api/micrositeApi';
 import GiftGridSection from '../../components/micrositee/sections/GiftGridSection';
-
+import { HeroBannerSkeleton } from '../Skeleton';
 export default function Gifts() {
   const [data, setData] = useState({});
   useEffect(() => {
@@ -18,42 +18,66 @@ export default function Gifts() {
     };
     fetchData();
   }, []);
-
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMicrositeData('coastal');
+      if (data.msg === 'success') {
+        setData(data.results);
+      } else {
+        console.log('Message: Failure');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  const HERO_SKELETON_AR = 420 / 551;
   const sectionData = data?.SectionDetails || [];
   const getSection = (pos) => sectionData.find((sec) => sec.position === pos);
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <MsiteHeroBanner details={getSection(1)} imagestyle={styles.Msitestyle} />
-      <GridImageswithTitle
-        details={getSection(2)}
-        spacing={20}
-        showTitle={false}
-        SectionName={false}
-        itemWidth="47%"
-        imageStyle={styles.GridImageswithTitleImgstyle}
-        style={styles.GridImageswithTitlestyle}
-      />
-      <GiftGridSection details={getSection(3)} />
-      <GridImageswithTitle
-        details={getSection(4)}
-        imageStyle={styles.GridImageswithTitleImgstyle1}
-        style={styles.GridImageswithTitlestyle1}
-      />
-      <View style={styles.ImgContainer}>
-        <Image
-          source={{
-            uri: 'https://assets.abfrlcdn.com/img/app/brands/tasva/gift_assets/mobile/Group%207143.png',
-          }}
-          style={styles.ImgStyle}
-        />
-      </View>
-      <LastingImpression
-        details={getSection(5)}
-        bottomIndex={0}
-        topitemstyle={styles.LastingImpressiontopitemstyle}
-        bottomitemstyle={styles.LastingImpressionbottomitemstyle}
-      />
-      <Footer />
+      {loading ? (
+        <>
+          <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
+        </>
+      ) : (
+        <>
+          <MsiteHeroBanner
+            details={getSection(1)}
+            imagestyle={styles.Msitestyle}
+          />
+          <GridImageswithTitle
+            details={getSection(2)}
+            spacing={20}
+            showTitle={false}
+            SectionName={false}
+            itemWidth="47%"
+            imageStyle={styles.GridImageswithTitleImgstyle}
+            style={styles.GridImageswithTitlestyle}
+          />
+          <GiftGridSection details={getSection(3)} />
+          <GridImageswithTitle
+            details={getSection(4)}
+            imageStyle={styles.GridImageswithTitleImgstyle1}
+            style={styles.GridImageswithTitlestyle1}
+          />
+          <View style={styles.ImgContainer}>
+            <Image
+              source={{
+                uri: 'https://assets.abfrlcdn.com/img/app/brands/tasva/gift_assets/mobile/Group%207143.png',
+              }}
+              style={styles.ImgStyle}
+            />
+          </View>
+          <LastingImpression
+            details={getSection(5)}
+            bottomIndex={0}
+            topitemstyle={styles.LastingImpressiontopitemstyle}
+            bottomitemstyle={styles.LastingImpressionbottomitemstyle}
+          />
+          <Footer />
+        </>
+      )}
     </ScrollView>
   );
 }

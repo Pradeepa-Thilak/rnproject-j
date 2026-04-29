@@ -9,6 +9,7 @@ import Footer from '../Footer';
 import Supportingartisans from './sections/Supportingartisans';
 import { getMicrositeData } from '../../api/micrositeApi';
 import ScreenWrapper from '../ScreenWrapper';
+import { HeroBannerSkeleton } from '../Skeleton';
 export default function Dokra() {
   const [data, setData] = useState({});
 
@@ -21,55 +22,75 @@ export default function Dokra() {
     };
     fetchData();
   }, []);
-
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMicrositeData('coastal');
+      if (data.msg === 'success') {
+        setData(data.results);
+      } else {
+        console.log('Message: Failure');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  const HERO_SKELETON_AR = 9 / 10;
   const sectionData = data?.SectionDetails || [];
   const getSection = (pos) => sectionData.find((sec) => sec.position === pos);
 
   return (
     <ScreenWrapper>
       <ScrollView>
-        <MsiteHeroBanner
-          details={getSection(1)}
-          imagestyle={styles.Msitestyle}
-        />
-        <BestSellers
-          details={getSection(4)}
-          imgbgstyle={styles.BestSellersbgimgstyle}
-          categoryconstyle={styles.BestSellersCategoryconstyle}
-          titleimgstyle={styles.BestSellerstitleimgstyle}
-          categorytopimgstyle={styles.BestSellersCategorytopimgstyle}
-          parastyle={styles.BestSellersparastyle}
-        />
-        <MsiteHeroBanner
-          details={getSection(5)}
-          imagestyle={styles.Msitestyle1}
-        />
-
-        <Shopbyprice
-          details={getSection(6)}
-          titleimgstyle={styles.ShopByPricetitleimgstyle}
-          transformData={(images) =>
-            images
-              .filter((item) => item.a_title !== 'Bestseller')
-              .slice(0, 4)
-              .map((item) => ({
-                image: item.a_image,
-                title: decode(item.a_title)?.toUpperCase(),
-              }))
-          }
-        />
-        <Supportingartisans
-          apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=dokra&deviceType=mobile&shopId=26"
-          position={7}
-        />
-        <LastingImpression
-          details={getSection(8)}
-          topIndex={1}
-          bottomIndex={0}
-          topitemstyle={styles.LastingImpressiontopimgstyle}
-          bottomitemstyle={styles.LastingImpressionbottomimgstyle}
-        />
-        <Footer />
+        {loading ? (
+          <>
+            <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
+          </>
+        ) : (
+          <>
+            <MsiteHeroBanner
+              details={getSection(1)}
+              imagestyle={styles.Msitestyle}
+            />
+            <BestSellers
+              details={getSection(4)}
+              imgbgstyle={styles.BestSellersbgimgstyle}
+              categoryconstyle={styles.BestSellersCategoryconstyle}
+              titleimgstyle={styles.BestSellerstitleimgstyle}
+              categorytopimgstyle={styles.BestSellersCategorytopimgstyle}
+              parastyle={styles.BestSellersparastyle}
+            />
+            <MsiteHeroBanner
+              details={getSection(5)}
+              imagestyle={styles.Msitestyle1}
+            />
+            <Shopbyprice
+              details={getSection(6)}
+              titleimgstyle={styles.ShopByPricetitleimgstyle}
+              transformData={(images) =>
+                images
+                  .filter((item) => item.a_title !== 'Bestseller')
+                  .slice(0, 4)
+                  .map((item) => ({
+                    image: item.a_image,
+                    title: decode(item.a_title)?.toUpperCase(),
+                  }))
+              }
+            />
+            <Supportingartisans
+              apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=dokra&deviceType=mobile&shopId=26"
+              position={7}
+            />
+            <LastingImpression
+              details={getSection(8)}
+              topIndex={1}
+              bottomIndex={0}
+              topitemstyle={styles.LastingImpressiontopimgstyle}
+              bottomitemstyle={styles.LastingImpressionbottomimgstyle}
+            />
+            <Footer />
+          </>
+        )}
       </ScrollView>
     </ScreenWrapper>
   );

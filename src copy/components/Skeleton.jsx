@@ -18,7 +18,15 @@ export const SkeletonLoading = ({
   }
   return (
     <View
-      style={[styles.skeletonBase, { width, height, borderRadius }, style]}
+      style={[
+        styles.skeletonBase,
+        {
+          width,
+          height,
+          borderRadius,
+        },
+        style,
+      ]}
     />
   );
 };
@@ -40,6 +48,13 @@ export const ThumbnailSkeleton = () => {
                   variant="edge"
                   boxRadius={45}
                 />
+                <SkeletonLoading
+                  width={80}
+                  height={10}
+                  variant="edge"
+                  boxRadius={5}
+                  style={styles.thumbnailText}
+                />
               </View>
             ))}
           </View>
@@ -48,30 +63,34 @@ export const ThumbnailSkeleton = () => {
     </View>
   );
 };
-export const HeroBannerSkeleton = () => {
+export const HeroBannerSkeleton = ({ aspectRatio = 1 }) => {
   return (
     <View style={styles.heroContainer}>
-      <SkeletonLoading width="100%" height={460} />
-      <View style={styles.heroRight}>
-        <SkeletonLoading width="85%" height={260} />
-      </View>
+      <SkeletonLoading width="100%" style={[styles.banner, { aspectRatio }]} />
     </View>
   );
 };
 export const HomeSkeleton = () => {
   return (
-    <View style={styles.HomeSkeletoncontainer}>
+    <View style={styles.homeContainer}>
       <ThumbnailSkeleton />
-      <HeroBannerSkeleton />
+      <HeroBannerSkeleton aspectRatio={360 / 400} />
+    </View>
+  );
+};
+export const VideoSkeleton = ({ aspectRatio = 16 / 9 }) => {
+  return (
+    <View style={styles.videoContainer}>
+      <SkeletonLoading width="100%" style={[styles.video, { aspectRatio }]} />
     </View>
   );
 };
 const styles = StyleSheet.create({
-  HomeSkeletoncontainer: {
-    padding: 12,
-  },
   skeletonBase: {
     backgroundColor: '#eeeeee',
+  },
+  homeContainer: {
+    padding: 12,
   },
   thumbnailContainer: {
     paddingVertical: 10,
@@ -81,13 +100,24 @@ const styles = StyleSheet.create({
   },
   thumbnailItem: {
     marginRight: 10,
-  },
-  heroContainer: {
-    flexDirection: 'row',
-    width: '100%',
     alignItems: 'center',
   },
-  heroRight: {
-    marginLeft: 10,
+  thumbnailText: {
+    marginTop: 6,
+  },
+  heroContainer: {
+    width: '100%',
+    marginVertical: 10,
+  },
+  banner: {
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  videoContainer: {
+    marginVertical: 10,
+  },
+  video: {
+    borderRadius: 10,
+    overflow: 'hidden',
   },
 });

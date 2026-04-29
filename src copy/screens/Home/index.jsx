@@ -9,7 +9,10 @@ import Spotlight from '../../components/HomePage/Spotlight';
 import Footer from '../../components/Footer';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { getMicrositeData } from '../../api/micrositeApi';
-import { HomeSkeleton } from '../../components/Skeleton';
+import {
+  HeroBannerSkeleton,
+  ThumbnailSkeleton,
+} from '../../components/Skeleton';
 import colors from '../../assests/colors';
 const Home = () => {
   const [data, setData] = useState({});
@@ -33,11 +36,15 @@ const Home = () => {
   const firstFour = media.slice(0, 4);
   const nextFour = media.slice(4, 8);
   const lastFour = media.slice(8, 25);
+  const HeroSkeleton_AR = 360 / 400;
   return (
     <ScreenWrapper>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.Home}>
         {loading ? (
-          <HomeSkeleton />
+          <>
+            <ThumbnailSkeleton />
+            <HeroBannerSkeleton aspectRatio={HeroSkeleton_AR} />
+          </>
         ) : (
           <>
             <Thumbnail details={getSection(1)} />

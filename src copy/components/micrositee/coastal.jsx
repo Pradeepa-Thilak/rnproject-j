@@ -11,6 +11,7 @@ import Msiteherobanner from '../micrositee/sections/Msiteherobanner';
 import Footer from '../Footer';
 import colors from '../../assests/colors';
 import ScreenWrapper from '../ScreenWrapper';
+import { HeroBannerSkeleton } from '../Skeleton';
 const Coastal = () => {
   const [coastalData, setData] = useState({});
 
@@ -25,36 +26,56 @@ const Coastal = () => {
   }, []);
 
   console.log(coastalData);
-
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMicrositeData('coastal');
+      if (data.msg === 'success') {
+        setData(data.results);
+      } else {
+        console.log('Message: Failure');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
   const sectionData = coastalData?.SectionDetails || [];
-
+  const HERO_SKELETON_AR = 360 / 564;
   console.log('Section', sectionData[9]);
   return (
     <ScreenWrapper>
       <ScrollView style={styles.container}>
-        <Msiteherobanner
-          details={sectionData[0]}
-          imagestyle={styles.MsiteherobannerImage}
-        />
-        <ComponentWithImage_HeaderAndDescription
-          details={sectionData[1]}
-          AR={32 / 49}
-        />
-        <ComponentWithHeaderAndGrid details={sectionData[2]} />
-        <ImageHeaderAndGrid details={sectionData[3]} />
-        <ComponentWithImage_HeaderAndDescription
-          details={sectionData[4]}
-          AR={40 / 61}
-        />
-        <ImageAndDescriptionComponent details={sectionData[5]} />
-        <Twocompswithimgdes details={sectionData[7]} AR={32 / 49} />
-        <ComponentWithImage_HeaderAndDescription details={sectionData[8]} />
-        <ComponentWithImage_HeaderAndDescription
-          details={sectionData[10]}
-          bgImage={false}
-        />
-        <BGImage details={sectionData[10]} />
-        <Footer />
+        {loading ? (
+          <>
+            <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
+          </>
+        ) : (
+          <>
+            <Msiteherobanner
+              details={sectionData[0]}
+              imagestyle={styles.MsiteherobannerImage}
+            />
+            <ComponentWithImage_HeaderAndDescription
+              details={sectionData[1]}
+              AR={32 / 49}
+            />
+            <ComponentWithHeaderAndGrid details={sectionData[2]} />
+            <ImageHeaderAndGrid details={sectionData[3]} />
+            <ComponentWithImage_HeaderAndDescription
+              details={sectionData[4]}
+              AR={40 / 61}
+            />
+            <ImageAndDescriptionComponent details={sectionData[5]} />
+            <Twocompswithimgdes details={sectionData[7]} AR={32 / 49} />
+            <ComponentWithImage_HeaderAndDescription details={sectionData[8]} />
+            <ComponentWithImage_HeaderAndDescription
+              details={sectionData[10]}
+              bgImage={false}
+            />
+            <BGImage details={sectionData[10]} />
+            <Footer />
+          </>
+        )}
       </ScrollView>
     </ScreenWrapper>
   );

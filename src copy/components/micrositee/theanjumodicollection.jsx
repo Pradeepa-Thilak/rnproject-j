@@ -12,7 +12,7 @@ import NewIn from './sections/NewIn';
 import colors from '../../assests/colors';
 import ScreenWrapper from '../ScreenWrapper';
 import fonts from '../../../src/assests/fonts';
-
+import { HeroBannerSkeleton } from '../Skeleton';
 const Theanjumodicollection = () => {
   const [coastalData, setData] = useState({});
 
@@ -25,7 +25,20 @@ const Theanjumodicollection = () => {
 
     fetchData();
   }, []);
-
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMicrositeData('coastal');
+      if (data.msg === 'success') {
+        setData(data.results);
+      } else {
+        console.log('Message: Failure');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  const HERO_SKELETON_AR = 375 / 287.5;
   console.log(coastalData);
 
   const sectionData = coastalData?.SectionDetails || [];
@@ -34,29 +47,40 @@ const Theanjumodicollection = () => {
   return (
     <ScreenWrapper>
       <ScrollView style={{ backgroundColor: colors.creamColor1 }}>
-        <Msiteherobanner
-          details={sectionData[0]}
-          imagestyle={styles.MsiteStyle}
-        />
-        <ComponentWithImage_HeaderAndDescription
-          details={sectionData[1]}
-          AR={80 / 49}
-          buttonText="View All"
-        />
-        <View style={styles.headerContainer}>
-          <View style={styles.line} />
-          <Text style={styles.headerText}>
-            SHOP THE FESTIVE{'\n'}
-            DESIGNER{'\n'}
-            COLLECTION
-          </Text>
-          <View style={styles.line} />
-        </View>
-        <Anjumodicollection details={sectionData[2]} buttonText="EXPLORE NOW" />
-        <NewIn />
-        <View style={styles.separator}></View>
-        <Anjumodibanner details={sectionData[3]} />
-        <Footer />
+        {loading ? (
+          <>
+            <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
+          </>
+        ) : (
+          <>
+            <Msiteherobanner
+              details={sectionData[0]}
+              imagestyle={styles.MsiteStyle}
+            />
+            <ComponentWithImage_HeaderAndDescription
+              details={sectionData[1]}
+              AR={80 / 49}
+              buttonText="View All"
+            />
+            <View style={styles.headerContainer}>
+              <View style={styles.line} />
+              <Text style={styles.headerText}>
+                SHOP THE FESTIVE{'\n'}
+                DESIGNER{'\n'}
+                COLLECTION
+              </Text>
+              <View style={styles.line} />
+            </View>
+            <Anjumodicollection
+              details={sectionData[2]}
+              buttonText="EXPLORE NOW"
+            />
+            <NewIn />
+            <View style={styles.separator}></View>
+            <Anjumodibanner details={sectionData[3]} />
+            <Footer />
+          </>
+        )}
       </ScrollView>
     </ScreenWrapper>
   );

@@ -13,6 +13,7 @@ import Footer from '../Footer';
 import { getMicrositeData } from '../../api/micrositeApi';
 import { decode } from 'html-entities';
 import ScreenWrapper from '../ScreenWrapper';
+import { HeroBannerSkeleton } from '../Skeleton';
 export default function Corporategifting() {
   const [data, setData] = useState({});
 
@@ -25,49 +26,73 @@ export default function Corporategifting() {
     };
     fetchData();
   }, []);
-
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMicrositeData('coastal');
+      if (data.msg === 'success') {
+        setData(data.results);
+      } else {
+        console.log('Message: Failure');
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  const HERO_SKELETON_AR = 360 / 564;
   const sectionData = data?.SectionDetails || [];
   const getSection = (pos) => sectionData.find((sec) => sec.position === pos);
 
   return (
     <ScreenWrapper>
       <ScrollView style={styles.container}>
-        <MsiteHeroBanner
-          details={getSection(1)}
-          imagestyle={styles.Msitestyle}
-        />
-        <Category details={getSection(2)} imageStyle={styles.Categorystyle} />
-        <Popgiftcategory details={getSection(3)} />
-        <BestSellers
-          details={getSection(4)}
-          imgbgstyle={styles.BestsellerImgstyle}
-          categoryconstyle={styles.Bestsellerconstyle}
-          titleimgstyle={styles.BestsellertitleImgstyle}
-          categorytopimgstyle={styles.Bestsellercategorytopimgstyle}
-        />
-        <ExploreCategories apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=corporategifting&deviceType=mobile&shopId=26" />
-        <ShopByPrice
-          details={getSection(6)}
-          titleimgstyle={styles.ShopByPricetitleimgstyle}
-          transformData={(images) =>
-            images.slice(0, 4).map((item) => {
-              return {
-                image: item.a_image,
-                title: decode(item.a_title)?.toUpperCase(),
-              };
-            })
-          }
-        />
-        <Giftcards />
-        <LastingImpression
-          details={getSection(8)}
-          topIndex={0}
-          bottomIndex={1}
-          topitemstyle={styles.LastingImpressiontopitemstyle}
-          bottomitemstyle={styles.LastingImpressionbottomitemstyle}
-        />
-        <Stories apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=corporategifting&deviceType=mobile&shopId=26" />
-        <Footer />
+        {loading ? (
+          <>
+            <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
+          </>
+        ) : (
+          <>
+            <MsiteHeroBanner
+              details={getSection(1)}
+              imagestyle={styles.Msitestyle}
+            />
+            <Category
+              details={getSection(2)}
+              imageStyle={styles.Categorystyle}
+            />
+            <Popgiftcategory details={getSection(3)} />
+            <BestSellers
+              details={getSection(4)}
+              imgbgstyle={styles.BestsellerImgstyle}
+              categoryconstyle={styles.Bestsellerconstyle}
+              titleimgstyle={styles.BestsellertitleImgstyle}
+              categorytopimgstyle={styles.Bestsellercategorytopimgstyle}
+            />
+            <ExploreCategories apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=corporategifting&deviceType=mobile&shopId=26" />
+            <ShopByPrice
+              details={getSection(6)}
+              titleimgstyle={styles.ShopByPricetitleimgstyle}
+              transformData={(images) =>
+                images.slice(0, 4).map((item) => {
+                  return {
+                    image: item.a_image,
+                    title: decode(item.a_title)?.toUpperCase(),
+                  };
+                })
+              }
+            />
+            <Giftcards />
+            <LastingImpression
+              details={getSection(8)}
+              topIndex={0}
+              bottomIndex={1}
+              topitemstyle={styles.LastingImpressiontopitemstyle}
+              bottomitemstyle={styles.LastingImpressionbottomitemstyle}
+            />
+            <Stories apiUrl="https://uat-microsites.pantaloons.com/getMicrosite?micrositeName=corporategifting&deviceType=mobile&shopId=26" />
+            <Footer />
+          </>
+        )}
       </ScrollView>
     </ScreenWrapper>
   );
