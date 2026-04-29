@@ -12,20 +12,11 @@ import ScreenWrapper from '../ScreenWrapper';
 import { HeroBannerSkeleton } from '../Skeleton';
 const Craft = () => {
   const [coastalData, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getMicrositeData('craft');
-      if (data.msg === 'success') setData(data.results);
-      else console.log('Message: Failure');
-    };
-
-    fetchData();
-  }, []);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMicrositeData('coastal');
       if (data.msg === 'success') {
         setData(data.results);
       } else {

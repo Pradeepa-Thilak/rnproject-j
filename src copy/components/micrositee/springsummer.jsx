@@ -15,20 +15,11 @@ import ScreenWrapper from '../ScreenWrapper';
 import { HeroBannerSkeleton } from '../Skeleton';
 const Springsummer = () => {
   const [eosdata, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getMicrositeData('springsummer');
-      if (data.msg === 'success') setData(data.results);
-      else console.log('Message: Failure');
-    };
-
-    fetchData();
-  }, []);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMicrositeData('coastal');
       if (data.msg === 'success') {
         setData(data.results);
       } else {

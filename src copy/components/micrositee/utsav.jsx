@@ -12,20 +12,11 @@ import ScreenWrapper from '../ScreenWrapper';
 import { VideoSkeleton } from '../Skeleton';
 const Utsav = () => {
   const [coastalData, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getMicrositeData('utsav');
-      if (data.msg === 'success') setData(data.results);
-      else console.log('Message: Failure');
-    };
-
-    fetchData();
-  }, []);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMicrositeData('Utsav');
       if (data.msg === 'success') {
         setData(data.results);
       } else {

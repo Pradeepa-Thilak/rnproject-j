@@ -15,20 +15,11 @@ import { HeroBannerSkeleton } from '../Skeleton';
 import Footer from '../Footer';
 const EossScreen = () => {
   const [eosdata, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getMicrositeData('eoss');
-      if (data.msg === 'success') setData(data.results);
-      else console.log('Message: Failure');
-    };
-
-    fetchData();
-  }, []);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMicrositeData('coastal');
       if (data.msg === 'success') {
         setData(data.results);
       } else {

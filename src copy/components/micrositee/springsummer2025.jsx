@@ -16,22 +16,11 @@ import ScreenWrapper from '../ScreenWrapper';
 import { HeroBannerSkeleton } from '../Skeleton';
 const Springsummer2025 = () => {
   const [ssdata, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getMicrositeData('springsummer2025');
-      if (data.msg === 'success') setData(data.results);
-      else console.log('Message: Failure');
-    };
-
-    fetchData();
-  }, []);
-
-  console.log(ssdata);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMicrositeData('coastal');
       if (data.msg === 'success') {
         setData(data.results);
       } else {
@@ -41,6 +30,8 @@ const Springsummer2025 = () => {
     };
     fetchData();
   }, []);
+
+  console.log(ssdata);
   const HERO_SKELETON_AR = 360 / 564;
   const sectionData = ssdata?.SectionDetails || [];
 

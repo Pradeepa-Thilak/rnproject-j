@@ -14,22 +14,11 @@ import ScreenWrapper from '../ScreenWrapper';
 import { VideoSkeleton } from '../Skeleton';
 const Newarrival = () => {
   const [nwdata, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getMicrositeData('newarrivals');
-      if (data.msg === 'success') setData(data.results);
-      else console.log('Message: Failure');
-    };
-
-    fetchData();
-  }, []);
-
-  console.log(nwdata);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMicrositeData('coastal');
       if (data.msg === 'success') {
         setData(data.results);
       } else {
@@ -39,6 +28,8 @@ const Newarrival = () => {
     };
     fetchData();
   }, []);
+
+  console.log(nwdata);
   const HERO_SKELETON_AR = 360 / 650;
   const sectionData = nwdata?.SectionDetails || [];
 

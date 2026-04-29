@@ -12,22 +12,13 @@ import ScreenWrapper from '../ScreenWrapper';
 import { HeroBannerSkeleton } from '../Skeleton';
 export default function Dokra() {
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getMicrositeData('dokra');
       if (res?.msg === 'success') {
         setData(res.results);
-      }
-    };
-    fetchData();
-  }, []);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMicrositeData('coastal');
-      if (data.msg === 'success') {
-        setData(data.results);
       } else {
         console.log('Message: Failure');
       }

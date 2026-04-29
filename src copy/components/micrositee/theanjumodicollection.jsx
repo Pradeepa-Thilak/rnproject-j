@@ -15,20 +15,11 @@ import fonts from '../../../src/assests/fonts';
 import { HeroBannerSkeleton } from '../Skeleton';
 const Theanjumodicollection = () => {
   const [coastalData, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getMicrositeData('the-anju-modi-collection');
-      if (data.msg === 'success') setData(data.results);
-      else console.log('Message: Failure');
-    };
-
-    fetchData();
-  }, []);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMicrositeData('coastal');
       if (data.msg === 'success') {
         setData(data.results);
       } else {

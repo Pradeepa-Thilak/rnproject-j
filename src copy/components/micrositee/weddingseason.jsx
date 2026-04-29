@@ -16,22 +16,11 @@ import ScreenWrapper from '../ScreenWrapper';
 import { HeroBannerSkeleton } from '../Skeleton';
 const Weddingseason = () => {
   const [wsdata, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getMicrositeData('wedding-season');
-      if (data.msg === 'success') setData(data.results);
-      else console.log('Message: Failure');
-    };
-
-    fetchData();
-  }, []);
-
-  console.log(wsdata);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getMicrositeData('coastal');
       if (data.msg === 'success') {
         setData(data.results);
       } else {
@@ -41,6 +30,7 @@ const Weddingseason = () => {
     };
     fetchData();
   }, []);
+  console.log(wsdata);
   const HERO_SKELETON_AR = 360 / 563;
   const sectionData = wsdata?.SectionDetails || [];
 
