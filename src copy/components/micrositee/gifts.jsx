@@ -38,6 +38,7 @@ export default function Gifts() {
             details={getSection(1)}
             imagestyle={styles.Msitestyle}
           />
+          <View style={styles.greyBlock} />
           <GridImageswithTitle
             details={getSection(2)}
             spacing={20}
@@ -83,6 +84,11 @@ const styles = StyleSheet.create({
     width: '100%',
     aspectRatio: 420 / 551,
     resizeMode: 'cover',
+  },
+  greyBlock: {
+    height: 80,
+    backgroundColor: colors.grayColor3,
+    marginBottom: 40,
   },
   GridImageswithTitleImgstyle: {
     width: '55%',

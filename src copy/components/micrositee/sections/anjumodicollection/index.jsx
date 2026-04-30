@@ -131,12 +131,15 @@ const styles = StyleSheet.create({
 
   videoContainer: {
     marginTop: 20,
+    marginHorizontal: 16,
+    borderRadius: 6,
+    overflow: 'hidden',
     position: 'relative',
   },
 
   video: {
     width: '100%',
-    aspectRatio: 1.2,
+    aspectRatio: 1.6,
   },
 
   playButton: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import { getMicrositeData } from '../../api/micrositeApi';
 import ComponentWithImage_HeaderAndDescription from './sections/ComponentWithImage_HeaderAndDescription';
 import Anjumodicollection from '../micrositee/sections/anjumodicollection';
@@ -10,6 +10,7 @@ import NewIn from './sections/NewIn';
 import colors from '../../assests/colors';
 import ScreenWrapper from '../ScreenWrapper';
 import { HeroBannerSkeleton } from '../Skeleton';
+import fonts from '../../assests/fonts';
 const Craft = () => {
   const [coastalData, setData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -47,9 +48,14 @@ const Craft = () => {
             />
             <ComponentWithImage_HeaderAndDescription
               details={sectionData[1]}
-              aspectRatio={58 / 49}
+              AR={58 / 49}
               buttonText="VIEW ALL"
             />
+            <View style={styles.headerContainer}>
+              <View style={styles.line} />
+              <Text style={styles.headerText}> REGIONAL CRAFTS </Text>
+              <View style={styles.line} />
+            </View>
             <Anjumodicollection
               details={sectionData[2]}
               buttonText="SHOP BY CRAFT"
@@ -97,5 +103,25 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.blackColor1,
     marginVertical: 20,
     marginHorizontal: 16,
+  },
+  headerText: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontFamily: fonts.EBGaramondRegular,
+    letterSpacing: 2,
+    color: colors.grayColor21,
+    fontWeight: '500',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+    paddingHorizontal: 16,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: colors.grayColor21,
   },
 });
