@@ -1,3 +1,4 @@
+import colors from '../../../assests/colors';
 import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   ImageHeaderAndGridImage: {
@@ -39,7 +40,7 @@ export const styles = StyleSheet.create({
   },
   componentContainer: {
     aspectRatio: 32 / 49,
-    backgroundColor: '#faf2e5',
+    backgroundColor: colors.whiteColor1,
   },
   componentBackground: {
     width: '100%',
@@ -66,7 +67,7 @@ export const styles = StyleSheet.create({
   },
   bestSellerContainer: {
     paddingVertical: 50,
-    backgroundColor: '#faecd6',
+    backgroundColor: colors.creamColor1,
   },
   bestSellerTxt: {
     fontSize: 12,

@@ -27,32 +27,37 @@ export default function Anjumodibanner({ details }) {
 const styles = StyleSheet.create({
   bannerContainer: {
     flexDirection: 'row',
-    padding: 16,
-    alignItems: 'center',
-    backgroundColor: colors.creamColor3,
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    alignItems: 'flex-start',
+    backgroundColor: colors.whiteColor1,
   },
 
   bannerImage: {
-    width: 150,
-    aspectRatio: 0.85,
+    width: 200,
+    aspectRatio: 0.71,
   },
 
   textContainer: {
     flex: 1,
-    paddingLeft: 10,
+    paddingLeft: 16,
+    justifyContent: 'center',
   },
 
   title: {
-    fontSize: 12,
+    fontSize: 16,
     color: colors.grayColor21,
     fontFamily: fonts.LatoBold,
     fontWeight: '600',
+    marginBottom: 6,
+    letterSpacing: 1,
   },
 
   desc: {
-    fontSize: 10,
+    fontSize: 15,
     color: colors.grayColor21,
     fontFamily: fonts.EBGaramondRegular,
     marginTop: 10,
+    lineHeight: 20,
   },
 });

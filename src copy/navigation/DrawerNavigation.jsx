@@ -17,7 +17,6 @@ import TermsAndCondition from '../screens/T&C/index';
 import Savedcards from '../screens/Savedcards/index';
 import colors from '../assests/colors';
 import Home from '../screens/Home';
-
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {

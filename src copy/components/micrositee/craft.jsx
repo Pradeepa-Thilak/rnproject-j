@@ -34,7 +34,7 @@ const Craft = () => {
   console.log('Section', sectionData[9]);
   return (
     <ScreenWrapper>
-      <ScrollView style={{ backgroundColor: colors.creamColor1 }}>
+      <ScrollView style={{ backgroundColor: colors.whiteColor1 }}>
         {loading ? (
           <>
             <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: '#0a0000',
+    backgroundColor: colors.blackColor1,
     marginVertical: 20,
     marginHorizontal: 16,
   },

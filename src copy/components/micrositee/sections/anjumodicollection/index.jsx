@@ -99,33 +99,34 @@ const styles = StyleSheet.create({
   bannerContainer: {
     flexDirection: 'row',
     padding: 16,
-    alignItems: 'center',
-    backgroundColor: colors.creamColor3,
+    alignItems: 'flex-start',
+    backgroundColor: colors.whiteColor1,
   },
 
   textContainer: {
     flex: 1,
-    paddingRight: 10,
+    justifyContent: 'center',
   },
 
   title: {
-    fontSize: 12,
+    fontSize: 16,
     fontFamily: fonts.LatoBold,
     color: colors.grayColor21,
-    textAlign: 'center',
+    textAlign: 'left',
   },
 
   desc: {
-    fontSize: 10,
+    fontSize: 14,
     marginTop: 10,
     fontFamily: fonts.EBGaramondRegular,
     color: colors.grayColor21,
-    textAlign: 'center',
+    textAlign: 'left',
   },
 
   bannerImage: {
     width: 200,
     aspectRatio: 0.7,
+    marginRight: 16,
   },
 
   videoContainer: {
@@ -161,18 +162,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.grayColor22,
     borderRadius: 4,
-    paddingVertical: 12,
-    paddingHorizontal: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 28,
   },
 
   apiButtonText: {
-    fontSize: 14,
+    fontSize: 13,
     color: colors.grayColor22,
-    letterSpacing: 0.5,
+    letterSpacing: 1,
   },
 
   fullImage: {
     width: '100%',
-    marginTop: 10,
+    marginTop: 16,
   },
 });

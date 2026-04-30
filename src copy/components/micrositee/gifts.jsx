@@ -7,6 +7,7 @@ import GridImageswithTitle from './sections/GridImageswithTitle';
 import { getMicrositeData } from '../../api/micrositeApi';
 import GiftGridSection from '../../components/micrositee/sections/GiftGridSection';
 import { HeroBannerSkeleton } from '../Skeleton';
+import colors from '../../assests/colors';
 export default function Gifts() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -76,6 +77,7 @@ export default function Gifts() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.whiteColor1,
   },
   Msitestyle: {
     width: '100%',

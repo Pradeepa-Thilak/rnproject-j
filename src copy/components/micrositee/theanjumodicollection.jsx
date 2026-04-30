@@ -8,7 +8,6 @@ import Anjumodibanner from '../micrositee/sections/anjumodibanner';
 
 import Msiteherobanner from '../micrositee/sections/Msiteherobanner';
 import Footer from '../Footer';
-import NewIn from './sections/NewIn';
 import colors from '../../assests/colors';
 import ScreenWrapper from '../ScreenWrapper';
 import fonts from '../../../src/assests/fonts';
@@ -37,7 +36,7 @@ const Theanjumodicollection = () => {
   console.log('Section', sectionData[9]);
   return (
     <ScreenWrapper>
-      <ScrollView style={{ backgroundColor: colors.creamColor1 }}>
+      <ScrollView style={{ backgroundColor: colors.whiteColor1 }}>
         {loading ? (
           <>
             <HeroBannerSkeleton aspectRatio={HERO_SKELETON_AR} />
@@ -66,7 +65,6 @@ const Theanjumodicollection = () => {
               details={sectionData[2]}
               buttonText="EXPLORE NOW"
             />
-            <NewIn />
             <View style={styles.separator}></View>
             <Anjumodibanner details={sectionData[3]} />
             <Footer />
@@ -87,7 +85,7 @@ export const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: '#0a0000',
+    backgroundColor: colors.blackColor1,
     marginVertical: 20,
     marginHorizontal: 16,
   },
@@ -104,7 +102,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: fonts.EBGaramondRegular,
     letterSpacing: 2,
-    color: '#616161',
+    color: colors.grayColor21,
     marginHorizontal: 12,
     fontWeight: '500',
   },
@@ -112,6 +110,6 @@ export const styles = StyleSheet.create({
   line: {
     flex: 1,
     height: 1,
-    backgroundColor: '#616161',
+    backgroundColor: colors.grayColor21,
   },
 });

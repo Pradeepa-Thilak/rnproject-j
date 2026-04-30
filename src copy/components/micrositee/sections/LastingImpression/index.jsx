@@ -102,7 +102,7 @@ export default function LastingImpression({
 
 const styles = StyleSheet.create({
   maincon: {
-    backgroundColor: colors.creamColor5,
+    backgroundColor: colors.whiteColor1,
     paddingVertical: 30,
   },
   container: {
